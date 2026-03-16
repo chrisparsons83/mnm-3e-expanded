@@ -1,0 +1,8 @@
+node_modules
+*.pdf
+*.zip
+/fvtt-Item-affliction*.json
+/src/powers/affliction.yaml
+/scripts/peek.js
+/scripts/extract.js
+/scripts/cleanup.js
