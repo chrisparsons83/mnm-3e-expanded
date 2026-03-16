@@ -1,0 +1,29 @@
+{
+  "id": "mnm-3e-expanded",
+  "title": "M&M 3e Expanded",
+  "description": "A comprehensive library of Powers, Advantages, and Items for Mutants & Masterminds 3e.",
+  "version": "0.1.0",
+  "author": "Alex",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "mutants-and-masterminds-3e",
+        "type": "system",
+        "manifest": "https://raw.githubusercontent.com/L-S-A/mutants-and-masterminds-3e/master/system.json"
+      }
+    ]
+  },
+  "packs": [
+    {
+      "name": "expanded-powers",
+      "label": "M&M 3e Expanded: Powers",
+      "path": "packs/powers.db",
+      "type": "Item",
+      "system": "mutants-and-masterminds-3e"
+    }
+  ]
+}

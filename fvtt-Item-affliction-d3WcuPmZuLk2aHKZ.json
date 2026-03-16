@@ -1,0 +1,107 @@
+{
+  "name": "Affliction",
+  "type": "pouvoir",
+  "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+  "system": {
+    "activate": true,
+    "special": "standard",
+    "type": "attaque",
+    "action": "simple",
+    "portee": "contact",
+    "duree": "instantane",
+    "effetsprincipaux": "",
+    "effets": "<p>Fortitude or Will vs. DC [Affliction rank + 10]</p>\n<p>Success: No effect.</p>\n<p>Failure (one degree): The target is dazed, entranced, fatigued, hindered, impaired, or vulnerable (choose<br>one). Potential descriptors include coughing or sneezing, creeping mental influence, drowsiness, euphoria,<br>fear, itchiness, lethargy, nausea, pain, or tipsiness.</p>\n<p>Failure (two degrees): The target is compelled, defenseless, disabled, exhausted, immobile, prone, or stunned<br>(choose one). Potential descriptors include agonizing pain, confusion, ecstasy, momentary emotional or mental influence, paralysis, seizure, terror, or vomiting.</p>\n<p>Failure (three degrees): The target is asleep, controlled, incapacitated, paralyzed, transformed or unaware (choose one).</p>",
+    "notes": "<p>You can impose some debilitating condition or conditions on a target by making a close attack.</p>\n<p>You set the conditions your Affliction causes at each degree when you acquire it and they may not be changed.</p>\n<p>Higher degree conditions replace lower degree conditions and do not stack with them. See the possible conditions for each degree under the Affliction Resistance Check table. The target resists with Fortitude or Will defense (chosen when you take the effect)</p>",
+    "link": "",
+    "descripteurs": {},
+    "extras": {},
+    "defauts": {},
+    "effectsVarianteSelected": "e1",
+    "listEffectsVariantes": {
+      "e1": ""
+    },
+    "edit": true,
+    "cout": {
+      "rangDyn": 0,
+      "rangDynMax": 0,
+      "rang": 1,
+      "parrang": 0,
+      "divers": 0,
+      "modrang": 0,
+      "modfixe": 0,
+      "total": 0,
+      "totalTheorique": 0,
+      "parrangtotal": "0"
+    }
+  },
+  "effects": [
+    {
+      "name": "Variant 1",
+      "flags": {
+        "mutants-and-masterminds-3e": {
+          "variante": "e1"
+        }
+      },
+      "changes": [
+        {
+          "key": "",
+          "value": "0",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "",
+          "mode": 2,
+          "priority": null,
+          "value": "0"
+        }
+      ],
+      "disabled": false,
+      "img": null,
+      "_id": "vsdVpTxSyzKNAjDB",
+      "type": "base",
+      "system": {},
+      "duration": {
+        "startTime": null,
+        "combat": null
+      },
+      "description": "",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mutants-and-masterminds-3e",
+        "systemVersion": "1.39.13",
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "folder": "cgtNt85aCPUXFVWV",
+  "flags": {},
+  "_stats": {
+    "compendiumSource": "Compendium.world.powers.Item.vkTyBPNn63oLzGLa",
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "mandm",
+      "uuid": "Item.d3WcuPmZuLk2aHKZ",
+      "coreVersion": "13.350",
+      "systemId": "mutants-and-masterminds-3e",
+      "systemVersion": "1.39.13"
+    },
+    "coreVersion": "13.350",
+    "systemId": "mutants-and-masterminds-3e",
+    "systemVersion": "1.39.13",
+    "createdTime": 1773605194073,
+    "modifiedTime": 1773605194073,
+    "lastModifiedBy": "fX1RCZ8V9Lfz2Nbd"
+  },
+  "ownership": {
+    "default": 0
+  }
+}

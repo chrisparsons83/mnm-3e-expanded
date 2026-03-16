@@ -1,0 +1,93 @@
+﻿Name,Power,Rank,Cost,Action,Range,Duration,Description,Mechanics,Extras,Flaws,,,
+Affliction,Attack,1,1,Standard,Close,Instant,"Success: No effect. Failure (one degree): The target is dazed, entranced, fatigued, hindered, impaired, or vulnerable (choose one). Potential descriptors include coughing or sneezing, creeping mental influence, drowsiness, euphoria, fear, itchiness, lethargy, nausea, pain, or tipsiness. Failure (two degrees): The target is compelled, defenseless, disabled, exhausted, immobile, prone, or stunned (choose one). Potential descriptors include agonizing pain, confusion, ecstasy, momentary emotional or mental influence, paralysis, seizure, terror, or vomiting. Failure (three degrees): The target is asleep, controlled, incapacitated, paralyzed, transformed or unaware (choose one).",Fortitude or Will vs. DC [Affliction rank + 10],"Alternate Resistance: Some Afflictions may be initially resisted by Dodge, representing the need for quick reaction time or reflexes to avoid the effect. In this case, the later
+resistance checks to remove the Affliction’s conditions are
+typically still based on Fortitude or Will. For example, a target might make a Dodge check to avoid a blinding light
+or spray of liquid, but a Fortitude check to eliminate the
+effect if the initial Dodge fails. +0 cost per rank.
+Concentration: Once you have hit with a Concentration
+Affliction, so long as you continue to take a standard
+action each turn to maintain the effect, the target must
+make a new resistance check against it, with no attack
+check required. +1 cost per rank.
+Cumulative: Normally, an Affliction does not have a cumulative effect on the same target, so getting two results of
+one degree, one after the other, has no more or less effect
+than a single one degree result; you have to get a higher
+degree with a later attack, which replaces the initial result.
+A Cumulative Affliction adds any further degrees to the existing degrees on the target. For example, if you hit a target
+and impose a vulnerable condition (one degree), then attack again and get one degree on the effect, you impose
+the Affliction’s second degree condition. +1 cost per rank.
+Extra Condition: Your Affliction imposes an additional
+condition per degree of success. So with one application of
+this extra, your Affliction imposes two conditions—such as
+dazed and hindered, or impaired and vulnerable—rather
+than just one. With two applications, it imposes three conditions, and so forth. Since mutually incompatible conditions are largely wasted, Afflictions with this extra often
+have the Limited Degree flaw as well. +1 cost per rank.
+Progressive: This modifier causes an Affliction to increase
+incrementally without any effort from you. If the target
+fails a resistance check to end the Affliction, it not only
+persists, but increases in effect by one degree! So a target
+affected by the first degree of a Progressive Affliction who
+fails to resist progresses to the second degree of the effect
+at the start of his next round. A successful resistance check
+still ends the Affliction, as usual. +2 cost per rank.","Instant Recovery: Similar to the Reversible extra (see p. 196), the target of an Affliction effect with this modifier recovers automatically, no check required, at the end of the round in which the duration ends. So, for example,
+an instant duration Affliction only lasts one round, while
+a sustained duration Affliction lasts until no longer sustained. –1 cost per rank.
+Limited Degree: Your Affliction is limited to no more than
+two degrees of effect. With two applications of this modifier, it is limited to no more than one degree of effect. –1
+cost per rank.",,,
+Burrowing,Movement,1,1,Free,Personal,Sustained,"You can burrow through the ground, leaving a tunnel behind if you choose. You move through soil and sand at a speed rank equal to your Burrowing rank, minus 5. So Burrowing 8, for example, lets you move through the ground at speed rank 3 (around 16 MPH). Burrowing through hard clay and packed earth reduces speed one additional rank. Burrowing through solid rock reduces it by two additional ranks. The tunnel you leave behind is either permanent or collapses behind you immediately (your choice when you begin burrowing each new tunnel). Note that Burrowing differs from the Permeate effect of Movement, which allows you to pass through an obstacle like the ground at your normal speed without disturbing it at all (see Movement for details).",Gains Burrowing rank - 5 in Burrowing speed,"Penetrating: Normally, the hardness of the ground affects only the speed at which you burrow. At the GM’s discretion, some super-hard materials may be considered Impervious to Burrowing, in which case this extra allows you to dig through them. 1 point per rank. Ranged: This extra either allows you to create tunnels at a greater distance (without having to be at the end-point of the tunnel as it forms) or, in conjunction with Affects Others, allows you to grant the Burrowing effect to someone else at a distance. Doing both requires two applications of the extra. +1 or 2 cost per rank.","Limited: Burrowing may be limited to certain circumstances or materials, such as only loose sand and soil (leaving the character unable to burrow through dense
+clay or solid rock), or only snow and ice (being unable to
+burrow through earth and soil at all). –1 cost per rank.",,,
+Communication,Power,1,1,Free,Rank,Sustained,"You can communicate over a distance using a medium other than your normal voice. Choose a sense type as your Communication medium (see the list of examples). You may also use a special sense type (like neutrinos, gravitons, magical sendings, and so forth) noticeable only to an appropriate form of the Detect effect (see Senses in this chapter), at the GM’s discretion. • Visual: laser or fiber optic link • Auditory: ultrasonic or infrasonic beam, “ventriloquism” • Olfactory: pheromones or chemical markers • Tactile: vibratory carrier wave • Radio: AM, FM, and short-wave radio bands, microwaves • Mental: telepathic transmission, psychic link, mystical sending Your rank determines you maximum Communication range: COMMUNICATION RANGE  Communication is instantaneous with any subject within
+your range.
+The recipient of your communication must be within
+range and have a means of receiving your transmission
+(super-sense, or a receiver of some sort; conscious awareness is all that’s needed to “receive” Mental Communication). You can receive Communication of the same medium as your own. Receivers can choose to ignore your
+Communication, if they wish. Communication is language-dependent; you and the subject must share a common language (see Comprehend to communicate across
+language barriers). Your Communication is point-to-point
+(sent to a single receiver within your range).
+Activating your Communication effect is a free action.
+Communicating, however, takes the normal amount of
+time. You can apply the Rapid modifier to speed things
+up, provided your recipient is capable of receiving communication at that speed.  Others with an acute sense able to detect your Communication medium can “tap into” your transmissions with
+a Perception check (DC 10 + your Communication rank).
+The eavesdropper must be within normal sensory range
+of you or the receiver. With two degrees of success on the
+check, the eavesdropped can also understand your transmissions. Effects like Concealment and Dazzle that target
+your Communication medium can “jam” or block your
+transmissions.
+RANK DISTANCE
+1 Close range: Within 100 feet
+2 Short range: Within 1 mile
+3 Long range: statewide or across
+a small nation
+4 Worldwide: anywhere on Earth
+(or a similar-sized planet)
+5 Unlimited: effectively anywhere","Communication is instantaneous with any subject within your range. The recipient of your communication must be within range and have a means of receiving your transmission (super-sense, or a receiver of some sort; conscious awareness is all that’s needed to “receive” Mental Communication). You can receive Communication of the same medium as your own. Receivers can choose to ignore your Communication, if they wish. Communication is language-dependent; you and the subject must share a common language (see Comprehend to communicate across language barriers). Your Communication is point-to-point (sent to a single receiver within your range). Activating your Communication effect is a free action. Communicating, however, takes the normal amount of time. You can apply the Rapid modifier to speed things up, provided your recipient is capable of receiving communication at that speed.","Area: You can broadcast omni-directionally to every receiver within your maximum Communication range at once. Note this extra is only strictly necessary to communicate with everyone over a wide area all at once; since using and maintaining Communication are free actions, the GM may allow a communicator to establish and maintain contact with multiple discrete receivers—such as the members of the same team—all in the same round. +1 cost per rank. Dimensional: Communication with this modifier can bridge dimensional barriers, reaching into other dimensions and planes of existence. The Communication effect still has its proximate range, and the GM may rule certain subjects “out of range” of the effect, depending on their relative positions in the other dimension. Flat +1 point. Rapid: Your communication occurs 10 times faster than normal speech. Each additional rank increases communication speed by a factor of 10. This is useful for high-speed computer links, “deep sharing” psychic rapports, and so forth. Flat +1 point. Selective: If you have the Area extra, you can choose which receiver(s) within range get your Communication, excluding everyone else. This allows you to go from a single receiver (point-to-point) to all potential receivers in range (omni-directional) or anywhere in between. +1 cost per rank. Subtle: Your Communication cannot be “overheard” (it is encrypted, scrambled, or otherwise protected). With 2 ranks, your Communication cannot even be detected (that is, no one can even tell you are transmitting, much less what you’re saying). Flat +1 or 2 points.  with your subject for them to work (using your Communication medium as a “carrier” for the other effect). If your
+Communication is blocked in any way, the other effect
+doesn’t work. -1 cost per rank.","Limited: Communication may be limited to only members of a particular group, such as a species, family, members of an organization, and so forth. This is in addition to limitations imposed by medium (that is, requiring subjects to have a means of picking up on the Communication). –1 cost per rank. Sense-Dependent: Communication itself is already sense-dependent (in that the subject(s) must be able to sense your communication medium to pick up your transmissions) and so cannot have this flaw. However, other perception range effects can be CommunicationDependent, meaning you must be in communication",,,
+Comprehend,Sensory,1,2,None,Personal,Permanent,"You can comprehend different sorts of communication. Each rank in this effect allows you to choose one of the following options: ANIMALS You can either speak to or comprehend animals. You can ask questions and receive answers, although animals are not any more friendly or cooperative than normal. Furthermore, wary and cunning animals are likely to be terse and evasive, while especially stupid ones make inane comments. If an animal is friendly toward you, it may do some favor or service for you. For 2 ranks you can both speak to and understand the “speech” of animals. LANGUAGES You can either speak or understand the language of any intelligent creature. You can speak only one language at a time, although you can comprehend multiple languages at once. This effect does not enable you to speak with creatures that don’t possess a language. For 2 ranks you can both speak and understand all languages. For 3 ranks anyone able to hear you can understand what you’re saying, regardless of language. Being able to also read any language you comprehend requires 1 additional rank. MACHINES You can communicate with electronic devices, making inquiries and understanding their replies. This requires two Comprehend ranks. Most are limited by their programming and peripherals in terms of what they “know,” and may not be able to answer some inquiries with anything other than an “unknown” or “not found.” At the GM’s discretion, you can use the Technology skill as an interaction skill when communicating with machines. OBJECTS You can communicate with inanimate objects, granting them the ability to speak to you or simply “reading” impressions from them. This requires two Comprehend ranks. Objects only “know” about events directly affecting them or occurring in their immediate area. Gamemasters can apply the guidelines for Postcognition (see page 178) to this effect. PLANTS You can communicate with plants ranks. A plant’s sense of its surroundings is limited, so it
+won’t be able to give (or recognize) detailed descriptions
+or answer questions about events outside its immediate
+vicinity.
+SPIRITS
+You can communicate with incorporeal and normally invisible and inaudible spirit beings, such as ghosts or certain extradimensional entities, depending on the context
+of the setting. Rank 1 essentially allows you to function as
+a “medium” of sorts, able to perceive spirits and relay what
+you see and hear. Rank 2 allows you to be clearly understood by denizens of the spirit world, as well. At the GM’s
+discretion, this effect may extend to undead creatures,
+demons, or other supernatural entities, depending on the
+setting. both normal plants and plant creatures. This requires two Comprehend",Can speak to (pick one),,"FLAWS Type: You can only comprehend a broad type of subject (only elves, canines, avians, or sea creatures, for example). For an additional flaw, you can only comprehend a narrow type of subject (dogs, falcons, or dolphins, for example). Broad –1 cost per rank. Narrow –2 cost per rank.",,,
+Concealment,Sensory,1,2,Free,Personal,Sustained,"You gain total concealment from a particular sense while this effect is active, although you are still detectable to other senses (even other senses of the same sense type; so you could have full concealment against normal sight, but not infravision or any other sense in the sight sense type). Each additional rank gives you concealment from another sense; two ranks give you concealment for an entire sense type. See Concealment on page 244 for the full effects. Concealment from visual senses costs double (2 ranks for one visual sense, 4 ranks for all visual senses). You cannot have concealment from tactile senses, since that requires being incorporeal (see the Insubstantial effect). So with Concealment 5, you can have total concealment from all visual senses (4 ranks) and normal hearing (1 rank), for example. With Concealment 10 you have total concealment from all sense types other than tactile.",Gains concelment against a specific sense,"Affects Others: This modifier allows you to grant Concealment to others while you are touching them, or at range, if you also apply the Range modifier. +1 cost per rank. Area: Concealment with Affects Others (previously) or Attack (immediately following) may have this extra, affecting everything in the area. To only affect some targets in the area, apply the Selective modifier as well. +1 cost per rank. Attack: Use this extra for a Concealment effect you can impose on others (whether they want to be concealed or not). An invisibility ray, for example, is a Visual Concealment Attack, while a field of darkness is a Burst Area Visual Concealment Attack. +0 cost per rank. Precise: You can vary your Concealment at will as a free action: going from total to partial to no concealment, concealing some parts and not others, or anywhere inbetween. If your Concealment affects multiple senses, you can also choose to affect some of those senses and not others. Concealment is normally all-or-nothing: either you are concealed to the full amount of your effect, or you’re not. Flat +1 point.","Blending: You “blend” into the background. Your Concealment only functions as long as you move no faster than your (ground speed rank –1), since your blending can’t adapt faster than that. -1 cost per rank. Limited: Your Concealment only works under certain conditions, such as in fog, shadows, or in urban locales. One example is Limited to Machines, where your Concealment only fools senses with a technological descriptor. -1 cost per rank. Partial: Your effect provides partial rather than total concealment (see Concealment, page 244, for details). -1 cost per rank. Passive: Your Concealment only lasts until you do something requiring an attack or effect check on your part, at which point it stops working until you reactivate it, which you may do on the following round. -1 cost per rank. Resistible: Your Concealment offers a resistance check (chose a defense when the flaw is applied) for anyone aware of your presence and actively looking for you. Concealment Resistible by Will may represent some sort of mental illusion effect. -1 cost per rank.",,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,

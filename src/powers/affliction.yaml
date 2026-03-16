@@ -1,0 +1,16 @@
+# M&M 3e Power: Affliction
+name: Affliction
+type: power
+rank: 2
+cost_per_rank: 1
+action: standard
+range: close
+duration: instant
+description: |
+  You can impose some debilitating condition or conditions on a target by making a close attack.
+mechanics: |
+  <p>Fortitude or Will vs. DC [Affliction rank + 10]</p>
+  <p>Success: No effect.</p>
+  <p>Failure (one degree): The target is dazed, entranced, fatigued, hindered, impaired, or vulnerable (choose one).</p>
+  <p>Failure (two degrees): The target is compelled, defenseless, disabled, exhausted, immobile, prone, or stunned (choose one).</p>
+  <p>Failure (three degrees): The target is asleep, controlled, incapacitated, paralyzed, transformed or unaware (choose one).</p>

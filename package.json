@@ -1,0 +1,14 @@
+{
+  "name": "mnm-3e-expanded",
+  "version": "0.1.0",
+  "description": "Build pipeline for M&M 3e Foundry Compendiums",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "fs-extra": "^11.1.0",
+    "js-yaml": "^4.1.0"
+  }
+}
