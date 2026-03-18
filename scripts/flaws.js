@@ -131,6 +131,41 @@ const FLAWS = {
       description: "<p>An Unreliable effect only works some of the time (5 uses, or requires a check each time).</p><p>–1 cost per rank.</p>",
       cout: { fixe: false, rang: true, value: -1 }
     }
+  },
+  "Feedback": {
+    name: "Feedback",
+    data: {
+      description: "<p>You suffer damage when a manifestation of your effect is damaged.</p><p>–1 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: -1 }
+    }
+  },
+  "Inaccurate": {
+    name: "Inaccurate",
+    data: {
+      description: "<p>An effect with this flaw is hard to control or wildly inaccurate. Each rank gives you a –2 penalty to attack checks.</p><p>Flat -1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: -1 }
+    }
+  },
+  "Permanent": {
+    name: "Permanent",
+    data: {
+      description: "<p>A continuous effect with this flaw becomes permanent in duration. It cannot be turned off and cannot be improved using extra effort.</p><p>–1 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: -1 }
+    }
+  },
+  "Removable": {
+    name: "Removable",
+    data: {
+      description: "<p>Removable applies to the power as a whole. The flaw is worth –1 point per 5 total power points.</p><p>Flat -1 point per 5 points.</p>",
+      cout: { fixe: true, rang: false, value: -1 }
+    }
+  },
+  "Easily Removable": {
+    name: "Easily Removable",
+    data: {
+      description: "<p>An easily removable power can be taken away with a disarm or grab action. The flaw is worth –2 points per 5 total power points.</p><p>Flat -2 points per 5 points.</p>",
+      cout: { fixe: true, rang: false, value: -2 }
+    }
   }
 };
 

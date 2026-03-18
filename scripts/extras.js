@@ -118,6 +118,181 @@ const EXTRAS = {
       cout: { fixe: false, rang: true, value: 1 }
     }
   },
+  "Contagious": {
+    name: "Contagious",
+    data: {
+      description: "<p>Contagious effects work on both the target and anyone coming into contact with the target. New targets resist the effect normally.</p><p>+1 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 1 }
+    }
+  },
+  "Dimensional": {
+    name: "Dimensional",
+    data: {
+      description: "<p>This modifier allows an effect to work on targets in other dimensions. Rank 1 affects one dimension, Rank 2 a related group, Rank 3 any dimension.</p><p>Flat 1-3 points.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Extended Range": {
+    name: "Extended Range",
+    data: {
+      description: "<p>Each rank of Extended Range doubles all of the effect’s range categories.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Feature": {
+    name: "Feature",
+    data: {
+      description: "<p>Adds some minor additional capability or benefit to a basic effect.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Homing": {
+    name: "Homing",
+    data: {
+      description: "<p>This modifier grants a ranged effect an additional opportunity to hit if it misses.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Impervious": {
+    name: "Impervious",
+    data: {
+      description: "<p>A defense with this modifier ignores any effect with a resistance difficulty modifier equal to or less than half the Impervious rank.</p><p>+1 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 1 }
+    }
+  },
+  "Increased Mass": {
+    name: "Increased Mass",
+    data: {
+      description: "<p>Each rank of this extra increases the mass rank you can carry or move with the effect by 1.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Incurable": {
+    name: "Incurable",
+    data: {
+      description: "<p>Effects such as Healing and Regeneration cannot heal the damage caused by an effect with this modifier.</p><p>Flat 1 point.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Indirect": {
+    name: "Indirect",
+    data: {
+      description: "<p>A ranged effect with this modifier can originate from a point other than the user, ignoring cover.</p><p>Flat 1-4 points.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Innate": {
+    name: "Innate",
+    data: {
+      description: "<p>An effect with this modifier is an innate part of your nature and unaffected by Nullify.</p><p>Flat 1 point.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Insidious": {
+    name: "Insidious",
+    data: {
+      description: "<p>This modifier makes the result of an effect harder to detect (DC 20 skill check).</p><p>Flat 1 point.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Penetrating": {
+    name: "Penetrating",
+    data: {
+      description: "<p>Your effect overcomes Impervious Resistance to a degree.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Precise": {
+    name: "Precise",
+    data: {
+      description: "<p>You can use a Precise effect to perform tasks requiring delicacy and fine control.</p><p>Flat 1 point.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Reach": {
+    name: "Reach",
+    data: {
+      description: "<p>Each rank of this modifier to a close range effect extends its reach by 5 feet.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Reaction": {
+    name: "Reaction",
+    data: {
+      description: "<p>Changes an effect’s required action to a reaction, occurring automatically when a triggering event occurs.</p><p>+1 or +3 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 1 }
+    }
+  },
+  "Reversible": {
+    name: "Reversible",
+    data: {
+      description: "<p>You can remove conditions caused by a Reversible effect at will as a free action.</p><p>Flat 1 point.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Ricochet": {
+    name: "Ricochet",
+    data: {
+      description: "<p>You can ricochet or bounce an attack effect off of a solid surface to change its direction.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Secondary Effect": {
+    name: "Secondary Effect",
+    data: {
+      description: "<p>An instant duration effect with this modifier affects the target once immediately and then once again on the following round.</p><p>+1 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 1 }
+    }
+  },
+  "Selective": {
+    name: "Selective",
+    data: {
+      description: "<p>A resistible effect with this extra is discriminating, allowing you to decide who is and is not affected by it.</p><p>+1 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 1 }
+    }
+  },
+  "Sleep": {
+    name: "Sleep",
+    data: {
+      description: "<p>The effect leaves targets asleep whenever it would normally render them incapacitated.</p><p>+0 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 0 }
+    }
+  },
+  "Split": {
+    name: "Split",
+    data: {
+      description: "<p>A resistible effect that works on one target can be split between two or more targets.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Subtle": {
+    name: "Subtle",
+    data: {
+      description: "<p>Subtle effects are not as noticeable. Rank 1 is difficult to notice, Rank 2 is undetectable.</p><p>Flat 1-2 points.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
+  "Sustained": {
+    name: "Sustained",
+    data: {
+      description: "<p>Applied to a permanent duration effect, this modifier makes it sustained duration.</p><p>+0 cost per rank.</p>",
+      cout: { fixe: false, rang: true, value: 0 }
+    }
+  },
+  "Triggered": {
+    name: "Triggered",
+    data: {
+      description: "<p>You can “set” an instant duration effect to activate under particular circumstances.</p><p>Flat 1 point per rank.</p>",
+      cout: { fixe: true, rang: true, value: 1 }
+    }
+  },
+  "Variable Descriptor": {
+    name: "Variable Descriptor",
+    data: {
+      description: "<p>You can change the descriptors of an effect with this modifier as a free action.</p><p>Flat 1-2 points.</p>",
+      cout: { fixe: true, rang: false, value: 1 }
+    }
+  },
   // We will add more extras here as we extract them
 };
 
