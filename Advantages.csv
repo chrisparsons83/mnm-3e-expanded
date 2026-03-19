@@ -1,25 +1,25 @@
 Name,Type,Ranks,Description,ModKey,ModValue
 Accurate Attack,Combat,1,"When you make an accurate attack, you can take a penalty of up to –5 on the effect modifier of the attack and add the same number (up to +5) to your attack bonus.",,
-Agile Feint,Skill,1,"You can use your Acrobatics bonus or movement speed rank in place of Deception to feint and trick in combat.",,
+Agile Feint,Skill,1,"You can use your Acrobatics bonus or movement speed rank in place of Deception to feint and trick in combat.",system.competence.acrobaties.bonuses,2
 All-out Attack,Combat,1,"When you make an all-out attack, you can take a penalty of up to –5 on your active defenses (Dodge and Parry) and add the same number (up to +5) to your attack bonus.",,
 Improved Initiative,Combat,Ranked,"+4 bonus to initiative checks per rank.",system.initiative.bonuses,4
 Iron Will,General,1,"+2 circumstance bonus on Will resistance checks.",system.defense.volonte.bonuses,2
 Great Endurance,General,1,"+5 bonus on checks to avoid fatigue and to hold your breath.",system.defense.vigueur.bonuses,5
 Evasion,Combat,2,"+2 circumstance bonus to Dodge checks to avoid area effects. Rank 2 increases bonus to +5.",system.defense.esquive.bonuses,2
-Animal Empathy,Skill,1,"You have a special connection with animals. You can use interaction skills on animals normally, and do not have to speak a language the animal understands.",,
-Artificer,Skill,1,"You can use the Expertise: Magic skill to create temporary magical devices.",,
-Assessment,Skill,1,"You can use Insight to able to judge an opponent’s relative combat capabilities.",,
-Attractive,General,1,"You are particularly attractive, giving you a +2 circumstance bonus on Deception and Persuasion checks to deceive, mislead, or influence others who are attracted to you. Rank 2 gives a +5 bonus.",,
+Attractive,General,1,"+2 circumstance bonus on Deception and Persuasion checks (+5 for rank 2).",system.competence.duperie.bonuses,2
+Eidetic Memory,General,1,"Perfect recall. +5 circumstance bonus on memory checks. Can make Expertise checks as if trained.",system.competence.investigation.bonuses,5
+Animal Empathy,Skill,1,"You have a special connection with animals. You can use interaction skills on animals normally.",system.competence.persuasion.bonuses,2
+Artificer,Skill,1,"You can use the Expertise: Magic skill to create temporary magical devices.",system.competence.expertise.bonuses,2
+Assessment,Skill,1,"You can use Insight to able to judge an opponent’s relative combat capabilities.",system.competence.perspicacite.bonuses,2
 Beginner's Luck,Fortune,1,"By spending a hero point, you gain an effective 5 ranks in a skill in which you currently have 0 ranks.",,
-Benefit,General,1,"You have some significant social or structural benefit, such as wealth, status, or a secret identity. Each rank provides one benefit.",,
+Benefit,General,1,"You have some significant social or structural benefit, such as wealth, status, or a secret identity.",,
 Chokehold,Combat,1,"If you successfully grab and maintain a hold on an opponent, you can suffocate them.",,
-Connected,Skill,1,"You know people who can help you out. You can call in favors by making a Persuasion check.",,
-Contacts,Skill,1,"You have extensive contacts. You can make an Investigation check to gather information in only one minute.",,
+Connected,Skill,1,"You know people who can help you out. You can call in favors by making a Persuasion check.",system.competence.persuasion.bonuses,2
+Contacts,Skill,1,"You have extensive contacts. You can make an Investigation check to gather information in only one minute.",system.competence.investigation.bonuses,2
 Daze,Skill,2,"You can make a Deception or Intimidation check as a standard action to cause an opponent to hesitate in combat.",,
 Defensive Attack,Combat,1,"Trade up to -5 attack bonus for an equal bonus (+5) to active defenses.",,
 Defensive Roll,Combat,Ranked,"Receive a bonus to Toughness equal to rank. This is an active defense and is lost if vulnerable or defenseless.",system.defense.robustesse.bonuses,1
 Diehard,General,1,"Automatically stabilize on the round after your condition becomes dying.",,
-Eidetic Memory,General,1,"Perfect recall. +5 circumstance bonus on memory checks. Can make Expertise checks as if trained.",,
 Equipment,General,Ranked,"You have 5 points per rank to spend on equipment, vehicles, and headquarters.",,
 Extraordinary Effort,General,1,"Gain two benefits of extra effort at once, but you become exhausted on the following turn.",,
 Fascinate,Skill,Ranked,"One interaction skill captures attention. Target is entranced if check succeeds.",,
@@ -28,7 +28,7 @@ Favored Environment,Combat,1,"+2 circumstance bonus to attack or active defense 
 Favored Foe,Skill,1,"+2 circumstance bonus on interaction and perception checks against a particular type of opponent.",,
 Fearless,General,1,"You are immune to fear effects.",,
 Grabbing Finesse,Combat,1,"Use Dexterity bonus instead of Strength bonus to make grab attacks.",,
-Hide in Plain Sight,Skill,1,"Hide without a Deception or Intimidation check or diversion.",,
+Hide in Plain Sight,Skill,1,"Hide without a Deception or Intimidation check or diversion.",system.competence.discretion.bonuses,2
 Improved Aim,Combat,1,"Double circumstance bonuses for aiming: +10 close, +5 ranged.",,
 Improved Critical,Combat,Ranked,"Increase critical threat range with a chosen attack by 1 per rank.",,
 Improved Defense,Combat,1,"+2 circumstance bonus to active defenses when using the defend action.",,
@@ -42,8 +42,7 @@ Improvised Weapon,Combat,Ranked,"Use Unarmed skill for improvised weapons. +1 da
 Inspire,Fortune,5,"Spend hero point to give allies +1 circumstance bonus per rank on all checks.",,
 Instant Up,General,1,"Stand from prone as a free action without an Acrobatics check.",,
 Interpose,General,1,"Once per round, take the hit for an adjacent ally hit by an attack.",,
-Inventor,Skill,1,"Use Technology skill to create inventions.",,
-Iron Will,General,1,"+2 circumstance bonus on Will resistance checks.",system.defense.volonte.bonuses,2
+Inventor,Skill,1,"Use Technology skill to create inventions.",system.competence.technologie.bonuses,2
 Jack-of-all-trades,Skill,1,"Use any skill untrained.",,
 Languages,Skill,Ranked,"Speak and understand additional languages.",,
 Leadership,Fortune,1,"Spend hero point to remove dazed, fatigued, or stunned from an ally.",,
@@ -56,21 +55,21 @@ Prone Fighting,Combat,1,"No penalty to attack checks while prone; adjacent attac
 Quick Draw,Combat,1,"Draw a weapon as a free action.",,
 Ranged Attack,Combat,Ranked,"+1 bonus to ranged attack checks per rank.",,
 Redirect,Combat,1,"Redirect a missed attack against you at an adjacent target if you trick the attacker.",,
-Ritualist,Skill,1,"Use Expertise: Magic skill to create and cast magical rituals.",,
+Ritualist,Skill,1,"Use Expertise: Magic skill to create and cast magical rituals.",system.competence.expertise.bonuses,2
 Second Chance,General,Ranked,"Re-roll a failed check against a specific hazard or skill.",,
 Seize Initiative,Fortune,1,"Spend hero point to automatically go first in initiative order.",,
 Set-up,Combat,Ranked,"Transfer the benefits of an interaction skill in combat to one ally per rank.",,
 Sidekick,General,Ranked,"You have a partner with (rank x 5) power points.",,
 Skill Mastery,Skill,Ranked,"Make routine checks with a chosen skill even under pressure.",,
-Startle,Skill,1,"Use Intimidation rather than Deception to feint in combat.",,
+Startle,Skill,1,"Use Intimidation rather than Deception to feint in combat.",system.competence.intimidation.bonuses,2
 Takedown,Combat,2,"Free extra attack against adjacent minion after incapacitating one. Rank 2 allows movement.",,
-Taunt,Skill,1,"Use Deception rather than Intimidation to demoralize in combat.",,
+Taunt,Skill,1,"Use Deception rather than Intimidation to demoralize in combat.",system.competence.duperie.bonuses,2
 Teamwork,General,1,"+5 circumstance bonus to support team checks and aid actions.",,
 Throwing Mastery,Combat,Ranked,"+1 damage bonus with thrown weapons per rank.",,
-Tracking,Skill,1,"Use Perception skill to visually follow tracks.",,
+Tracking,Skill,1,"Use Perception skill to visually follow tracks.",system.competence.perception.bonuses,2
 Trance,General,1,"Slip into a deep trance with a minute of meditation and an Awareness check.",,
 Ultimate Effort,Fortune,Ranked,"Spend a hero point to treat a specific check result as a 20.",,
 Uncanny Dodge,Combat,1,"Not vulnerable when surprised or caught off-guard.",,
 Weapon Bind,Combat,1,"Make a disarm attempt as a reaction after a successful defense.",,
 Weapon Break,Combat,1,"Make an attack against an attacker's weapon as a reaction after a successful defense.",,
-Well-informed,Skill,1,"Immediate Investigation or Persuasion check to see what you know about a subject.",,
+Well-informed,Skill,1,"Immediate Investigation or Persuasion check to see what you know about a subject.",system.competence.investigation.bonuses,2
