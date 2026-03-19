@@ -130,6 +130,27 @@ async function buildPowers() {
       systemType = 'attaque';
     }
 
+    // DYNAMIC COST CALCULATION (Fixes character sheet rejection)
+    const baseRank = parseInt(row.Rank || row.rank || row.RANK) || 1;
+    const baseCostPerRank = parseInt(row.Cost || row.cost || row.COST) || 1;
+    
+    // Calculate modifier impact
+    let modCostPerRank = 0;
+    let flatCost = 0;
+    
+    Object.values(extrasObject).forEach(e => {
+      if (e.data.cout.rang) modCostPerRank += e.data.cout.value;
+      if (e.data.cout.fixe) flatCost += e.data.cout.value;
+    });
+    
+    Object.values(flawsObject).forEach(f => {
+      if (f.data.cout.rang) modCostPerRank += f.data.cout.value;
+      if (f.data.cout.fixe) flatCost += f.data.cout.value;
+    });
+
+    const finalCostPerRank = Math.max(1, baseCostPerRank + modCostPerRank);
+    const finalTotal = (finalCostPerRank * baseRank) + flatCost;
+
     const powerItem = {
       ...getBaseMetadata(),
       name: name,
@@ -138,7 +159,7 @@ async function buildPowers() {
       system: {
         activate: true,
         special: translationMap.action[action] || 'simple',
-        type: systemType, // Dynamically set to 'attaque' or 'generaux'
+        type: systemType,
         action: translationMap.action[action] || 'simple',
         portee: translationMap.range[range] || 'contact',
         duree: translationMap.duration[duration] || 'instantane',
@@ -147,10 +168,16 @@ async function buildPowers() {
         extras: extrasObject,
         defauts: flawsObject,
         cout: {
-          rang: parseInt(row.Rank || row.rank || row.RANK) || 1,
-          parrang: parseInt(row.Cost || row.cost || row.COST) || 1,
-          total: 0,
-          rangDyn: 0, rangDynMax: 0, divers: 0, modrang: 0, modfixe: 0, totalTheorique: 0, parrangtotal: "0"
+          rang: baseRank,
+          parrang: baseCostPerRank,
+          total: finalTotal, // Forced calculation
+          rangDyn: 0,
+          rangDynMax: 0,
+          divers: 0,
+          modrang: modCostPerRank,
+          modfixe: flatCost,
+          totalTheorique: finalTotal,
+          parrangtotal: finalCostPerRank.toString() // String required by system
         }
       }
     };
