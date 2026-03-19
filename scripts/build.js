@@ -5,18 +5,11 @@ const path = require('path');
 const EXTRAS = require('./extras');
 const FLAWS = require('./flaws');
 
-// System Constants for Metadata
-const SYSTEM_ID = "mutants-and-masterminds-3e";
-const SYSTEM_VER = "1.39.13";
-const CORE_VER = "13.350";
-
 // M&M 3e French System Translation Mappings
 const translationMap = {
   type: {
     'power': 'pouvoir',
-    'advantage': 'talent',
-    'attack': 'pouvoir',
-    'defense': 'pouvoir'
+    'advantage': 'talent'
   },
   action: {
     'standard': 'simple',
@@ -57,21 +50,6 @@ async function readCsv(filePath) {
   });
 }
 
-function getBaseMetadata(id) {
-  return {
-    "_id": id || Math.random().toString(36).substring(2, 18),
-    "ownership": { "default": 0 },
-    "_stats": {
-      "compendiumSource": null,
-      "duplicateSource": null,
-      "exportSource": null,
-      "coreVersion": CORE_VER,
-      "systemId": SYSTEM_ID,
-      "systemVersion": SYSTEM_VER
-    }
-  };
-}
-
 async function buildPowers() {
   const csvFile = path.join(__dirname, '../1st Powers Input.csv');
   const outFile = path.join(distDir, 'powers.db');
@@ -91,6 +69,7 @@ async function buildPowers() {
     const duration = (row.Duration || row.duration || row.DURATION || 'instant').trim().toLowerCase();
     const type = (row.Power || row.power || row.POWER || 'power').trim().toLowerCase();
 
+    // PROCESS EXTRAS (Minimalist)
     const extrasText = (row.Extras || row.extras || row.EXTRAS || '');
     const extrasObject = {};
     if (extrasText) {
@@ -99,97 +78,83 @@ async function buildPowers() {
       for (const extraName of extraNames) {
         const masterExtra = Object.keys(EXTRAS).find(k => k.toLowerCase() === extraName.toLowerCase());
         if (masterExtra) {
-          extrasObject[count] = JSON.parse(JSON.stringify(EXTRAS[masterExtra]));
-          extrasObject[count].details = true;
+          const mod = EXTRAS[masterExtra];
+          extrasObject[count] = {
+            name: mod.name,
+            data: {
+              description: mod.data.description,
+              cout: {
+                fixe: mod.data.cout.fixe,
+                rang: mod.data.cout.rang,
+                value: mod.data.cout.value
+              }
+            }
+          };
           count++;
         }
       }
     }
 
-    const flawsObject = {};
+    // PROCESS FLAWS (Minimalist)
     const flawsText = (row.Flaws || row.flaws || row.FLAWS || '');
+    const flawsObject = {};
     if (flawsText) {
       const flawNames = flawsText.split(',').map(f => f.trim());
       let count = 1;
       for (const flawName of flawNames) {
         const masterFlaw = Object.keys(FLAWS).find(k => k.toLowerCase() === flawName.toLowerCase());
         if (masterFlaw) {
-          flawsObject[count] = JSON.parse(JSON.stringify(FLAWS[masterFlaw]));
-          flawsObject[count].details = true;
+          const mod = FLAWS[masterFlaw];
+          flawsObject[count] = {
+            name: mod.name,
+            data: {
+              description: mod.data.description,
+              cout: {
+                fixe: mod.data.cout.fixe,
+                rang: mod.data.cout.rang,
+                value: mod.data.cout.value
+              }
+            }
+          };
           count++;
         }
       }
     }
 
-    // DYNAMIC POWER TYPE (Fixes transfer issue)
     let systemType = 'generaux';
     const lowerName = name.toLowerCase();
     const attackPowers = ['blast', 'affliction', 'damage', 'dazzle', 'nullify', 'mind control', 'strike', 'trip', 'weaken'];
-    
     if (attackPowers.some(p => lowerName.includes(p)) || row.Power.toLowerCase() === 'attack') {
       systemType = 'attaque';
     }
 
-    // DYNAMIC COST CALCULATION (Fixes character sheet rejection)
     const baseRank = parseInt(row.Rank || row.rank || row.RANK) || 1;
     const baseCostPerRank = parseInt(row.Cost || row.cost || row.COST) || 1;
-    
-    // Calculate modifier impact
-    let modCostPerRank = 0;
-    let flatCost = 0;
-    
-    Object.values(extrasObject).forEach(e => {
-      if (e.data.cout.rang) modCostPerRank += e.data.cout.value;
-      if (e.data.cout.fixe) flatCost += e.data.cout.value;
-    });
-    
-    Object.values(flawsObject).forEach(f => {
-      if (f.data.cout.rang) modCostPerRank += f.data.cout.value;
-      if (f.data.cout.fixe) flatCost += f.data.cout.value;
-    });
-
-    const finalCostPerRank = Math.max(1, baseCostPerRank + modCostPerRank);
-    const finalTotal = (finalCostPerRank * baseRank) + flatCost;
 
     const powerItem = {
-      ...getBaseMetadata(),
-      name: name,
-      type: translationMap.type[type] || 'pouvoir',
-      img: `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
-      system: {
-        activate: true,
-        special: translationMap.action[action] || 'simple',
-        type: systemType,
-        action: translationMap.action[action] || 'simple',
-        portee: translationMap.range[range] || 'contact',
-        duree: translationMap.duration[duration] || 'instantane',
-        effets: fullDescription,
-        notes: row.Description || '',
-        effetsprincipaux: "",
-        link: "",
-        descripteurs: {},
-        extras: extrasObject,
-        defauts: flawsObject,
-        effectsVarianteSelected: "",
-        listEffectsVariantes: {},
-        edit: false,
-        cout: {
-          rang: baseRank,
-          parrang: baseCostPerRank,
-          total: finalTotal,
-          rangDyn: 0,
-          rangDynMax: 0,
-          divers: 0,
-          modrang: modCostPerRank,
-          modfixe: flatCost,
-          totalTheorique: finalTotal,
-          parrangtotal: "0" // Set to 0 to match working blueprint
+      "_id": Math.random().toString(36).substring(2, 18),
+      "name": name,
+      "type": translationMap.type[type] || 'pouvoir',
+      "img": `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
+      "system": {
+        "activate": true,
+        "special": translationMap.action[action] || 'simple',
+        "type": systemType,
+        "action": translationMap.action[action] || 'simple',
+        "portee": translationMap.range[range] || 'contact',
+        "duree": translationMap.duration[duration] || 'instantane',
+        "effets": fullDescription,
+        "notes": row.Description || '',
+        "extras": extrasObject,
+        "defauts": flawsObject,
+        "cout": {
+          "rang": baseRank,
+          "parrang": baseCostPerRank,
+          "total": baseRank * baseCostPerRank
         }
       },
-      effects: [],
-      folder: null,
-      sort: 0,
-      flags: {}
+      "effects": [],
+      "flags": {}
     };
     items.push(JSON.stringify(powerItem));
   }
@@ -213,29 +178,26 @@ async function buildAdvantages() {
 
     if (modKey && modValue) {
       effects.push({
-        ...getBaseMetadata("eff" + Math.random().toString(36).substring(2, 10)),
-        name: `${name} Bonus`,
-        changes: [{ key: modKey, mode: 2, value: modValue.toString(), priority: 20 }],
-        disabled: false,
-        transfer: true,
-        icon: 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg',
-        type: 'base'
+        "name": `${name} Bonus`,
+        "changes": [{ "key": modKey, "mode": 2, "value": modValue.toString(), "priority": 20 }],
+        "disabled": false,
+        "transfer": true,
+        "icon": 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg'
       });
     }
 
     const advantageItem = {
-      ...getBaseMetadata(),
-      name: name,
-      type: 'talent',
-      img: 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg',
-      system: {
-        description: `<p>${row.Description || ''}</p>`,
-        equipement: false,
-        rang: parseInt(row.Ranks || row.ranks) || 1,
-        edit: true,
-        listEffectsVariantes: {}
+      "_id": Math.random().toString(36).substring(2, 18),
+      "name": name,
+      "type": 'talent',
+      "img": 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg',
+      "system": {
+        "description": `<p>${row.Description || ''}</p>`,
+        "equipement": false,
+        "rang": parseInt(row.Ranks || row.ranks) || 1
       },
-      effects: effects
+      "effects": effects,
+      "flags": {}
     };
     items.push(JSON.stringify(advantageItem));
   }
@@ -250,18 +212,17 @@ async function buildModifiers(dataMap, fileName, subType) {
   for (const key in dataMap) {
     const mod = dataMap[key];
     const modItem = {
-      ...getBaseMetadata(),
-      name: mod.name,
-      type: 'modificateur', // Professional Modifier type
-      img: `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
-      system: {
-        type: subType, // "extra" or "defaut"
-        description: mod.data.description,
-        notes: mod.data.description,
-        cout: {
-          fixe: mod.data.cout.fixe,
-          rang: mod.data.cout.rang,
-          value: mod.data.cout.value
+      "_id": Math.random().toString(36).substring(2, 18),
+      "name": mod.name,
+      "type": 'modificateur',
+      "img": `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
+      "system": {
+        "type": subType,
+        "description": mod.data.description,
+        "cout": {
+          "fixe": mod.data.cout.fixe,
+          "rang": mod.data.cout.rang,
+          "value": mod.data.cout.value
         }
       }
     };

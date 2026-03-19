@@ -1,0 +1,9 @@
+{
+  "name": "Vanilla Test",
+  "type": "pouvoir",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "type": "generaux",
+    "description": "Vanilla test power."
+  }
+}

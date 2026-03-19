@@ -1,0 +1,12 @@
+{
+  "name": "Simplified Cost Test",
+  "type": "pouvoir",
+  "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+  "system": {
+    "type": "generaux",
+    "description": "Simplified cost test.",
+    "cout": {
+      "total": 1
+    }
+  }
+}

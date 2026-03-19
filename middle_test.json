@@ -1,0 +1,25 @@
+{
+  "name": "Middle Ground Test",
+  "type": "pouvoir",
+  "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+  "system": {
+    "activate": true,
+    "special": "simple",
+    "type": "generaux",
+    "action": "simple",
+    "portee": "contact",
+    "duree": "instantane",
+    "notes": "Testing if metadata is the cause of the failure.",
+    "cout": {
+      "rang": 1,
+      "parrang": 1,
+      "total": 1,
+      "parrangtotal": "1"
+    }
+  },
+  "_stats": {
+    "coreVersion": "13.350",
+    "systemId": "mutants-and-masterminds-3e",
+    "systemVersion": "1.39.13"
+  }
+}
