@@ -5,11 +5,16 @@ const path = require('path');
 const EXTRAS = require('./extras');
 const FLAWS = require('./flaws');
 
+// System Constants for Metadata
+const SYSTEM_ID = "mutants-and-masterminds-3e";
+const SYSTEM_VER = "1.39.13";
+const CORE_VER = "13.350";
+
 // M&M 3e French System Translation Mappings
 const translationMap = {
   type: {
     'power': 'pouvoir',
-    'advantage': 'talent', // Corrected for Advantages
+    'advantage': 'talent',
     'attack': 'pouvoir',
     'defense': 'pouvoir'
   },
@@ -52,6 +57,21 @@ async function readCsv(filePath) {
   });
 }
 
+function getBaseMetadata(id) {
+  return {
+    "_id": id || Math.random().toString(36).substring(2, 18),
+    "ownership": { "default": 0 },
+    "_stats": {
+      "compendiumSource": null,
+      "duplicateSource": null,
+      "exportSource": null,
+      "coreVersion": CORE_VER,
+      "systemId": SYSTEM_ID,
+      "systemVersion": SYSTEM_VER
+    }
+  };
+}
+
 async function buildPowers() {
   const csvFile = path.join(__dirname, '../1st Powers Input.csv');
   const outFile = path.join(distDir, 'powers.db');
@@ -71,41 +91,38 @@ async function buildPowers() {
     const duration = (row.Duration || row.duration || row.DURATION || 'instant').trim().toLowerCase();
     const type = (row.Power || row.power || row.POWER || 'power').trim().toLowerCase();
 
-    // PROCESS EXTRAS (Smart Lookup)
     const extrasText = (row.Extras || row.extras || row.EXTRAS || '');
     const extrasObject = {};
     if (extrasText) {
       const extraNames = extrasText.split(',').map(e => e.trim());
       let count = 1;
       for (const extraName of extraNames) {
-        // Try to find the extra in our master list (Case-Insensitive)
         const masterExtra = Object.keys(EXTRAS).find(k => k.toLowerCase() === extraName.toLowerCase());
         if (masterExtra) {
           extrasObject[count] = JSON.parse(JSON.stringify(EXTRAS[masterExtra]));
-          extrasObject[count].details = true; // Ensure it shows up on the sheet
+          extrasObject[count].details = true;
           count++;
         }
       }
     }
 
-    // PROCESS FLAWS (Smart Lookup)
-    const flawsText = (row.Flaws || row.flaws || row.FLAWS || '');
     const flawsObject = {};
+    const flawsText = (row.Flaws || row.flaws || row.FLAWS || '');
     if (flawsText) {
       const flawNames = flawsText.split(',').map(f => f.trim());
       let count = 1;
       for (const flawName of flawNames) {
-        // Try to find the flaw in our master list (Case-Insensitive)
         const masterFlaw = Object.keys(FLAWS).find(k => k.toLowerCase() === flawName.toLowerCase());
         if (masterFlaw) {
           flawsObject[count] = JSON.parse(JSON.stringify(FLAWS[masterFlaw]));
-          flawsObject[count].details = true; // Ensure it shows up on the sheet
+          flawsObject[count].details = true;
           count++;
         }
       }
     }
 
-    const foundryItem = {
+    const powerItem = {
+      ...getBaseMetadata(),
       name: name,
       type: translationMap.type[type] || 'pouvoir',
       img: `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
@@ -117,19 +134,18 @@ async function buildPowers() {
         portee: translationMap.range[range] || 'contact',
         duree: translationMap.duration[duration] || 'instantane',
         effets: fullDescription,
-        notes: row.Description || row.description || row.DESCRIPTION || '',
+        notes: row.Description || '',
         extras: extrasObject,
         defauts: flawsObject,
         cout: {
-          rang: parseInt(row.Rank || row.rank || row.RANK) || 1, // Default to Rank 1
+          rang: parseInt(row.Rank || row.rank || row.RANK) || 1,
           parrang: parseInt(row.Cost || row.cost || row.COST) || 1,
-          total: 0, // Foundry will calculate this automatically if modifiers are present
+          total: 0,
           rangDyn: 0, rangDynMax: 0, divers: 0, modrang: 0, modfixe: 0, totalTheorique: 0, parrangtotal: "0"
         }
-      },
-      _id: Math.random().toString(36).substring(2, 18)
+      }
     };
-    items.push(JSON.stringify(foundryItem));
+    items.push(JSON.stringify(powerItem));
   }
   await fs.writeFile(outFile, items.join('\n'));
   console.log(`Successfully built powers.db with ${items.length} items.`);
@@ -142,7 +158,7 @@ async function buildAdvantages() {
   const items = [];
 
   for (const row of rows) {
-    const name = row.Name || row.name;
+    const name = (row.Name || row.name || "").trim();
     if (!name) continue;
 
     const effects = [];
@@ -151,40 +167,31 @@ async function buildAdvantages() {
 
     if (modKey && modValue) {
       effects.push({
+        ...getBaseMetadata("eff" + Math.random().toString(36).substring(2, 10)),
         name: `${name} Bonus`,
-        changes: [
-          {
-            key: modKey,
-            mode: 2, // ADD
-            value: modValue.toString(),
-            priority: 20
-          }
-        ],
+        changes: [{ key: modKey, mode: 2, value: modValue.toString(), priority: 20 }],
         disabled: false,
         transfer: true,
         icon: 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg',
-        type: 'base',
-        system: {},
-        duration: { startTime: null, combat: null },
-        _id: Math.random().toString(36).substring(2, 18)
+        type: 'base'
       });
     }
 
-    const foundryItem = {
+    const advantageItem = {
+      ...getBaseMetadata(),
       name: name,
       type: 'talent',
       img: 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg',
       system: {
         description: `<p>${row.Description || ''}</p>`,
         equipement: false,
-        rang: parseInt(row.Ranks) || 1,
+        rang: parseInt(row.Ranks || row.ranks) || 1,
         edit: true,
         listEffectsVariantes: {}
       },
-      effects: effects,
-      _id: Math.random().toString(36).substring(2, 18)
+      effects: effects
     };
-    items.push(JSON.stringify(foundryItem));
+    items.push(JSON.stringify(advantageItem));
   }
   await fs.writeFile(outFile, items.join('\n'));
   console.log(`Successfully built advantages.db with ${items.length} items.`);
@@ -196,9 +203,10 @@ async function buildModifiers(dataMap, fileName) {
 
   for (const key in dataMap) {
     const mod = dataMap[key];
-    const foundryItem = {
+    const modItem = {
+      ...getBaseMetadata(),
       name: mod.name,
-      type: 'pouvoir', // Modifiers are technically power components
+      type: 'pouvoir',
       img: 'systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg',
       system: {
         description: mod.data.description,
@@ -208,10 +216,9 @@ async function buildModifiers(dataMap, fileName) {
           parrang: mod.data.cout.rang ? mod.data.cout.value : 0,
           total: mod.data.cout.value
         }
-      },
-      _id: Math.random().toString(36).substring(2, 18)
+      }
     };
-    items.push(JSON.stringify(foundryItem));
+    items.push(JSON.stringify(modItem));
   }
   await fs.writeFile(outFile, items.join('\n'));
   console.log(`Successfully built ${fileName} with ${items.length} items.`);

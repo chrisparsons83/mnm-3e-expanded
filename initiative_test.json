@@ -1,10 +1,14 @@
 {
   "name": "Initiative Automation Test",
-  "type": "pouvoir",
-  "img": "icons/svg/lightning.svg",
+  "type": "talent",
+  "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
   "system": {
-    "description": "<p>This is a test to see if we can automate the sheet!</p>",
-    "notes": "Testing +4 to Initiative."
+    "description": "<p>Testing automation for the Improved Initiative bonus.</p>",
+    "notes": "Testing +4 to Initiative.",
+    "equipement": false,
+    "rang": 1,
+    "edit": true,
+    "listEffectsVariantes": {}
   },
   "effects": [
     {
@@ -19,7 +23,8 @@
       ],
       "disabled": false,
       "transfer": true,
-      "icon": "icons/svg/lightning.svg"
+      "icon": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+      "type": "base"
     }
   ]
 }
