@@ -64,12 +64,12 @@ async function buildPowers() {
     const cleanMech = sanitizeText(row.Mechanics || row.mechanics);
 
     let fullDescription = `Description: ${cleanDesc || ''}
+
 Mechanics: ${cleanMech || ''}`;
 
     const action = (row.Action || row.action || row.ACTION || 'standard').trim().toLowerCase();
     const range = (row.Range || row.range || row.RANGE || 'close').trim().toLowerCase();
     const duration = (row.Duration || row.duration || row.DURATION || 'instant').trim().toLowerCase();
-    const type = (row.Power || row.power || row.POWER || 'power').trim().toLowerCase();
 
     const baseRank = parseInt(row.Rank || row.rank || row.RANK) || 1;
     const baseCostPerRank = parseInt(row.Cost || row.cost || row.COST) || 1;
@@ -140,7 +140,7 @@ Mechanics: ${cleanMech || ''}`;
       "_id": Math.random().toString(36).substring(2, 18),
       "name": name,
       "type": "pouvoir",
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+      "img": `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
       "system": {
         "type": systemType,
         "description": recipe + fullDescription
@@ -167,6 +167,7 @@ async function buildAdvantages() {
     const effects = [];
     if (row.ModKey && row.ModValue) {
       effects.push({
+        "_id": "eff" + Math.random().toString(36).substring(2, 10),
         "name": `${name} Bonus`,
         "changes": [{ "key": row.ModKey, "mode": 2, "value": row.ModValue.toString(), "priority": 20 }],
         "disabled": false,
@@ -283,7 +284,7 @@ async function updateVersion() {
   const manifestPath = path.join(__dirname, '../mnm-3e-expanded/module.json');
   const manifest = await fs.readJson(manifestPath);
   const versionParts = manifest.version.split('.');
-  manifest.version = `${versionParts[0]}.${parseInt(versionParts[1]) + 1}.${versionParts[2]}`;
+  manifest.version = `${versionParts[0]}.${parseInt(versionParts[1])}.${parseInt(versionParts[2]) + 1}`;
   await fs.writeJson(manifestPath, manifest, { spaces: 2 });
   console.log(`Auto-incremented version to ${manifest.version}`);
 }
