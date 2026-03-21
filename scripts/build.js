@@ -163,22 +163,31 @@ async function buildAdvantages() {
   await fs.writeFile(outFile, items.join('\n'));
   console.log(`Successfully built advantages.db with ${items.length} items.`);
 }
-
 async function buildModifiers(dataMap, fileName, subType) {
   const outFile = path.join(distDir, fileName);
   const items = [];
 
   for (const key in dataMap) {
     const mod = dataMap[key];
+
+    // BUILD MODIFIER SUMMARY (Visible at top of description)
+    const costType = mod.data.cout.rang ? "PER RANK" : "FLAT (Fixed)";
+    const costValue = mod.data.cout.value >= 0 ? `+${mod.data.cout.value}` : mod.data.cout.value;
+    let modSummary = `<b>[ MODIFIER TYPE: ${subType.toUpperCase()} ]</b><br/>`;
+    modSummary += `&bull; <b>Cost Type:</b> ${costType}<br/>`;
+    modSummary += `&bull; <b>Cost Value:</b> ${costValue}<br/><hr/>`;
+
     const modItem = {
       "_id": Math.random().toString(36).substring(2, 18),
       "name": mod.name,
       "type": 'modificateur',
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+      "img": `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
       "system": {
         "type": subType,
-        "description": mod.data.description,
+        "description": modSummary + mod.data.description,
         "cout": {
+          "fixe": mod.data.cout.fixe,
+          "rang": mod.data.cout.rang,
           "value": mod.data.cout.value
         }
       }
@@ -188,7 +197,6 @@ async function buildModifiers(dataMap, fileName, subType) {
   await fs.writeFile(outFile, items.join('\n'));
   console.log(`Successfully built ${fileName} with ${items.length} items.`);
 }
-
 async function main() {
   await fs.ensureDir(distDir);
   await buildPowers();
