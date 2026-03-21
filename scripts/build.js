@@ -108,10 +108,9 @@ async function buildPowers() {
         const masterFlaw = Object.keys(FLAWS).find(k => k.toLowerCase() === flawName.toLowerCase());
         if (masterFlaw) {
           const mod = FLAWS[masterFlaw];
-          const absoluteValue = Math.abs(mod.data.cout.value); // Use absolute value for subtraction
-          if (mod.data.cout.rang) modCostPerRank -= absoluteValue; // SUBTRACT
-          if (mod.data.cout.fixe) flatCost -= absoluteValue; // SUBTRACT
-          flawsList.push(`${mod.name} (-${absoluteValue})`);
+          modCostPerRank += mod.data.cout.rang ? mod.data.cout.value : 0;
+          flatCost += mod.data.cout.fixe ? mod.data.cout.value : 0;
+          flawsList.push(`${mod.name} (${mod.data.cout.value})`);
           flawsObject[count] = {
             name: mod.name,
             data: { description: mod.data.description, cout: mod.data.cout }
