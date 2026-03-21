@@ -70,6 +70,7 @@ Mechanics: ${cleanMech || ''}`;
     const action = (row.Action || row.action || row.ACTION || 'standard').trim().toLowerCase();
     const range = (row.Range || row.range || row.RANGE || 'close').trim().toLowerCase();
     const duration = (row.Duration || row.duration || row.DURATION || 'instant').trim().toLowerCase();
+    const type = (row.Power || row.power || row.POWER || 'power').trim().toLowerCase();
 
     const baseRank = parseInt(row.Rank || row.rank || row.RANK) || 1;
     const baseCostPerRank = parseInt(row.Cost || row.cost || row.COST) || 1;
