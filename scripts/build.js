@@ -86,8 +86,7 @@ Mechanics: ${cleanMech || ''}`;
     };
     items.push(JSON.stringify(powerItem));
   }
-  await fs.writeFile(outFile, items.join('
-'));
+  await fs.writeFile(outFile, items.join('\n'));
 }
 
 async function buildAdvantages() {
@@ -127,8 +126,7 @@ async function buildAdvantages() {
     };
     items.push(JSON.stringify(advantageItem));
   }
-  await fs.writeFile(outFile, items.join('
-'));
+  await fs.writeFile(outFile, items.join('\n'));
 }
 
 async function buildEquipment() {
@@ -214,8 +212,7 @@ async function buildModifiers(dataMap, fileName, subType) {
     };
     items.push(JSON.stringify(modItem));
   }
-  await fs.writeFile(outFile, items.join('
-'));
+  await fs.writeFile(outFile, items.join('\n'));
 }
 
 async function updateVersion() {
