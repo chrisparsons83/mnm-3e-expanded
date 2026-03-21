@@ -86,16 +86,16 @@ async function buildPowers() {
     const finalCostPerRank = Math.max(1, baseCostPerRank + modCostPerRank);
     const finalTotal = (finalCostPerRank * baseRank) + flatCost;
 
-    // BUILD FINAL RECIPE SUMMARY (Simple HTML for maximum compatibility)
+    // BUILD FINAL RECIPE SUMMARY (High-Visibility HTML)
     let recipe = `<b>[ POWER SETUP RECIPE ]</b><br/>`;
-    recipe += `&bull; <b>Rank:</b> Set to ${baseRank}<br/>`;
-    recipe += `&bull; <b>Action:</b> Select ${action}<br/>`;
-    recipe += `&bull; <b>Range:</b> Select ${range}<br/>`;
-    recipe += `&bull; <b>Duration:</b> Select ${duration}<br/>`;
-    recipe += `&bull; <b>Cost Per Rank:</b> ${finalCostPerRank} PP<br/>`;
-    if (extrasList.length) recipe += `&bull; <b>Extras:</b> ${extrasList.join(', ')}<br/>`;
-    if (flawsList.length) recipe += `&bull; <b>Flaws:</b> ${flawsList.join(', ')}<br/>`;
-    recipe += `<b>TARGET TOTAL: ${finalTotal} PP</b><br/><hr/>`;
+    recipe += `&bull; <b>Rank:</b> Set Rank to <b>${baseRank}</b><br/>`;
+    recipe += `&bull; <b>Action:</b> Select <b>${action.toUpperCase()}</b><br/>`;
+    recipe += `&bull; <b>Range:</b> Select <b>${range.toUpperCase()}</b><br/>`;
+    recipe += `&bull; <b>Duration:</b> Select <b>${duration.toUpperCase()}</b><br/>`;
+    recipe += `&bull; <b>PP/Rank Ratio:</b> Select <b>${finalCostPerRank}:1</b><br/>`;
+    if (extrasList.length) recipe += `&bull; <b>Extras to Include:</b> ${extrasList.join(', ')}<br/>`;
+    if (flawsList.length) recipe += `&bull; <b>Flaws to Include:</b> ${flawsList.join(', ')}<br/>`;
+    recipe += `<b>TARGET TOTAL COST: ${finalTotal} PP</b><br/><hr/>`;
 
     let systemType = 'generaux';
     const lowerName = name.toLowerCase();
