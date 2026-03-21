@@ -1,1 +1,9 @@
-﻿Name,Type,Cost,Protection,Notes
+Name,Type,Cost,Protection,Notes
+Leather Armor,Armor,1,1,"Basic protection."
+Bulletproof Vest,Armor,2,2,"Subtle Protection 4 vs Ballistic only."
+Reinforced Costume,Armor,2,2,"Standard hero gear."
+Full Chain-mail,Armor,3,3,"Heavy archaic armor."
+Full Plate-mail,Armor,4,4,"Very heavy archaic armor."
+Riot Gear,Armor,5,5,"Police protection."
+Armored Jumpsuit,Armor,3,3,"Light modern armor."
+Tactical Armor,Armor,4,4,"Military grade protection."

@@ -1,1 +1,14 @@
-﻿Name,Type,Cost,Critical,Damage,Notes
+Name,Type,Cost,Critical,Damage,Notes
+Brass Knuckles,Melee,1,20,1,"Adds +1 to unarmed damage."
+Club,Melee,2,20,2,"Bludgeoning weapon."
+Knife,Melee,2,19-20,1,"Bladed weapon."
+Pepper Spray,Melee,2,20,4,"Visual Dazzle effect."
+Stun Gun,Melee,5,20,5,"Affliction effect."
+Battleaxe,Melee,3,20,3,"Heavy axe."
+Sword,Melee,4,19-20,3,"Long blade."
+Spear,Melee,4,19-20,3,"Can be thrown."
+Warhammer,Melee,3,20,3,"Bludgeoning hammer."
+Chain,Melee,6,20,2,"Includes Reach 2, Improved Grab, and Improved Trip."
+Chainsaw,Melee,6,20,6,"Slashing damage, not Strength-based."
+Nunchaku,Melee,3,19-20,2,"Martial arts weapon."
+Whip,Melee,5,20,0,"Includes Reach 3, Improved Grab, and Improved Trip."

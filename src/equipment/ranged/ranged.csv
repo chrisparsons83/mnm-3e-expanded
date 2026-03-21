@@ -1,1 +1,14 @@
-﻿Name,Type,Cost,Critical,Damage,Range,Notes
+Name,Type,Cost,Critical,Damage,Range,Notes
+Holdout Pistol,Ranged,4,20,2,Ranged,"Small handgun."
+Light Pistol,Ranged,6,20,3,Ranged,"Standard handgun."
+Heavy Pistol,Ranged,8,20,4,Ranged,"Large handgun."
+Machine Pistol,Ranged,9,20,3,Ranged,"Automatic pistol, Multiattack."
+Submachine Gun,Ranged,12,20,4,Ranged,"Compact automatic, Multiattack."
+Shotgun,Ranged,10,20,5,Ranged,"Buckshot or slugs."
+Assault Rifle,Ranged,15,20,5,Ranged,"Military rifle, Multiattack."
+Sniper Rifle,Ranged,10,19-20,5,Ranged,"Long-range rifle."
+Blaster Pistol,Ranged,10,20,5,Ranged,"Energy bolt."
+Blaster Rifle,Ranged,16,20,8,Ranged,"Powerful energy bolt."
+Taser,Ranged,10,20,5,Ranged,"Affliction effect."
+Rocket Launcher,Ranged,30,20,10,Ranged,"Explosive Burst Area."
+Shuriken,Ranged,3,20,1,Ranged,"Multiattack thrown weapon."

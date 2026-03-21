@@ -1,0 +1,32 @@
+{
+  "name": "Gear test",
+  "type": "equipement",
+  "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
+  "system": {
+    "description": "<p>This is where I want the description of each&nbsp;</p>",
+    "cout": 5
+  },
+  "effects": [],
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "mandm",
+      "uuid": "Item.FxOfR4BZndFFrrpp",
+      "coreVersion": "13.350",
+      "systemId": "mutants-and-masterminds-3e",
+      "systemVersion": "1.39.13"
+    },
+    "coreVersion": "13.350",
+    "systemId": "mutants-and-masterminds-3e",
+    "systemVersion": "1.39.13",
+    "createdTime": 1774124218707,
+    "modifiedTime": 1774124272454,
+    "lastModifiedBy": "fX1RCZ8V9Lfz2Nbd"
+  },
+  "ownership": {
+    "default": 0
+  }
+}
