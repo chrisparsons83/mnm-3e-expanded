@@ -232,6 +232,21 @@ async function buildEquipment() {
       const name = (row.Name || row.name || "").trim();
       if (!name) continue;
 
+      const effects = [];
+      const modKey = row.ModKey || row.modkey;
+      const modValue = row.ModValue || row.modvalue;
+
+      if (modKey && modValue) {
+        effects.push({
+          "_id": "eff" + Math.random().toString(36).substring(2, 10),
+          "name": `${name} Bonus`,
+          "changes": [{ "key": modKey, "mode": 2, "value": modValue.toString(), "priority": 20 }],
+          "disabled": false,
+          "transfer": true,
+          "icon": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg"
+        });
+      }
+
       let gearInfo = `<b>[ EQUIPMENT SPECS ]</b><br/>`;
       gearInfo += `&bull; <b>Type:</b> ${row.Type}<br/>`;
       gearInfo += `&bull; <b>EP Cost:</b> ${row.Cost}<br/>`;
@@ -250,7 +265,7 @@ async function buildEquipment() {
           "description": gearInfo + `<p>${row.Notes || ''}</p>`,
           "cout": parseInt(row.Cost) || 1
         },
-        "effects": [],
+        "effects": effects,
         "flags": {}
       };
       allItems.push(JSON.stringify(gearItem));
