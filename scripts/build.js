@@ -247,9 +247,17 @@ async function buildEquipment() {
         });
       }
 
+      // ARRAY LOGIC
+      const arrayGroup = row.ArrayGroup || row.arraygroup;
+      let finalCost = parseInt(row.Cost) || 1;
+      let arrayNote = "";
+      if (arrayGroup) {
+        arrayNote = `<p><i>Part of the <b>${arrayGroup}</b> Array (Alternate Equipment).</i></p>`;
+      }
+
       let gearInfo = `<b>[ EQUIPMENT SPECS ]</b><br/>`;
       gearInfo += `&bull; <b>Type:</b> ${row.Type}<br/>`;
-      gearInfo += `&bull; <b>EP Cost:</b> ${row.Cost}<br/>`;
+      gearInfo += `&bull; <b>EP Cost:</b> ${finalCost}<br/>`;
       if (row.Damage) gearInfo += `&bull; <b>Damage:</b> ${row.Damage}<br/>`;
       if (row.Critical) gearInfo += `&bull; <b>Critical:</b> ${row.Critical}<br/>`;
       if (row.Protection) gearInfo += `&bull; <b>Protection:</b> ${row.Protection}<br/>`;
@@ -262,8 +270,8 @@ async function buildEquipment() {
         "type": "equipement",
         "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
         "system": {
-          "description": gearInfo + `<p>${row.Notes || ''}</p>`,
-          "cout": parseInt(row.Cost) || 1
+          "description": gearInfo + arrayNote + `<p>${row.Notes || ''}</p>`,
+          "cout": finalCost
         },
         "effects": effects,
         "flags": {}
