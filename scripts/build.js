@@ -99,6 +99,7 @@ async function buildPowers() {
     }
 
     const flawsText = (row.Flaws || row.flaws || row.FLAWS || '');
+    // PROCESS FLAWS
     const flawsObject = {};
     if (flawsText) {
       const flawNames = flawsText.split(',').map(f => f.trim());
@@ -107,9 +108,10 @@ async function buildPowers() {
         const masterFlaw = Object.keys(FLAWS).find(k => k.toLowerCase() === flawName.toLowerCase());
         if (masterFlaw) {
           const mod = FLAWS[masterFlaw];
-          if (mod.data.cout.rang) modCostPerRank += mod.data.cout.value;
-          if (mod.data.cout.fixe) flatCost += mod.data.cout.value;
-          flawsList.push(`${mod.name} (${mod.data.cout.value})`);
+          const absoluteValue = Math.abs(mod.data.cout.value); // Use absolute value for subtraction
+          if (mod.data.cout.rang) modCostPerRank -= absoluteValue; // SUBTRACT
+          if (mod.data.cout.fixe) flatCost -= absoluteValue; // SUBTRACT
+          flawsList.push(`${mod.name} (-${absoluteValue})`);
           flawsObject[count] = {
             name: mod.name,
             data: { description: mod.data.description, cout: mod.data.cout }
@@ -120,8 +122,7 @@ async function buildPowers() {
     }
 
     const finalCostPerRank = Math.max(1, baseCostPerRank + modCostPerRank);
-    const finalTotal = (finalCostPerRank * baseRank) + flatCost;
-
+    const finalTotal = Math.max(1, (finalCostPerRank * baseRank) + flatCost);
     // BUILD FINAL RECIPE SUMMARY (High-Visibility HTML)
     let recipe = `<b>[ POWER SETUP RECIPE ]</b><br/>`;
     recipe += `&bull; <b>Rank:</b> Set Rank to <b>${baseRank}</b><br/>`;
