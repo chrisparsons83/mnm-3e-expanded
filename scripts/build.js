@@ -206,8 +206,21 @@ async function buildModifiers(dataMap, fileName, subType) {
   await fs.writeFile(outFile, items.join('\n'));
   console.log(`Successfully built ${fileName} with ${items.length} items.`);
 }
+async function updateVersion() {
+  const manifestPath = path.join(__dirname, '../mnm-3e-expanded/module.json');
+  const manifest = await fs.readJson(manifestPath);
+  
+  const versionParts = manifest.version.split('.');
+  versionParts[2] = parseInt(versionParts[2]) + 1;
+  manifest.version = versionParts.join('.');
+  
+  await fs.writeJson(manifestPath, manifest, { spaces: 2 });
+  console.log(`Auto-incremented version to ${manifest.version}`);
+}
+
 async function main() {
   await fs.ensureDir(distDir);
+  await updateVersion();
   await buildPowers();
   await buildAdvantages();
   await buildModifiers(EXTRAS, 'extras.db', 'extra');
