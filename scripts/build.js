@@ -86,7 +86,8 @@ Mechanics: ${cleanMech || ''}`;
     };
     items.push(JSON.stringify(powerItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function buildAdvantages() {
@@ -126,7 +127,8 @@ async function buildAdvantages() {
     };
     items.push(JSON.stringify(advantageItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function buildEquipment() {
@@ -189,7 +191,8 @@ async function buildEquipment() {
       allItems.push(JSON.stringify(gearItem));
     }
   }
-  await fs.writeFile(outFile, allItems.join('\n'));
+  await fs.writeFile(outFile, allItems.join('
+'));
 }
 
 async function buildModifiers(dataMap, fileName, subType) {
@@ -198,6 +201,12 @@ async function buildModifiers(dataMap, fileName, subType) {
 
   for (const key in dataMap) {
     const mod = dataMap[key];
+    const costValue = (subType === 'defaut') ? -Math.abs(mod.data.cout.value) : mod.data.cout.value;
+
+    let modSummary = `<b>[ MODIFIER TYPE: ${subType.toUpperCase()} ]</b><br/>`;
+    modSummary += `&bull; <b>Cost Type:</b> ${mod.data.cout.rang ? "PER RANK" : "FLAT (Fixed)"}<br/>`;
+    modSummary += `&bull; <b>Cost Value:</b> ${costValue}<br/><hr/>`;
+
     const modItem = {
       "_id": Math.random().toString(36).substring(2, 18),
       "name": mod.name,
@@ -205,18 +214,18 @@ async function buildModifiers(dataMap, fileName, subType) {
       "img": `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
       "system": {
         "type": subType,
-        "description": sanitizeText(mod.data.description),
+        "description": modSummary + sanitizeText(mod.data.description),
         "cout": {
           "fixe": mod.data.cout.fixe,
           "rang": mod.data.cout.rang,
-          "value": mod.data.cout.value,
-          "total": mod.data.cout.value // Set total to base value for Rank 1
+          "value": costValue
         }
       }
     };
     items.push(JSON.stringify(modItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function updateVersion() {
