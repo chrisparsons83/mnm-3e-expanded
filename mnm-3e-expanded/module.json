@@ -1,15 +1,19 @@
-{
+{{
   "id": "mnm-3e-expanded",
   "title": "M&M 3e Expanded",
   "description": "A Comprehensive Library of Advantages, Powers, Effects, Flaws, and Items for Mutants & Masterminds 3e.",
   "version": "3.0.2",
-  "author": "Davinchi",
+  "authors": [{ "name": "Davinchi" }],
   "compatibility": {
     "minimum": "12",
     "verified": "13"
   },
-  "url": "https://raw.githubusercontent.com/alexsaintc-dotcom/mnm-3e-expanded/main/module.json",
+  "url": "https://github.com/alexsaintc-dotcom/mnm-3e-expanded",
+  "manifest": "https://raw.githubusercontent.com/alexsaintc-dotcom/mnm-3e-expanded/main/mnm-3e-expanded/module.json",
   "download": "https://github.com/alexsaintc-dotcom/mnm-3e-expanded/archive/refs/heads/main.zip",
+  "relationships": {
+    "systems": [{ "id": "mutants-and-masterminds-3e", "type": "requires" }]
+  },
   "packs": [
     {
       "name": "expanded-powers",
@@ -55,3 +59,4 @@
     }
   ]
 }
+
