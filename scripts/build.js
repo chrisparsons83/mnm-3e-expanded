@@ -10,6 +10,27 @@ const translationMap = {
   type: {
     'power': 'pouvoir',
     'advantage': 'talent'
+  },
+  action: {
+    'standard': 'simple',
+    'move': 'mouvement',
+    'free': 'libre',
+    'reaction': 'reaction',
+    'none': 'aucune'
+  },
+  range: {
+    'personal': 'personnelle',
+    'close': 'contact',
+    'ranged': 'distance',
+    'perception': 'perception',
+    'rank': 'rang'
+  },
+  duration: {
+    'instant': 'instantane',
+    'sustained': 'prolonge',
+    'continuous': 'continu',
+    'concentration': 'concentration',
+    'permanent': 'permanent'
   }
 };
 
@@ -65,6 +86,74 @@ async function buildPowers() {
 
     let fullDescription = `Description: ${cleanDesc || ''}\n\nMechanics: ${cleanMech || ''}`;
 
+    const action = (row.Action || row.action || row.ACTION || 'standard').trim().toLowerCase();
+    const range = (row.Range || row.range || row.RANGE || 'close').trim().toLowerCase();
+    const duration = (row.Duration || row.duration || row.DURATION || 'instant').trim().toLowerCase();
+
+    const baseRank = parseInt(row.Rank || row.rank || row.RANK) || 1;
+    const baseCostPerRank = parseInt(row.Cost || row.cost || row.COST) || 1;
+    let modCostPerRank = 0;
+    let flatCost = 0;
+    let extrasList = [];
+    let flawsList = [];
+
+    const extrasText = (row.Extras || row.extras || row.EXTRAS || '');
+    const extrasObject = {};
+    if (extrasText) {
+      const extraNames = extrasText.split(',').map(e => e.trim());
+      let count = 1;
+      for (const extraName of extraNames) {
+        const masterExtra = Object.keys(EXTRAS).find(k => k.toLowerCase() === extraName.toLowerCase());
+        if (masterExtra) {
+          const mod = EXTRAS[masterExtra];
+          if (mod.data.cout.rang) modCostPerRank += mod.data.cout.value;
+          if (mod.data.cout.fixe) flatCost += mod.data.cout.value;
+          extrasList.push(`${mod.name} (+${mod.data.cout.value})`);
+          extrasObject[count] = {
+            name: mod.name,
+            data: { description: mod.data.description, cout: mod.data.cout }
+          };
+          count++;
+        }
+      }
+    }
+
+    const flawsText = (row.Flaws || row.flaws || row.FLAWS || '');
+    const flawsObject = {};
+    if (flawsText) {
+      const flawNames = flawsText.split(',').map(f => f.trim());
+      let count = 1;
+      for (const flawName of flawNames) {
+        const masterFlaw = Object.keys(FLAWS).find(k => k.toLowerCase() === flawName.toLowerCase());
+        if (masterFlaw) {
+          const mod = FLAWS[masterFlaw];
+          // For summary calculation, we subtract. 
+          // Note: master list values are now positive.
+          if (mod.data.cout.rang) modCostPerRank -= mod.data.cout.value;
+          if (mod.data.cout.fixe) flatCost -= mod.data.cout.value;
+          flawsList.push(`${mod.name} (-${mod.data.cout.value})`);
+          flawsObject[count] = {
+            name: mod.name,
+            data: { description: mod.data.description, cout: mod.data.cout }
+          };
+          count++;
+        }
+      }
+    }
+
+    const finalCostPerRank = Math.max(1, baseCostPerRank + modCostPerRank);
+    const finalTotal = Math.max(1, (finalCostPerRank * baseRank) + flatCost);
+
+    let recipe = `[ POWER SETUP RECIPE ]\n`;
+    recipe += `* Rank: Set Rank to ${baseRank}\n`;
+    recipe += `* Action: Select ${action.toUpperCase()}\n`;
+    recipe += `* Range: Select ${range.toUpperCase()}\n`;
+    recipe += `* Duration: Select ${duration.toUpperCase()}\n`;
+    recipe += `* PP/Rank Ratio: Select ${finalCostPerRank}:1\n`;
+    if (extrasList.length) recipe += `* Extras to Include: ${extrasList.join(', ')}\n`;
+    if (flawsList.length) recipe += `* Flaws to Include: ${flawsList.join(', ')}\n`;
+    recipe += `TARGET TOTAL COST: ${finalTotal} PP\n--------------------\n`;
+
     let systemType = 'generaux';
     const lowerName = name.toLowerCase();
     const attackPowers = ['blast', 'affliction', 'damage', 'dazzle', 'nullify', 'mind control', 'strike', 'trip', 'weaken'];
@@ -79,7 +168,7 @@ async function buildPowers() {
       "img": `systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg`,
       "system": {
         "type": systemType,
-        "description": fullDescription
+        "description": recipe + fullDescription
       }
     };
     items.push(JSON.stringify(powerItem));
@@ -188,11 +277,13 @@ async function buildModifiers(dataMap, fileName, subType) {
 
   for (const key in dataMap) {
     const mod = dataMap[key];
-    const costValue = (subType === 'defaut') ? -Math.abs(mod.data.cout.value) : mod.data.cout.value;
-
+    
+    // BUILD MODIFIER SUMMARY (Visible at top of description)
+    const costType = mod.data.cout.rang ? "PER RANK" : "FLAT (Fixed)";
+    const term = (subType === 'defaut') ? "Cost Reduction" : "Cost Increase";
     let modSummary = `<b>[ MODIFIER TYPE: ${subType.toUpperCase()} ]</b><br/>`;
-    modSummary += `&bull; <b>Cost Type:</b> ${mod.data.cout.rang ? "PER RANK" : "FLAT (Fixed)"}<br/>`;
-    modSummary += `&bull; <b>Cost Value:</b> ${costValue}<br/><hr/>`;
+    modSummary += `&bull; <b>${term}:</b> ${mod.data.cout.value}<br/>`;
+    modSummary += `&bull; <b>Toggle Type:</b> ${costType}<br/><hr/>`;
 
     const modItem = {
       "_id": Math.random().toString(36).substring(2, 18),
@@ -205,7 +296,8 @@ async function buildModifiers(dataMap, fileName, subType) {
         "cout": {
           "fixe": mod.data.cout.fixe,
           "rang": mod.data.cout.rang,
-          "value": costValue
+          "value": mod.data.cout.value,
+          "total": mod.data.cout.value
         }
       }
     };
@@ -218,7 +310,7 @@ async function updateVersion() {
   const manifestPath = path.join(__dirname, '../mnm-3e-expanded/module.json');
   const manifest = await fs.readJson(manifestPath);
   const versionParts = manifest.version.split('.');
-  manifest.version = `${versionParts[0]}.${versionParts[1]}.${parseInt(versionParts[2]) + 1}`;
+  manifest.version = `${versionParts[0]}.${parseInt(versionParts[1])}.${parseInt(versionParts[2]) + 1}`;
   await fs.writeJson(manifestPath, manifest, { spaces: 2 });
   console.log(`Auto-incremented version to ${manifest.version}`);
 }
