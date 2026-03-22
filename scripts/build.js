@@ -44,6 +44,7 @@ async function readCsv(filePath) {
       .pipe(csv({
         mapHeaders: ({ header }) => header.trim().replace(/^\uFEFF/, '')
       }))
+      h
       .on('data', (data) => results.push(data))
       .on('end', () => resolve(results))
       .on('error', (err) => reject(err));
@@ -97,7 +98,7 @@ async function buildPowers() {
     if (extrasText) {
       const extraNames = extrasText.split(',').map(e => e.trim());
       for (const extraName of extraNames) {
-        const masterExtra = Object.keys(EXTRAS).find(k => k.toLowerCase() === extraName.toLowerCase());
+        const masterExtra = Object.Akeys(EXTRAS).find(k => k.toLowerCase() === extraName.toLowerCase());
         if (masterExtra) {
           const mod = EXTRAS[masterExtra];
           if (mod.data.cout.rang) modCostPerRank += mod.data.cout.value;
@@ -123,10 +124,14 @@ async function buildPowers() {
     const finalTotal = Math.max(1, (finalCostPerRank * baseRank) + flatCost);
 
     // DYNAMIC TOGGLE LOGIC
-    let specialToggle = "simple";
+    let specialToggle = "simple"; // Default to Standard
     const arrayType = (row.Array || row.array || "").trim().toLowerCase();
-    if (arrayType === "alternate") specialToggle = "alternatif";
-    if (arrayType === "dynamic") specialToggle = "dynamique";
+    if (arrayType === "alternate" || arrayType === "alternatif") {
+      specialToggle = "alternate"; // Use English term
+    }
+    if (arrayType === "dynamic" || arrayType === "dynamique") {
+      specialToggle = "dynamic"; // Use English term
+    }
 
     const headerInfo = `<p>Action: ${action.charAt(0).toUpperCase() + action.slice(1)} &bull; Range: ${range.charAt(0).toUpperCase() + range.slice(1)}<br>Duration: ${duration.charAt(0).toUpperCase() + duration.slice(1)} &bull; Cost: ${finalCostPerRank} point${finalCostPerRank > 1 ? 's' : ''} per rank</p>`;
     const notesHtml = headerInfo + `<p>${cleanDesc}</p>`;
@@ -147,7 +152,7 @@ async function buildPowers() {
       "system": {
         "type": systemType,
         "activate": true,
-        "special": specialToggle,
+        "special": specialToggle, // Set to 'simple', 'alternate', or 'dynamic'
         "action": translationMap.action[action] || 'simple',
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
@@ -169,7 +174,8 @@ async function buildPowers() {
     };
     items.push(JSON.stringify(powerItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function buildAdvantages() {
@@ -210,7 +216,8 @@ async function buildAdvantages() {
     };
     items.push(JSON.stringify(advantageItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function buildEquipment() {
@@ -282,7 +289,8 @@ async function buildEquipment() {
       allLines.push(JSON.stringify(gearItem));
     }
   }
-  await fs.writeFile(outFile, allLines.join('\n'));
+  await fs.writeFile(outFile, allLines.join('
+'));
 }
 
 async function buildVehicles() {
@@ -334,7 +342,8 @@ async function buildVehicles() {
     };
     allLines.push(JSON.stringify(vehicleItem));
   }
-  await fs.writeFile(outFile, allLines.join('\n'));
+  await fs.writeFile(outFile, allLines.join('
+'));
 }
 
 async function buildHeadquarters() {
@@ -367,7 +376,8 @@ async function buildHeadquarters() {
     };
     items.push(JSON.stringify(hqItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function buildModifiers(dataMap, fileName, subType) {
@@ -393,11 +403,14 @@ async function buildModifiers(dataMap, fileName, subType) {
     };
     items.push(JSON.stringify(modItem));
   }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.join('
+'));
 }
 
 async function main() {
   await fs.ensureDir(distDir);
+  // Disabled auto-incrementer for milestone release v3.3.0 (and subsequent manual fixes)
+  // await updateVersion(); // Commented out to prevent auto-incrementing
   await buildPowers();
   await buildAdvantages();
   await buildEquipment();
