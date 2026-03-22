@@ -1,0 +1,711 @@
+{
+  "name": "Clean Char",
+  "type": "personnage",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "version": 2,
+    "identite": {
+      "name": "",
+      "secret": false
+    },
+    "description": "",
+    "historique": "",
+    "puissance": 0,
+    "heroisme": 0,
+    "blessure": 0,
+    "blessureNL": 0,
+    "ddparade": 0,
+    "ddesquive": 0,
+    "ptsEquipements": {
+      "max": 0,
+      "use": 0
+    },
+    "filtre": "tous",
+    "complications": {},
+    "caracteristique": {
+      "force": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "agilite": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "combativite": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "sensibilite": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "endurance": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "dexterite": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "intelligence": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "presence": {
+        "total": 0,
+        "base": 0,
+        "divers": 0,
+        "absente": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      }
+    },
+    "competence": {
+      "combatcontact": {
+        "canAdd": true,
+        "car": "cbt",
+        "modele": {
+          "label": "",
+          "carac": 0,
+          "rang": 0,
+          "autre": 0,
+          "total": 0
+        },
+        "list": {},
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "combatdistance": {
+        "canAdd": true,
+        "car": "dex",
+        "modele": {
+          "label": "",
+          "carac": 0,
+          "rang": 0,
+          "autre": 0,
+          "total": 0
+        },
+        "list": {},
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "expertise": {
+        "canAdd": true,
+        "modele": {
+          "car": "int",
+          "carCanChange": true,
+          "label": "",
+          "carac": 0,
+          "rang": 0,
+          "autre": 0,
+          "total": 0
+        },
+        "list": {},
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "acrobaties": {
+        "carac": 0,
+        "car": "agi",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "athletisme": {
+        "carac": 0,
+        "car": "for",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "duperie": {
+        "carac": 0,
+        "car": "prs",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "perspicacite": {
+        "carac": 0,
+        "car": "sns",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "intimidation": {
+        "carac": 0,
+        "car": "prs",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "investigation": {
+        "carac": 0,
+        "car": "int",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "perception": {
+        "carac": 0,
+        "car": "sns",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "persuasion": {
+        "carac": 0,
+        "car": "prs",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "habilete": {
+        "carac": 0,
+        "car": "dex",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "discretion": {
+        "carac": 0,
+        "car": "agi",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "technologie": {
+        "carac": 0,
+        "car": "int",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "soins": {
+        "carac": 0,
+        "car": "int",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "vehicules": {
+        "carac": 0,
+        "car": "dex",
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "rang": 0,
+        "autre": 0,
+        "total": 0
+      },
+      "new": {
+        "modele": {
+          "carCanChange": true,
+          "car": "int",
+          "label": "",
+          "carac": 0,
+          "rang": 0,
+          "autre": 0,
+          "total": 0
+        },
+        "list": {},
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {},
+        "new": true
+      }
+    },
+    "pp": {
+      "base": 0,
+      "gain": 0,
+      "used": 0,
+      "divers": 0,
+      "caracteristiques": 0,
+      "pouvoirs": 0,
+      "talents": 0,
+      "competences": 0,
+      "defenses": 0,
+      "total": 0
+    },
+    "attaque": {},
+    "defense": {
+      "esquive": {
+        "car": "agi",
+        "carac": 0,
+        "base": 0,
+        "divers": 0,
+        "total": 0,
+        "defenseless": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "parade": {
+        "car": "cbt",
+        "carac": 0,
+        "base": 0,
+        "divers": 0,
+        "total": 0,
+        "defenseless": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "vigueur": {
+        "car": "end",
+        "carac": 0,
+        "base": 0,
+        "divers": 0,
+        "total": 0,
+        "defenseless": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "robustesse": {
+        "car": "end",
+        "carac": 0,
+        "base": 0,
+        "divers": 0,
+        "total": 0,
+        "defenseless": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      },
+      "volonte": {
+        "car": "sns",
+        "carac": 0,
+        "base": 0,
+        "divers": 0,
+        "total": 0,
+        "defenseless": false,
+        "bonuses": 0,
+        "surcharge": 0,
+        "ranks": {},
+        "surchargeranks": {}
+      }
+    },
+    "initiative": {
+      "base": 0,
+      "carac": 0,
+      "bonuses": 0,
+      "surcharge": 0,
+      "ranks": {},
+      "surchargeranks": {},
+      "total": 0
+    },
+    "strategie": {
+      "attaqueprecision": {
+        "attaque": 0,
+        "defense": 0,
+        "effet": 0
+      },
+      "attaqueoutrance": {
+        "attaque": 0,
+        "defense": 0,
+        "effet": 0
+      },
+      "attaquedefensive": {
+        "attaque": 0,
+        "defense": 0,
+        "effet": 0
+      },
+      "attaquepuissance": {
+        "attaque": 0,
+        "defense": 0,
+        "effet": 0
+      },
+      "etats": {
+        "attaque": 0,
+        "defense": 0,
+        "effet": 0
+      },
+      "total": {
+        "attaque": 0,
+        "defense": 0,
+        "effet": 0
+      },
+      "limite": {
+        "attaqueprecision": {
+          "atk": {
+            "base": 2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "eff": {
+            "base": -2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "def": {
+            "base": 0,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "attaque": 2,
+          "defense": 0,
+          "effet": -2
+        },
+        "attaqueoutrance": {
+          "atk": {
+            "base": 2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "eff": {
+            "base": 0,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "def": {
+            "base": -2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "attaque": 2,
+          "defense": -2,
+          "effet": 0
+        },
+        "attaquedefensive": {
+          "atk": {
+            "base": -2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "eff": {
+            "base": 0,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "def": {
+            "base": 2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "attaque": -2,
+          "defense": 2,
+          "effet": 0
+        },
+        "attaquepuissance": {
+          "atk": {
+            "base": -2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "eff": {
+            "base": 2,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "def": {
+            "base": 0,
+            "bonuses": 0,
+            "surcharge": 0,
+            "ranks": {},
+            "surchargeranks": {},
+            "allbonuses": 0
+          },
+          "attaque": -2,
+          "defense": 0,
+          "effet": 2
+        }
+      }
+    },
+    "pwr": {},
+    "accessibility": {
+      "font": "Kalam",
+      "fontOther": ""
+    },
+    "vitesse": {
+      "list": {
+        "base": {
+          "autotrade": "base",
+          "rang": 0,
+          "round": 0,
+          "kmh": 0,
+          "selected": true
+        },
+        "course": {
+          "autotrade": "course",
+          "rang": 1,
+          "round": 0,
+          "kmh": 0,
+          "selected": false
+        },
+        "natation": {
+          "autotrade": "natation",
+          "rang": -2,
+          "round": 0,
+          "kmh": 0,
+          "selected": false
+        }
+      },
+      "actuel": 0
+    },
+    "affiliation": "",
+    "base": "",
+    "genre": "",
+    "age": "",
+    "taille": "1.80m",
+    "poids": "90kg",
+    "yeux": "",
+    "cheveux": "",
+    "etats": ""
+  },
+  "prototypeToken": {
+    "name": "Clean Char",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "blessure"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [],
+  "effects": [],
+  "folder": null,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "mandm",
+      "uuid": "Actor.V0eqzfdMQiptt5Bc",
+      "coreVersion": "13.350",
+      "systemId": "mutants-and-masterminds-3e",
+      "systemVersion": "1.39.13"
+    },
+    "coreVersion": "13.350",
+    "systemId": "mutants-and-masterminds-3e",
+    "systemVersion": "1.39.13",
+    "createdTime": 1774167458481,
+    "modifiedTime": 1774167461599,
+    "lastModifiedBy": "fX1RCZ8V9Lfz2Nbd"
+  },
+  "ownership": {
+    "default": 0
+  }
+}

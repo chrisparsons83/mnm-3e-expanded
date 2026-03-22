@@ -93,46 +93,40 @@ async function buildPowers() {
     let modCostPerRank = 0;
     let flatCost = 0;
 
-    const extrasObject = {};
     const extrasText = (row.Extras || row.extras || row.EXTRAS || '');
     if (extrasText) {
       const extraNames = extrasText.split(',').map(e => e.trim());
-      let count = 1;
       for (const extraName of extraNames) {
         const masterExtra = Object.keys(EXTRAS).find(k => k.toLowerCase() === extraName.toLowerCase());
         if (masterExtra) {
-          const mod = JSON.parse(JSON.stringify(EXTRAS[masterExtra]));
+          const mod = EXTRAS[masterExtra];
           if (mod.data.cout.rang) modCostPerRank += mod.data.cout.value;
           if (mod.data.cout.fixe) flatCost += mod.data.cout.value;
-          mod.data.type = 'extra';
-          mod.details = true;
-          extrasObject[count] = mod;
-          count++;
         }
       }
     }
 
-    const flawsObject = {};
     const flawsText = (row.Flaws || row.flaws || row.FLAWS || '');
     if (flawsText) {
       const flawNames = flawsText.split(',').map(f => f.trim());
-      let count = 1;
       for (const flawName of flawNames) {
         const masterFlaw = Object.keys(FLAWS).find(k => k.toLowerCase() === flawName.toLowerCase());
         if (masterFlaw) {
-          const mod = JSON.parse(JSON.stringify(FLAWS[masterFlaw]));
+          const mod = FLAWS[masterFlaw];
           if (mod.data.cout.rang) modCostPerRank -= mod.data.cout.value;
           if (mod.data.cout.fixe) flatCost -= mod.data.cout.value;
-          mod.data.type = 'defaut';
-          mod.details = true;
-          flawsObject[count] = mod;
-          count++;
         }
       }
     }
 
     const finalCostPerRank = Math.max(1, baseCostPerRank + modCostPerRank);
     const finalTotal = Math.max(1, (finalCostPerRank * baseRank) + flatCost);
+
+    // DYNAMIC TOGGLE LOGIC
+    let specialToggle = "simple";
+    const arrayType = (row.Array || row.array || "").trim().toLowerCase();
+    if (arrayType === "alternate") specialToggle = "alternatif";
+    if (arrayType === "dynamic") specialToggle = "dynamique";
 
     const headerInfo = `<p>Action: ${action.charAt(0).toUpperCase() + action.slice(1)} &bull; Range: ${range.charAt(0).toUpperCase() + range.slice(1)}<br>Duration: ${duration.charAt(0).toUpperCase() + duration.slice(1)} &bull; Cost: ${finalCostPerRank} point${finalCostPerRank > 1 ? 's' : ''} per rank</p>`;
     const notesHtml = headerInfo + `<p>${cleanDesc}</p>`;
@@ -153,28 +147,18 @@ async function buildPowers() {
       "system": {
         "type": systemType,
         "activate": true,
-        "special": "simple",
+        "special": specialToggle,
         "action": translationMap.action[action] || 'simple',
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
         "effetsprincipaux": "",
         "effets": effectsHtml,
         "notes": notesHtml,
-        "link": "",
-        "descripteurs": {},
-        "extras": extrasObject,
-        "defauts": flawsObject,
-        "effectsVarianteSelected": "",
-        "listEffectsVariantes": {},
-        "edit": true,
         "cout": {
-          "rangDyn": 0,
-          "rangDynMax": 0,
           "rang": baseRank,
           "parrang": baseCostPerRank,
           "total": finalTotal,
           "totalTheorique": finalTotal,
-          "divers": 0,
           "modrang": modCostPerRank,
           "modfixe": flatCost,
           "parrangtotal": "0"
@@ -319,6 +303,39 @@ async function buildVehicles() {
   await fs.writeFile(outFile, items.join('\n'));
 }
 
+async function buildHeadquarters() {
+  const csvFile = path.join(__dirname, '../src/headquarters/headquarters.csv');
+  const outFile = path.join(distDir, 'headquarters.db');
+  const rows = await readCsv(csvFile);
+  const items = [];
+
+  for (const row of rows) {
+    const name = (row.Name || row.name || "").trim();
+    if (!name) continue;
+
+    let hqInfo = `<b>[ HQ SPECS ]</b><br/>`;
+    hqInfo += `&bull; <b>Size:</b> ${row.Size}<br/>`;
+    hqInfo += `&bull; <b>Toughness:</b> ${row.Toughness}<br/>`;
+    if (row.Features) hqInfo += `&bull; <b>Features:</b> ${row.Features}<br/>`;
+    hqInfo += `<hr/>`;
+
+    const hqItem = {
+      "_id": Math.random().toString(36).substring(2, 18),
+      "name": name,
+      "type": "equipement",
+      "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
+      "system": {
+        "description": hqInfo + `<p>${row.Notes || ''}</p>`,
+        "cout": parseInt(row.Cost) || 1
+      },
+      "effects": [],
+      "flags": {}
+    };
+    items.push(JSON.stringify(hqItem));
+  }
+  await fs.writeFile(outFile, items.join('\n'));
+}
+
 async function buildModifiers(dataMap, fileName, subType) {
   const outFile = path.join(distDir, fileName);
   const items = [];
@@ -347,11 +364,11 @@ async function buildModifiers(dataMap, fileName, subType) {
 
 async function main() {
   await fs.ensureDir(distDir);
-  // Disabled auto-incrementer for milestone release v3.3.0
   await buildPowers();
   await buildAdvantages();
   await buildEquipment();
   await buildVehicles();
+  await buildHeadquarters();
   await buildModifiers(EXTRAS, 'extras.db', 'extra');
   await buildModifiers(FLAWS, 'flaws.db', 'defaut');
 }

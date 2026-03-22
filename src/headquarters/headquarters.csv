@@ -1,0 +1,13 @@
+Name,Size,Toughness,Cost,Features,Notes
+Abandoned Warehouse,Medium,8,2,Garage,"A simple warehouse hideout."
+Mansion,Large,8,3,Living Quarters,"A sprawling estate with secret rooms."
+Skyscraper (Penthouse),Large,10,4,Communications,"High-security city base."
+Sanctum Sanctorum,Medium,10,3,Library,"A mystical or high-tech library base."
+Secret Cave,Huge,8,4,Concealed,"Hidden underground lair."
+Orbital Station,Large,12,5,Sealed,"High-tech space station."
+Underwater Base,Huge,12,6,Sealed,"Reinforced deep-sea laboratory."
+Castle,Huge,10,5,Defense System,"Large ancient or modern fortress."
+Private Island,Colossal,8,6,Dock,"Isolated landmass base."
+Police Station,Large,10,4,Holding Cells,"Standard metropolitan precinct."
+Military Bunker,Medium,14,5,Reinforced,"Hardened underground survival base."
+Moon Base,Huge,12,7,Sealed,"Advanced lunar installation."

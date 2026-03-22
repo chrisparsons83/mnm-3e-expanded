@@ -1,0 +1,23 @@
+{
+  "name": "POINT RESETTER v3",
+  "type": "talent",
+  "img": "icons/svg/recycle.svg",
+  "system": {
+    "description": "<p>A high-priority tool to force PP usage to zero by overriding the system's calculated values.</p>"
+  },
+  "effects": [
+    {
+      "name": "Total Math Wipe",
+      "changes": [
+        { "key": "system.pp.used", "mode": 5, "value": "0", "priority": 1000 },
+        { "key": "system.pp.caracteristiques", "mode": 5, "value": "0", "priority": 1000 },
+        { "key": "system.pp.pouvoirs", "mode": 5, "value": "0", "priority": 1000 },
+        { "key": "system.pp.talents", "mode": 5, "value": "0", "priority": 1000 },
+        { "key": "system.pp.competences", "mode": 5, "value": "0", "priority": 1000 },
+        { "key": "system.pp.defenses", "mode": 5, "value": "0", "priority": 1000 }
+      ],
+      "disabled": false,
+      "transfer": true
+    }
+  ]
+}
