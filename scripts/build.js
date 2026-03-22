@@ -177,8 +177,8 @@ async function buildPowers() {
           "modfixe": flatCost,
           "parrangtotal": "0"
         },
-        "extras": extrasArray, // Use the array
-        "defauts": flawsArray  // Use the array
+        "extras": extrasArray,
+        "defauts": flawsArray
       },
       "effects": [],
       "flags": {}
