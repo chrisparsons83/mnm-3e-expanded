@@ -136,10 +136,10 @@ async function buildPowers() {
     let specialToggle = "simple"; // Default to Standard
     const arrayType = (row.Array || row.array || "").trim().toLowerCase();
     if (arrayType === "alternate" || arrayType === "alternatif") {
-      specialToggle = "alternate"; // Use English term
+      specialToggle = "alternatif"; // Use French term
     }
     if (arrayType === "dynamic" || arrayType === "dynamique") {
-      specialToggle = "dynamic"; // Use English term
+      specialToggle = "dynamique"; // Use French term
     }
 
     const headerInfo = `<p>Action: ${action.charAt(0).toUpperCase() + action.slice(1)} &bull; Range: ${range.charAt(0).toUpperCase() + range.slice(1)}<br>Duration: ${duration.charAt(0).toUpperCase() + duration.slice(1)} &bull; Cost: ${finalCostPerRank} point${finalCostPerRank > 1 ? 's' : ''} per rank</p>`;
@@ -186,7 +186,7 @@ async function buildPowers() {
     items.push(JSON.stringify(powerItem));
   }
   await fs.writeFile(outFile, items.join('
-'));
+')); // Corrected join argument
 }
 
 async function buildAdvantages() {
