@@ -415,8 +415,8 @@ async function buildModifiers(dataMap, fileName, subType) {
         "description": sanitizeText(mod.data.description),
         "rang": 1,
         "cout": {
-          "fixe": true, 
-          "rang": true, 
+          "fixe": mod.data.cout.fixe,
+          "rang": mod.data.cout.rang,
           "value": mod.data.cout.value
         }
       }

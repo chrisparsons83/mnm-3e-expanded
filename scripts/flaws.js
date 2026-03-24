@@ -10,7 +10,7 @@ const FLAWS = {
     name: "Activation",
     data: {
       description: "<p>A power with this flaw requires an action to prepare or activate before any of its effects are usable. Move action is –1 point, standard action is –2 points.</p><p>Flat -1 or -2 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Instant Recovery": {
@@ -24,7 +24,7 @@ const FLAWS = {
     name: "Check Required",
     data: {
       description: "<p>An effect with this flaw requires a check of some sort—usually a skill check—with a base difficulty of 10, +1 for each additional rank in Check Required.</p><p>–1 cost per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Concentration": {
@@ -38,7 +38,7 @@ const FLAWS = {
     name: "Diminished Range",
     data: {
       description: "<p>Each rank of this flaw reduces the effect’s range increments by one step.</p><p>Flat -1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Distracting": {
@@ -73,14 +73,14 @@ const FLAWS = {
     name: "Noticeable",
     data: {
       description: "<p>A continuous or permanent effect with this flaw is very noticeable (glows, makes a loud noise, etc.).</p><p>Flat -1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Quirk": {
     name: "Quirk",
     data: {
       description: "<p>A Quirk is a minor flaw, often something specific to a character or power, that doesn’t quite rise to the level of a full -1 cost per rank flaw.</p><p>Flat -1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Reduced Range": {
@@ -143,7 +143,7 @@ const FLAWS = {
     name: "Inaccurate",
     data: {
       description: "<p>An effect with this flaw is hard to control or wildly inaccurate. Each rank gives you a –2 penalty to attack checks.</p><p>Flat -1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Permanent": {
@@ -157,14 +157,14 @@ const FLAWS = {
     name: "Removable",
     data: {
       description: "<p>Removable applies to the power as a whole. The flaw is worth –1 point per 5 total power points.</p><p>Flat -1 point per 5 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Easily Removable": {
     name: "Easily Removable",
     data: {
       description: "<p>An easily removable power can be taken away with a disarm or grab action. The flaw is worth –2 points per 5 total power points.</p><p>Flat -2 points per 5 points.</p>",
-      cout: { fixe: true, rang: true, value: 2 }
+      cout: { fixe: true, rang: false, value: 2 }
     }
   }
 };

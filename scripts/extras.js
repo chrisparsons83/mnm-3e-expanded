@@ -31,21 +31,21 @@ const EXTRAS = {
     name: "Accurate",
     data: {
       description: "<p>An effect with this extra is especially accurate; you get +2 per Accurate rank to attack checks made with it.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Affects Corporeal": {
     name: "Affects Corporeal",
     data: {
       description: "<p>An incorporeal being can use an effect with this extra on the corporeal world. When an effect is used against a corporeal target, the effect’s rank is equal to the rank of this extra, up to a maximum of the effect’s full rank.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Affects Insubstantial": {
     name: "Affects Insubstantial",
     data: {
       description: "<p>An effect with this extra works on insubstantial targets, in addition to having its normal effect on corporeal targets. Rank 1 allows the effect to work at half its normal rank; rank 2 allows it to function at full rank.</p><p>Flat 1 or 2 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Affects Objects": {
@@ -66,7 +66,7 @@ const EXTRAS = {
     name: "Alternate Effect",
     data: {
       description: "<p>This modifier allows you to “swap-out” the effect for an entire other, alternate, effect!</p><p>Flat 1 or 2 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Area": {
@@ -129,28 +129,28 @@ const EXTRAS = {
     name: "Dimensional",
     data: {
       description: "<p>This modifier allows an effect to work on targets in other dimensions. Rank 1 affects one dimension, Rank 2 a related group, Rank 3 any dimension.</p><p>Flat 1-3 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Extended Range": {
     name: "Extended Range",
     data: {
       description: "<p>Each rank of Extended Range doubles all of the effect’s range categories.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Feature": {
     name: "Feature",
     data: {
       description: "<p>Adds some minor additional capability or benefit to a basic effect.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Homing": {
     name: "Homing",
     data: {
       description: "<p>This modifier grants a ranged effect an additional opportunity to hit if it misses.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Impervious": {
@@ -164,56 +164,56 @@ const EXTRAS = {
     name: "Increased Mass",
     data: {
       description: "<p>Each rank of this extra increases the mass rank you can carry or move with the effect by 1.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Incurable": {
     name: "Incurable",
     data: {
       description: "<p>Effects such as Healing and Regeneration cannot heal the damage caused by an effect with this modifier.</p><p>Flat 1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Indirect": {
     name: "Indirect",
     data: {
       description: "<p>A ranged effect with this modifier can originate from a point other than the user, ignoring cover.</p><p>Flat 1-4 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Innate": {
     name: "Innate",
     data: {
       description: "<p>An effect with this modifier is an innate part of your nature and unaffected by Nullify.</p><p>Flat 1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Insidious": {
     name: "Insidious",
     data: {
       description: "<p>This modifier makes the result of an effect harder to detect (DC 20 skill check).</p><p>Flat 1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Penetrating": {
     name: "Penetrating",
     data: {
       description: "<p>Your effect overcomes Impervious Resistance to a degree.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Precise": {
     name: "Precise",
     data: {
       description: "<p>You can use a Precise effect to perform tasks requiring delicacy and fine control.</p><p>Flat 1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Reach": {
     name: "Reach",
     data: {
       description: "<p>Each rank of this modifier to a close range effect extends its reach by 5 feet.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Reaction": {
@@ -227,14 +227,14 @@ const EXTRAS = {
     name: "Reversible",
     data: {
       description: "<p>You can remove conditions caused by a Reversible effect at will as a free action.</p><p>Flat 1 point.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Ricochet": {
     name: "Ricochet",
     data: {
       description: "<p>You can ricochet or bounce an attack effect off of a solid surface to change its direction.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Secondary Effect": {
@@ -262,14 +262,14 @@ const EXTRAS = {
     name: "Split",
     data: {
       description: "<p>A resistible effect that works on one target can be split between two or more targets.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Subtle": {
     name: "Subtle",
     data: {
       description: "<p>Subtle effects are not as noticeable. Rank 1 is difficult to notice, Rank 2 is undetectable.</p><p>Flat 1-2 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Sustained": {
@@ -283,14 +283,14 @@ const EXTRAS = {
     name: "Triggered",
     data: {
       description: "<p>You can “set” an instant duration effect to activate under particular circumstances.</p><p>Flat 1 point per rank.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   },
   "Variable Descriptor": {
     name: "Variable Descriptor",
     data: {
       description: "<p>You can change the descriptors of an effect with this modifier as a free action.</p><p>Flat 1-2 points.</p>",
-      cout: { fixe: true, rang: true, value: 1 }
+      cout: { fixe: true, rang: false, value: 1 }
     }
   }
 };
