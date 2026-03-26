@@ -1,0 +1,410 @@
+[
+  {
+    "_id": "hxdvxavgy74",
+    "name": "Limited Degree",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Your Affliction is limited to no more than two degrees of effect. With two applications of this modifier, it is limited to no more than one degree of effect.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "udfc92kghab",
+    "name": "Activation",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>A power with this flaw requires an action to prepare or activate before any of its effects are usable. Move action is –1 point, standard action is –2 points.</p><p>Flat -1 or -2 points.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": false,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "6oqbsexu9ub",
+    "name": "Instant Recovery",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>The target of an Affliction effect with this modifier recovers automatically, no check required, at the end of the round in which the duration ends.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "9mk5q1kzsvp",
+    "name": "Check Required",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An effect with this flaw requires a check of some sort—usually a skill check—with a base difficulty of 10, +1 for each additional rank in Check Required.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "28e1l4dlh2c",
+    "name": "Concentration",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Using a Concentration effect requires more concentration than normal. If you are unable to maintain your concentration, the effect ends.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "lfshbbofyom",
+    "name": "Diminished Range",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Each rank of this flaw reduces the effect’s range increments by one step.</p><p>Flat -1 point per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "8idgkhj748e",
+    "name": "Distracting",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Using a Distracting effect requires so much concentration or effort that you are vulnerable until the start of your next turn.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "qmc58ysdssk",
+    "name": "Grab-Based",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An attack with this flaw requires you to successfully grab and hold a target before the effect can be used.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "zdboclgrba",
+    "name": "Increased Action",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Each rank of this flaw increases the action required to use an effect by one step (Free to Move, Move to Standard, etc.).</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "pmbnrwpoemq",
+    "name": "Limited",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An effect with this flaw only works under certain circumstances, or has a significant restriction on its use.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "58fmpytnujv",
+    "name": "Noticeable",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>A continuous or permanent effect with this flaw is very noticeable (glows, makes a loud noise, etc.).</p><p>Flat -1 point.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": false,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "my98lm3ontq",
+    "name": "Quirk",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>A Quirk is a minor flaw, often something specific to a character or power, that doesn’t quite rise to the level of a full -1 cost per rank flaw.</p><p>Flat -1 point.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": false,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "e16hm64rxhv",
+    "name": "Reduced Range",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Each rank of this flaw reduces the range of an effect (Ranged to Close, etc.).</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "izt4zzs1oa",
+    "name": "Resistible",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An effect with this flaw allows an additional resistance check, or is resisted by a different defense than usual.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "0nt7dpo8yeq",
+    "name": "Sense-Dependent",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>The target must be able to perceive the effect with a particular sense for it to work.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "yxsinav02i",
+    "name": "Side Effect",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>If you fail to use the effect properly, or even if you succeed, you suffer a negative side effect.</p><p>–1 or –2 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "refeqkyyci",
+    "name": "Tiring",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Using the effect is physically or mentally taxing, causing you to become fatigued.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "7o1n42qj3zu",
+    "name": "Uncontrolled",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>You have no control over when the effect activates or what it does; the GM decides.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "ovotpibj3yq",
+    "name": "Unreliable",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An Unreliable effect only works some of the time (5 uses, or requires a check each time).</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "kan3tf6y7tq",
+    "name": "Feedback",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>You suffer damage when a manifestation of your effect is damaged.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "cvw36geo03a",
+    "name": "Inaccurate",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An effect with this flaw is hard to control or wildly inaccurate. Each rank gives you a –2 penalty to attack checks.</p><p>Flat -1 point per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "8aocrsvcwdr",
+    "name": "Permanent",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>A continuous effect with this flaw becomes permanent in duration. It cannot be turned off and cannot be improved using extra effort.</p><p>–1 cost per rank.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": false,
+        "rang": true,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "d41nneqg0nl",
+    "name": "Removable",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>Removable applies to the power as a whole. The flaw is worth –1 point per 5 total power points.</p><p>Flat -1 point per 5 points.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": false,
+        "value": 1
+      }
+    }
+  },
+  {
+    "_id": "hbmel7i96nl",
+    "name": "Easily Removable",
+    "type": "modificateur",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+    "system": {
+      "type": "defaut",
+      "description": "<p>An easily removable power can be taken away with a disarm or grab action. The flaw is worth –2 points per 5 total power points.</p><p>Flat -2 points per 5 points.</p>",
+      "rang": 1,
+      "edit": true,
+      "cout": {
+        "fixe": true,
+        "rang": false,
+        "value": 2
+      }
+    }
+  }
+]

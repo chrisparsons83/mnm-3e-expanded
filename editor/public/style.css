@@ -1,0 +1,310 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: #222;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+/* Sidebar */
+#sidebar {
+  width: 140px;
+  min-width: 140px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+}
+
+#sidebar h1 {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6c7086;
+  padding: 0 14px 10px;
+}
+
+.pack-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #cdd6f4;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+}
+
+.pack-btn:hover {
+  background: #313244;
+}
+
+.pack-btn.active {
+  background: #313244;
+  border-left-color: #89b4fa;
+  color: #89b4fa;
+  font-weight: 600;
+}
+
+/* List panel */
+#list-panel {
+  width: 260px;
+  min-width: 260px;
+  background: #fff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#list-header {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#search {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+#btn-new {
+  padding: 5px 10px;
+  background: #89b4fa;
+  color: #1e1e2e;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#btn-new:hover {
+  background: #74c7ec;
+}
+
+#entry-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#entry-list li {
+  padding: 9px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#entry-list li:hover {
+  background: #f0f4ff;
+}
+
+#entry-list li.selected {
+  background: #e8f0fe;
+  font-weight: 600;
+  color: #1a56db;
+}
+
+#list-empty {
+  padding: 20px 14px;
+  color: #888;
+  font-size: 13px;
+}
+
+/* Edit panel */
+#edit-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  background: #fafafa;
+}
+
+#edit-placeholder {
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+#edit-form {
+  max-width: 700px;
+}
+
+#edit-form h2 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.field input[type="text"],
+.field input[type="number"] {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.field input[type="text"]:focus,
+.field input[type="number"]:focus {
+  outline: none;
+  border-color: #89b4fa;
+}
+
+.field input[type="number"] {
+  width: 100px;
+}
+
+/* Checkbox rows */
+.field.field-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+  color: #333;
+}
+
+.field.field-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #89b4fa;
+}
+
+/* Inline fields row (cost fields) */
+.field.field-inline {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.field.field-inline > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Section divider */
+.section-divider {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+  margin: 20px 0 14px;
+}
+
+/* Quill editor */
+#f-description {
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  background: #fff;
+  min-height: 160px;
+  font-size: 13px;
+}
+
+.ql-toolbar {
+  border: 1px solid #ccc !important;
+  border-bottom: none !important;
+  border-radius: 4px 4px 0 0 !important;
+}
+
+.ql-container {
+  border: none !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+}
+
+.ql-editor {
+  min-height: 120px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#btn-save {
+  padding: 8px 20px;
+  background: #40a02b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#btn-save:hover {
+  background: #2d7a1f;
+}
+
+#btn-delete {
+  padding: 8px 16px;
+  background: #fff;
+  color: #d20f39;
+  border: 1px solid #d20f39;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#btn-delete:hover {
+  background: #fff5f5;
+}
+
+.save-status {
+  font-size: 12px;
+  color: #40a02b;
+  align-self: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.save-status.visible {
+  opacity: 1;
+}

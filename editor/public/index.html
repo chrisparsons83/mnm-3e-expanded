@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M&M 3e Pack Editor</title>
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside id="sidebar">
+    <h1>Packs</h1>
+    <div id="pack-list"></div>
+  </aside>
+
+  <div id="list-panel">
+    <div id="list-header">
+      <input id="search" type="search" placeholder="Search...">
+      <button id="btn-new">+ New</button>
+    </div>
+    <div id="list-empty" style="display:none">Select a pack</div>
+    <ul id="entry-list"></ul>
+  </div>
+
+  <div id="edit-panel">
+    <p id="edit-placeholder">Select an entry to edit</p>
+    <div id="edit-form" style="display:none">
+      <h2 id="edit-title"></h2>
+
+      <div class="field">
+        <label for="f-name">Name</label>
+        <input id="f-name" type="text">
+      </div>
+      <div class="field">
+        <label for="f-type">Type</label>
+        <input id="f-type" type="text">
+      </div>
+      <div class="field">
+        <label for="f-img">Image</label>
+        <input id="f-img" type="text">
+      </div>
+
+      <div class="section-divider">System</div>
+
+      <div class="field">
+        <label for="f-sys-type">System Type</label>
+        <input id="f-sys-type" type="text">
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <div id="f-description"></div>
+      </div>
+
+      <div class="field">
+        <label for="f-rang">Rang</label>
+        <input id="f-rang" type="number" min="0">
+      </div>
+
+      <div class="field field-row">
+        <label>
+          <input id="f-edit" type="checkbox">
+          Edit
+        </label>
+      </div>
+
+      <div class="section-divider">Cout (Cost)</div>
+
+      <div class="field field-inline">
+        <div>
+          <label for="f-cout-value">Value</label>
+          <input id="f-cout-value" type="number" min="0">
+        </div>
+        <div class="field field-row">
+          <label>
+            <input id="f-cout-fixe" type="checkbox">
+            Fixe (flat)
+          </label>
+        </div>
+        <div class="field field-row">
+          <label>
+            <input id="f-cout-rang" type="checkbox">
+            Rang (per rank)
+          </label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btn-save">Save</button>
+        <button id="btn-delete">Delete</button>
+        <span class="save-status" id="save-status">Saved</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

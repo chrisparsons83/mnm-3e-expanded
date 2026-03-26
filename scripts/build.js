@@ -2,8 +2,8 @@ const fs = require('fs-extra');
 const csv = require('csv-parser');
 const path = require('path');
 
-const EXTRAS = require('./extras');
-const FLAWS = require('./flaws');
+const EXTRAS = require('./extras.json');
+const FLAWS = require('./flaws.json');
 
 // M&M 3e French System Translation Mappings
 const translationMap = {
@@ -399,32 +399,9 @@ async function buildHeadquarters() {
   await fs.writeFile(outFile, items.join('\n'));
 }
 
-async function buildModifiers(dataMap, fileName, subType) {
+async function buildModifiers(items, fileName) {
   const outFile = path.join(distDir, fileName);
-  const items = [];
-
-  for (const key in dataMap) {
-    const mod = dataMap[key];
-    const modItem = {
-      "_id": Math.random().toString(36).substring(2, 18),
-      "name": mod.name,
-      "type": 'modificateur',
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
-      "system": {
-        "type": subType,
-        "description": sanitizeText(mod.data.description),
-        "rang": 1,
-        "edit": true,
-        "cout": {
-          "fixe": mod.data.cout.fixe,
-          "rang": mod.data.cout.rang,
-          "value": mod.data.cout.value
-        }
-      }
-    };
-    items.push(JSON.stringify(modItem));
-  }
-  await fs.writeFile(outFile, items.join('\n'));
+  await fs.writeFile(outFile, items.map(i => JSON.stringify(i)).join('\n'));
 }
 
 async function main() {
@@ -434,8 +411,8 @@ async function main() {
   await buildEquipment();
   await buildVehicles();
   await buildHeadquarters();
-  await buildModifiers(EXTRAS, 'extras.db', 'extra');
-  await buildModifiers(FLAWS, 'flaws.db', 'defaut');
+  await buildModifiers(EXTRAS, 'extras.db');
+  await buildModifiers(FLAWS, 'flaws.db');
 }
 
 main().catch(err => console.error(err));
