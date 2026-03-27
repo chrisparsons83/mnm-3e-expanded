@@ -6,7 +6,7 @@
     "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
     "system": {
       "type": "extra",
-      "description": "<p>Once you have hit with a Concentration Affliction, as long as you continue to take a standard action each turn to maintain the effect, the target must make a new resistance check against it, with no attack check required.</p><p>+1 cost per rank.</p>",
+      "description": "<p>Once you have hit with a Concentration Affliction, as long as you continue to take a standard action each turn to maintain the effect, the target must make a new resistance check against it, with no attack check required.</p><p><br></p><p>+1 cost per Power rank.</p>",
       "rang": 1,
       "edit": true,
       "cout": {
@@ -187,40 +187,6 @@
     }
   },
   {
-    "_id": "itgbd0e15gm",
-    "name": "Burst Area",
-    "type": "modificateur",
-    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
-    "system": {
-      "type": "extra",
-      "description": "<p>The effect fills a sphere with a 30-foot radius (distance rank 0).</p><p><br></p><p>+1 cost per Power rank.</p>",
-      "rang": 1,
-      "edit": true,
-      "cout": {
-        "fixe": false,
-        "rang": true,
-        "value": 1
-      }
-    }
-  },
-  {
-    "_id": "m5cd28xm6m",
-    "name": "Cone Area",
-    "type": "modificateur",
-    "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
-    "system": {
-      "type": "extra",
-      "description": "<p>The effect fills a cone with a length, width, and height of 60 feet (distance rank 1).</p><p>+1 cost per rank.</p>",
-      "rang": 1,
-      "edit": true,
-      "cout": {
-        "fixe": false,
-        "rang": true,
-        "value": 1
-      }
-    }
-  },
-  {
     "_id": "cjmtrxu4dm",
     "name": "Cylinder Area",
     "type": "modificateur",
@@ -278,7 +244,7 @@
     "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
     "system": {
       "type": "extra",
-      "description": "<p>Contagious effects work on both the target and anyone coming into contact with the target. New targets resist the effect normally.</p><p>+1 cost per rank.</p>",
+      "description": "<p>Contagious effects work on both the target and anyone coming into contact with the target. New targets resist the effect normally.</p><p><br></p><p>+1 cost per Power rank.</p>",
       "rang": 1,
       "edit": true,
       "cout": {
