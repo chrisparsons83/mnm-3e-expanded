@@ -53,12 +53,23 @@ async function buildPowers() {
     const baseRank = parseInt(row.Rank) || 1;
     const baseCostPerRank = parseInt(row.Cost) || 1;
     
+    // Map CSV Type to system.type
+    const rawType = (row.Power || row.power || row.TYPE || 'General').trim().toLowerCase();
+    let systemType = 'generaux';
+    if (rawType === 'attack') systemType = 'attaque';
+    else if (rawType === 'movement') systemType = 'mouvement';
+    else if (rawType === 'sensory') systemType = 'sensoriel';
+    else if (rawType === 'defense') systemType = 'defensif';
+    else if (rawType === 'control') systemType = 'generaux';
+
     return {
       "_id": createId(),
       "name": name,
       "type": "pouvoir",
       "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
       "system": {
+        "type": systemType,
+        "activate": true,
         "action": translationMap.action[action] || 'simple',
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
