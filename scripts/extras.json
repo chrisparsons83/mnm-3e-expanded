@@ -601,7 +601,7 @@
     "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
     "system": {
       "type": "extra",
-      "description": "<p>You can change the descriptors of an effect with this modifier as a free action.</p><p>Flat 1-2 points.</p>",
+      "description": "<p>You can change the descriptors of an effect with this modifier, varying them as a free action once per round. With rank 1, you can apply any of a closely related group of descriptors, such as weather, electromagnetic, temperature, and so forth. With rank 2, you can apply any of a broad group, such as any mental, magical, or technological descriptor. The GM decides if a given descriptor is appropriate in conjunction with a particular effect and this modifier</p><p><br></p><p>Flat 1-2 points. </p>",
       "rang": 1,
       "edit": true,
       "cout": {
