@@ -70,6 +70,7 @@ async function buildPowers() {
       "system": {
         "type": systemType,
         "activate": true,
+        "special": action,
         "action": translationMap.action[action] || 'simple',
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
