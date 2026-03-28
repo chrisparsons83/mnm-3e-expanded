@@ -55,8 +55,11 @@ async function buildPowers() {
     
     // Map CSV Type to system.type
     const rawType = (row.Power || row.power || row.TYPE || 'General').trim().toLowerCase();
+    const mechanics = (row.Mechanics || '').toLowerCase();
+    const description = (row.Description || '').toLowerCase();
+    
     let systemType = 'generaux';
-    if (rawType === 'attack') systemType = 'attaque';
+    if (rawType === 'attack' || mechanics.includes('attack check') || mechanics.includes('resistance check')) systemType = 'attaque';
     else if (rawType === 'movement') systemType = 'mouvement';
     else if (rawType === 'sensory') systemType = 'sensoriel';
     else if (rawType === 'defense') systemType = 'defensif';
@@ -70,7 +73,7 @@ async function buildPowers() {
       "system": {
         "type": systemType,
         "activate": true,
-        "special": action,
+        "special": translationMap.action[action] || 'simple',
         "action": translationMap.action[action] || 'simple',
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
