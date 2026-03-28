@@ -2,7 +2,7 @@
   "id": "mnm-3e-expanded",
   "title": "M&M 3e Expanded",
   "description": "A Comprehensive Library of Advantages, Powers, Effects, Flaws, and Items for Mutants & Masterminds 3e.",
-  "version": "3.3.15",
+  "version": "3.3.16",
   "authors": [
     {
       "name": "Davinchi"
@@ -39,30 +39,16 @@
       "system": "mutants-and-masterminds-3e"
     },
     {
-      "name": "expanded-extras-general",
-      "label": "M&M 3e Expanded: Extras - General",
-      "path": "packs/extras-general.db",
+      "name": "expanded-extras",
+      "label": "M&M 3e Expanded: Extras",
+      "path": "packs/extras.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
-      "name": "expanded-extras-unique",
-      "label": "M&M 3e Expanded: Extras - Unique",
-      "path": "packs/extras-unique.db",
-      "type": "Item",
-      "system": "mutants-and-masterminds-3e"
-    },
-    {
-      "name": "expanded-flaws-general",
-      "label": "M&M 3e Expanded: Flaws - General",
-      "path": "packs/flaws-general.db",
-      "type": "Item",
-      "system": "mutants-and-masterminds-3e"
-    },
-    {
-      "name": "expanded-flaws-unique",
-      "label": "M&M 3e Expanded: Flaws - Unique",
-      "path": "packs/flaws-unique.db",
+      "name": "expanded-flaws",
+      "label": "M&M 3e Expanded: Flaws",
+      "path": "packs/flaws.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },

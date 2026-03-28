@@ -2,10 +2,8 @@ const fs = require('fs-extra');
 const csv = require('csv-parser');
 const path = require('path');
 
-const EXTRAS_GENERAL = require('./extras.json');
-const EXTRAS_UNIQUE = require('./extras_unique.json');
-const FLAWS_GENERAL = require('./flaws.json');
-const FLAWS_UNIQUE = require('./flaws_unique.json');
+const EXTRAS = require('./extras.json');
+const FLAWS = require('./flaws.json');
 
 const translationMap = {
   type: { 'power': 'pouvoir', 'advantage': 'talent' },
@@ -165,10 +163,8 @@ async function main() {
   await buildEquipment();
   await buildVehicles();
   await buildHeadquarters();
-  await buildModifiers(EXTRAS_GENERAL, 'extras-general.db');
-  await buildModifiers(EXTRAS_UNIQUE, 'extras-unique.db');
-  await buildModifiers(FLAWS_GENERAL, 'flaws-general.db');
-  await buildModifiers(FLAWS_UNIQUE, 'flaws-unique.db');
+  await buildModifiers(EXTRAS, 'extras.db');
+  await buildModifiers(FLAWS, 'flaws.db');
   console.log("Build Complete: Reorganized Extras and Flaws.");
 }
 
