@@ -65,6 +65,8 @@ async function buildPowers() {
     else if (rawType === 'defense') systemType = 'defensif';
     else if (rawType === 'control') systemType = 'generaux';
 
+    const translatedAction = translationMap.action[action] || 'simple';
+
     return {
       "_id": createId(),
       "name": name,
@@ -73,8 +75,8 @@ async function buildPowers() {
       "system": {
         "type": systemType,
         "activate": true,
-        "special": action,
-        "action": translationMap.action[action] || 'simple',
+        "special": translatedAction,
+        "action": translatedAction,
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
         "notes": `<p>${sanitizeText(row.Description)}</p>`,
@@ -88,6 +90,7 @@ async function buildPowers() {
         "effectsVarianteSelected": "",
         "listEffectsVariantes": {},
         "edit": false,
+        "carac": 0,
         "cout": { 
           "rang": baseRank, 
           "parrang": baseCostPerRank, 
