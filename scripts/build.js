@@ -14,6 +14,21 @@ const translationMap = {
 
 const distDir = path.join(__dirname, '../mnm-3e-expanded/packs');
 
+// Read existing .db file and build a name-to-ID map for ID stability across rebuilds
+async function loadExistingIds(packName) {
+  const dbFile = path.join(distDir, `${packName}.db`);
+  const idMap = {};
+  if (!fs.existsSync(dbFile)) return idMap;
+  const lines = (await fs.readFile(dbFile, 'utf-8')).split('\n').filter(Boolean);
+  for (const line of lines) {
+    try {
+      const doc = JSON.parse(line);
+      if (doc.name && doc._id) idMap[doc.name] = doc._id;
+    } catch (e) { /* skip malformed lines */ }
+  }
+  return idMap;
+}
+
 async function readCsv(filePath) {
   return new Promise((resolve, reject) => {
     const results = [];
@@ -42,6 +57,7 @@ async function savePack(packName, documents) {
 }
 
 async function buildPowers() {
+  const existingIds = await loadExistingIds('powers');
   const rows = await readCsv(path.join(__dirname, '../1st Powers Input.csv'));
   const items = rows.map(row => {
     const rawName = row.Name || row.name || row.NAME;
@@ -68,14 +84,14 @@ async function buildPowers() {
     const translatedAction = translationMap.action[action] || 'simple';
 
     return {
-      "_id": createId(),
+      "_id": existingIds[name] || createId(),
       "name": name,
       "type": "pouvoir",
       "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
       "system": {
         "type": systemType,
         "activate": true,
-        "special": translatedAction, // Special should also be translated
+        "special": "standard",
         "action": translatedAction,
         "portee": translationMap.range[range] || 'contact',
         "duree": translationMap.duration[duration] || 'instantane',
@@ -120,12 +136,13 @@ async function buildPowers() {
 }
 
 async function buildAdvantages() {
+  const existingIds = await loadExistingIds('advantages');
   const rows = await readCsv(path.join(__dirname, '../Advantages.csv'));
   const items = rows.map(row => {
     const name = (row.Name || "").trim();
     if (!name) return null;
     return {
-      "_id": createId(),
+      "_id": existingIds[name] || createId(),
       "name": name,
       "type": "talent",
       "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
@@ -138,6 +155,7 @@ async function buildAdvantages() {
 }
 
 async function buildEquipment() {
+  const existingIds = await loadExistingIds('equipment');
   const categories = ['melee', 'ranged', 'armor', 'utility'];
   const allDocs = [];
   for (const cat of categories) {
@@ -146,7 +164,7 @@ async function buildEquipment() {
       const name = (row.Name || "").trim();
       if (!name) continue;
       allDocs.push({
-        "_id": createId(),
+        "_id": existingIds[name] || createId(),
         "name": name,
         "type": "equipement",
         "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
@@ -160,13 +178,14 @@ async function buildEquipment() {
 }
 
 async function buildVehicles() {
+  const existingIds = await loadExistingIds('vehicles');
   const rows = await readCsv(path.join(__dirname, '../src/vehicles/vehicles.csv'));
   const allDocs = [];
   for (const row of rows) {
     const name = (row.Name || "").trim();
     if (!name) continue;
     allDocs.push({
-      "_id": createId(),
+      "_id": existingIds[name] || createId(),
       "name": name,
       "type": "equipement",
       "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
@@ -179,13 +198,14 @@ async function buildVehicles() {
 }
 
 async function buildHeadquarters() {
+  const existingIds = await loadExistingIds('headquarters');
   const rows = await readCsv(path.join(__dirname, '../src/headquarters/headquarters.csv'));
   const allDocs = [];
   for (const row of rows) {
     const name = (row.Name || "").trim();
     if (!name) continue;
     allDocs.push({
-      "_id": createId(),
+      "_id": existingIds[name] || createId(),
       "name": name,
       "type": "equipement",
       "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",

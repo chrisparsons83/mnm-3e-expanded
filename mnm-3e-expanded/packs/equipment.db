@@ -29,7 +29,7 @@
 {"_id":"b7z0jatmz3w","name":"Flamethrower","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Cone or Line Area Damage.</p>","cout":13},"effects":[],"flags":{}}
 {"_id":"u6n59rufkb","name":"Grenade Launcher","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Burst Area Ranged Damage.</p>","cout":15},"effects":[],"flags":{}}
 {"_id":"rs71oqk08pp","name":"Rocket Launcher","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Explosive Burst Area.</p>","cout":27},"effects":[],"flags":{}}
-{"_id":"5zkp5nkhlwt","name":"Bolos","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Snare effect.</p>","cout":6},"effects":[],"flags":{}}
+{"_id":"on0vyk0g8d","name":"Bolos","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Snare effect.</p>","cout":6},"effects":[],"flags":{}}
 {"_id":"d9as0qp22fh","name":"Boomerang","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Strength-based damage.</p>","cout":2},"effects":[],"flags":{}}
 {"_id":"grl02t4g1oi","name":"Javelin","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Strength-based damage.</p>","cout":4},"effects":[],"flags":{}}
 {"_id":"9fkcu2x8bzw","name":"Shuriken","type":"equipement","img":"systems/mutants-and-masterminds-3e/assets/icons/equipement.svg","system":{"description":"<p>Multiattack thrown weapon.</p>","cout":3},"effects":[],"flags":{}}
