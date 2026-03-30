@@ -4,6 +4,7 @@ const path = require('path');
 
 const EXTRAS = require('./extras.json');
 const FLAWS = require('./flaws.json');
+const ADVANTAGES = require('./advantages.json');
 
 const translationMap = {
   type: { 'power': 'pouvoir', 'advantage': 'talent' },
@@ -135,25 +136,6 @@ async function buildPowers() {
   await savePack('powers', items);
 }
 
-async function buildAdvantages() {
-  const existingIds = await loadExistingIds('advantages');
-  const rows = await readCsv(path.join(__dirname, '../Advantages.csv'));
-  const items = rows.map(row => {
-    const name = (row.Name || "").trim();
-    if (!name) return null;
-    return {
-      "_id": existingIds[name] || createId(),
-      "name": name,
-      "type": "talent",
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
-      "system": { "description": `<p>${sanitizeText(row.Description)}</p>`, "rang": parseInt(row.Ranks) || 1 },
-      "effects": [],
-      "flags": {}
-    };
-  }).filter(Boolean);
-  await savePack('advantages', items);
-}
-
 async function buildEquipment() {
   const existingIds = await loadExistingIds('equipment');
   const categories = ['melee', 'ranged', 'armor', 'utility'];
@@ -225,7 +207,7 @@ async function buildModifiers(items, fileName) {
 async function main() {
   await fs.ensureDir(distDir);
   await buildPowers();
-  await buildAdvantages();
+  await buildModifiers(ADVANTAGES, 'advantages.db');
   await buildEquipment();
   await buildVehicles();
   await buildHeadquarters();

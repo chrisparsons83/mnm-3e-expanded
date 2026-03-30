@@ -1,0 +1,890 @@
+[
+  {
+    "_id": "4ioyywxpi14",
+    "name": "Accurate Attack",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>When you make an accurate attack, you can take a penalty of up to –5 on the effect modifier of the attack and add the same number (up to +5) to your attack bonus.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "rxtl1wa5k1",
+    "name": "Agile Feint",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You can use your Acrobatics bonus or movement speed rank in place of Deception to feint and trick in combat.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "f2p7shnprob",
+    "name": "All-out Attack",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>When you make an all-out attack, you can take a penalty of up to –5 on your active defenses (Dodge and Parry) and add the same number (up to +5) to your attack bonus.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "s6ym2skwqwd",
+    "name": "Improved Initiative",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+4 bonus to initiative checks per rank.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "uvn6m6cgvsr",
+    "name": "Iron Will",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+2 circumstance bonus on Will resistance checks.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "5lof8mwsv6k",
+    "name": "Great Endurance",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+5 bonus on checks to avoid fatigue and to hold your breath.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "b4kp9sm7yp",
+    "name": "Evasion",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+2 circumstance bonus to Dodge checks to avoid area effects. Rank 2 increases bonus to +5.</p>",
+      "rang": 2
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "wm82wq198pr",
+    "name": "Attractive",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+2 circumstance bonus on Deception and Persuasion checks (+5 for rank 2).</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "hctxp6hr4x",
+    "name": "Eidetic Memory",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Perfect recall. +5 circumstance bonus on memory checks. Can make Expertise checks as if trained.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "qy0mbuhxznc",
+    "name": "Animal Empathy",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You have a special connection with animals. You can use interaction skills on animals normally.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "w0r1ftux7ij",
+    "name": "Artificer",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You can use the Expertise: Magic skill to create temporary magical devices.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "cczkv07erb4",
+    "name": "Assessment",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You can use Insight to able to judge an opponent’s relative combat capabilities.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ouqzva3x8w",
+    "name": "Beginner's Luck",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>By spending a hero point, you gain an effective 5 ranks in a skill in which you currently have 0 ranks.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "mykz9geo8kq",
+    "name": "Benefit",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You have some significant social or structural benefit, such as wealth, status, or a secret identity.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "jf4ingrdl0e",
+    "name": "Chokehold",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>If you successfully grab and maintain a hold on an opponent, you can suffocate them.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "dbeugpv88v",
+    "name": "Connected",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You know people who can help you out. You can call in favors by making a Persuasion check.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ydvenpaweom",
+    "name": "Contacts",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You have extensive contacts. You can make an Investigation check to gather information in only one minute.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ryn8q6wtm2",
+    "name": "Daze",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You can make a Deception or Intimidation check as a standard action to cause an opponent to hesitate in combat.</p>",
+      "rang": 2
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "sfvtu1mnt1i",
+    "name": "Defensive Attack",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Trade up to -5 attack bonus for an equal bonus (+5) to active defenses.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "e00c0f5hggq",
+    "name": "Defensive Roll",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Receive a bonus to Toughness equal to rank. This is an active defense and is lost if vulnerable or defenseless.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "h2pji1xsvs",
+    "name": "Diehard",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Automatically stabilize on the round after your condition becomes dying.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "xuve8qrm6be",
+    "name": "Equipment",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You have 5 points per rank to spend on equipment, vehicles, and headquarters.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "36e8507rkwf",
+    "name": "Extraordinary Effort",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Gain two benefits of extra effort at once, but you become exhausted on the following turn.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "wl3jjwcrc6",
+    "name": "Fascinate",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>One interaction skill captures attention. Target is entranced if check succeeds.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "m2xg96l3wgg",
+    "name": "Fast Grab",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Make a free grab check after hitting with an unarmed attack.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "u7wqyo88e0n",
+    "name": "Favored Environment",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+2 circumstance bonus to attack or active defense in a specific environment.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "whu6pyt571",
+    "name": "Favored Foe",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+2 circumstance bonus on interaction and perception checks against a particular type of opponent.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "u2skbt9hpom",
+    "name": "Fearless",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You are immune to fear effects.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "bhenke6bs5g",
+    "name": "Grabbing Finesse",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Dexterity bonus instead of Strength bonus to make grab attacks.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "zq3tmsymo5",
+    "name": "Hide in Plain Sight",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Hide without a Deception or Intimidation check or diversion.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "qgy0d0qz52s",
+    "name": "Improved Aim",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Double circumstance bonuses for aiming: +10 close, +5 ranged.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "vt3o5iebw8",
+    "name": "Improved Critical",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Increase critical threat range with a chosen attack by 1 per rank.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "jvw47dovdwb",
+    "name": "Improved Defense",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+2 circumstance bonus to active defenses when using the defend action.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "umlvutamqzj",
+    "name": "Improved Disarm",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>No penalty to attack check to disarm and no counter-disarm attempt.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "0fqj2kw8vzww",
+    "name": "Improved Grab",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Make grabs with one arm. Not vulnerable while grabbing.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "5lg5glf2mf8",
+    "name": "Improved Hold",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>-5 circumstance penalty to escape your holds.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "t28mi1oi85e",
+    "name": "Improved Smash",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>No penalty to attack checks to hit an object held by another character.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "zxrtk8u3cuo",
+    "name": "Improved Trip",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>No penalty to trip and no counter-trip. You choose the defense used.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "5840zffgvls",
+    "name": "Improvised Tools",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Ignore penalty for using skills without tools. Only -2 with no tools at all.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ohd2lrpdjom",
+    "name": "Improvised Weapon",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Unarmed skill for improvised weapons. +1 damage per rank.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "xgcsbjdqrg",
+    "name": "Inspire",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Spend hero point to give allies +1 circumstance bonus per rank on all checks.</p>",
+      "rang": 5
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "zl9h0a631gm",
+    "name": "Instant Up",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Stand from prone as a free action without an Acrobatics check.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "8p8y4aw0r0n",
+    "name": "Interpose",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Once per round, take the hit for an adjacent ally hit by an attack.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "nww2gzueiji",
+    "name": "Inventor",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Technology skill to create inventions.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "crkcbi6k7a4",
+    "name": "Jack-of-all-trades",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use any skill untrained.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "khib42urfws",
+    "name": "Languages",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Speak and understand additional languages.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "3bfm5hgygwp",
+    "name": "Leadership",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Spend hero point to remove dazed, fatigued, or stunned from an ally.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "jafxwcjymt8",
+    "name": "Luck",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Re-roll a die roll once per round, up to rank times per session.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "7438v9yqyec",
+    "name": "Minion",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You have a follower with (rank x 15) power points.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "tt4l3ohooq",
+    "name": "Move-by Action",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Move both before and after your standard action.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "1ie8p1skm3m",
+    "name": "Power Attack",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Trade up to -5 attack bonus for up to +5 effect bonus.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "8c39mlkm8ot",
+    "name": "Precise Attack",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Ignore cover or concealment penalties for close or ranged attacks.</p>",
+      "rang": 4
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "eobapyvkxik",
+    "name": "Prone Fighting",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>No penalty to attack checks while prone; adjacent attackers gain no bonus.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "sxq5g0yvf5a",
+    "name": "Quick Draw",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Draw a weapon as a free action.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "84fnkyxbkb2",
+    "name": "Ranged Attack",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+1 bonus to ranged attack checks per rank.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "4wjq16m17wu",
+    "name": "Redirect",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Redirect a missed attack against you at an adjacent target if you trick the attacker.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "fpd2wcvl1e",
+    "name": "Ritualist",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Expertise: Magic skill to create and cast magical rituals.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ks98ise091h",
+    "name": "Second Chance",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Re-roll a failed check against a specific hazard or skill.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "mwqs0wuz0wi",
+    "name": "Seize Initiative",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Spend hero point to automatically go first in initiative order.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "f06mh24dgg",
+    "name": "Set-up",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Transfer the benefits of an interaction skill in combat to one ally per rank.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "l97s0gdvq4n",
+    "name": "Sidekick",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>You have a partner with (rank x 5) power points.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "f77hs7a8mm6",
+    "name": "Skill Mastery",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Make routine checks with a chosen skill even under pressure.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "8a4hq8ni013",
+    "name": "Startle",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Intimidation rather than Deception to feint in combat.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "myobkf28hsg",
+    "name": "Takedown",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Free extra attack against adjacent minion after incapacitating one. Rank 2 allows movement.</p>",
+      "rang": 2
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "g5153eftfih",
+    "name": "Taunt",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Deception rather than Intimidation to demoralize in combat.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "1zpt7ea74p4",
+    "name": "Teamwork",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+5 circumstance bonus to support team checks and aid actions.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ygj3trfi8o7",
+    "name": "Throwing Mastery",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>+1 damage bonus with thrown weapons per rank.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "whp402qdeb",
+    "name": "Tracking",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Use Perception skill to visually follow tracks.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ah9bbhd32pg",
+    "name": "Trance",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Slip into a deep trance with a minute of meditation and an Awareness check.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "dh8vhkcp9wh",
+    "name": "Ultimate Effort",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Spend a hero point to treat a specific check result as a 20.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "ppz61ys1u4",
+    "name": "Uncanny Dodge",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Not vulnerable when surprised or caught off-guard.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "vttivx6qi1f",
+    "name": "Weapon Bind",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Make a disarm attempt as a reaction after a successful defense.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "xnszvkwgfv",
+    "name": "Weapon Break",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Make an attack against an attacker's weapon as a reaction after a successful defense.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  },
+  {
+    "_id": "g3d46828t8",
+    "name": "Well-informed",
+    "type": "talent",
+    "img": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+    "system": {
+      "notes": "<p>Immediate Investigation or Persuasion check to see what you know about a subject.</p>",
+      "rang": 1
+    },
+    "effects": [],
+    "flags": {}
+  }
+]

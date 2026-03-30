@@ -7,7 +7,7 @@ app.use(express.json());
 
 const PACKS_DIR = path.join(__dirname, '../mnm-3e-expanded/packs');
 const SCRIPTS_DIR = path.join(__dirname, '../scripts');
-const PACKS = ['extras', 'flaws'];
+const PACKS = ['extras', 'flaws', 'advantages'];
 
 const readPack = async (pack) => {
   const content = await fs.readFile(path.join(SCRIPTS_DIR, `${pack}.json`), 'utf8');

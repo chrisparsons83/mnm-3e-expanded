@@ -54,6 +54,10 @@ async function loadPacks() {
   }
 }
 
+function isAdvantagesPack() {
+  return state.pack === 'advantages';
+}
+
 async function selectPack(pack) {
   state.pack = pack;
   state.selected = null;
@@ -64,6 +68,13 @@ async function selectPack(pack) {
 
   editForm.style.display = 'none';
   editPlaceholder.style.display = '';
+
+  // Toggle modifier-only fields
+  const isAdv = pack === 'advantages';
+  document.querySelectorAll('.modifier-only').forEach(el => {
+    el.style.display = isAdv ? 'none' : '';
+  });
+  document.getElementById('desc-label').textContent = isAdv ? 'Notes' : 'Description';
 
   try {
     const res = await fetch(`${API}/packs/${pack}`);
@@ -126,7 +137,7 @@ function selectEntry(entry) {
   fCoutRang.checked = !!cout.rang;
   fCoutValue.value = cout.value ?? 1;
 
-  quill.clipboard.dangerouslyPasteHTML(sys.description || '');
+  quill.clipboard.dangerouslyPasteHTML((isAdvantagesPack() ? sys.notes : sys.description) || '');
 
   editForm.style.display = '';
   editPlaceholder.style.display = 'none';
@@ -135,12 +146,14 @@ function selectEntry(entry) {
 async function saveEntry() {
   if (!state.selected || !state.pack) return;
 
-  const updated = {
-    ...state.selected,
-    name: fName.value.trim(),
-    type: fType.value.trim(),
-    img: fImg.value.trim(),
-    system: {
+  let system;
+  if (isAdvantagesPack()) {
+    system = {
+      notes: quill.root.innerHTML,
+      rang: parseInt(fRang.value, 10) || 0,
+    };
+  } else {
+    system = {
       type: fSysType.value.trim(),
       description: quill.root.innerHTML,
       rang: parseInt(fRang.value, 10) || 0,
@@ -150,7 +163,15 @@ async function saveEntry() {
         rang: fCoutRang.checked,
         value: parseInt(fCoutValue.value, 10) || 0,
       },
-    },
+    };
+  }
+
+  const updated = {
+    ...state.selected,
+    name: fName.value.trim(),
+    type: fType.value.trim(),
+    img: fImg.value.trim(),
+    system,
   };
 
   try {
@@ -182,18 +203,30 @@ async function saveEntry() {
 async function newEntry() {
   if (!state.pack) return;
 
-  const defaults = {
-    name: 'New Entry',
-    type: 'modificateur',
-    img: 'systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg',
-    system: {
-      type: state.pack === 'extras' ? 'extra' : 'defaut',
-      description: '',
-      rang: 1,
-      edit: true,
-      cout: { fixe: false, rang: true, value: 1 },
-    },
-  };
+  let defaults;
+  if (isAdvantagesPack()) {
+    defaults = {
+      name: 'New Advantage',
+      type: 'talent',
+      img: 'systems/mutants-and-masterminds-3e/assets/icons/talent.svg',
+      system: { notes: '', rang: 1 },
+      effects: [],
+      flags: {},
+    };
+  } else {
+    defaults = {
+      name: 'New Entry',
+      type: 'modificateur',
+      img: 'systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg',
+      system: {
+        type: state.pack === 'extras' ? 'extra' : 'defaut',
+        description: '',
+        rang: 1,
+        edit: true,
+        cout: { fixe: false, rang: true, value: 1 },
+      },
+    };
+  }
 
   try {
     const res = await fetch(`${API}/packs/${state.pack}`, {
