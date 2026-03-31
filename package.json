@@ -1,6 +1,6 @@
 {
   "name": "mnm-3e-expanded",
-  "version": "3.3.35",
+  "version": "3.3.36",
   "description": "Build pipeline for M&M 3e Foundry Compendiums",
   "author": "Davinchi",
   "main": "index.js",

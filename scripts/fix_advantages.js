@@ -10,17 +10,15 @@ async function fixAdvantages() {
     if (adv.system) {
       const descText = adv.system.notes || (typeof adv.system.description === 'string' ? adv.system.description : (adv.system.description?.value || ''));
       
-      // Support both styles
+      // Both as plain strings
       adv.system.notes = descText;
-      adv.system.description = {
-        value: descText
-      };
+      adv.system.description = descText;
     }
     return adv;
   });
   
   await fs.writeJson(jsonPath, fixed, { spaces: 2 });
-  console.log(`Updated ${fixed.length} advantages to have system.description.value and system.notes.`);
+  console.log(`Updated ${fixed.length} advantages to have system.description and system.notes as strings.`);
 }
 
 fixAdvantages();

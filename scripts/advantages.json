@@ -7,9 +7,7 @@
     "system": {
       "notes": "<p>When you make an accurate attack, you can take a penalty of up to –5 on the effect modifier of the attack and add the same number (up to +5) to your attack bonus.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>When you make an accurate attack, you can take a penalty of up to –5 on the effect modifier of the attack and add the same number (up to +5) to your attack bonus.</p>"
-      }
+      "description": "<p>When you make an accurate attack, you can take a penalty of up to –5 on the effect modifier of the attack and add the same number (up to +5) to your attack bonus.</p>"
     },
     "effects": [],
     "flags": {}
@@ -22,9 +20,7 @@
     "system": {
       "notes": "<p>You can use your Acrobatics bonus or movement speed rank in place of Deception to feint and trick in combat.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You can use your Acrobatics bonus or movement speed rank in place of Deception to feint and trick in combat.</p>"
-      }
+      "description": "<p>You can use your Acrobatics bonus or movement speed rank in place of Deception to feint and trick in combat.</p>"
     },
     "effects": [],
     "flags": {}
@@ -37,9 +33,7 @@
     "system": {
       "notes": "<p>When you make an all-out attack, you can take a penalty of up to –5 on your active defenses (Dodge and Parry) and add the same number (up to +5) to your attack bonus.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>When you make an all-out attack, you can take a penalty of up to –5 on your active defenses (Dodge and Parry) and add the same number (up to +5) to your attack bonus.</p>"
-      }
+      "description": "<p>When you make an all-out attack, you can take a penalty of up to –5 on your active defenses (Dodge and Parry) and add the same number (up to +5) to your attack bonus.</p>"
     },
     "effects": [],
     "flags": {}
@@ -52,9 +46,7 @@
     "system": {
       "notes": "<p>+4 bonus to initiative checks per rank.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+4 bonus to initiative checks per rank.</p>"
-      }
+      "description": "<p>+4 bonus to initiative checks per rank.</p>"
     },
     "effects": [],
     "flags": {}
@@ -67,9 +59,7 @@
     "system": {
       "notes": "<p>+2 circumstance bonus on Will resistance checks.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+2 circumstance bonus on Will resistance checks.</p>"
-      }
+      "description": "<p>+2 circumstance bonus on Will resistance checks.</p>"
     },
     "effects": [],
     "flags": {}
@@ -82,9 +72,7 @@
     "system": {
       "notes": "<p>+5 bonus on checks to avoid fatigue and to hold your breath.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+5 bonus on checks to avoid fatigue and to hold your breath.</p>"
-      }
+      "description": "<p>+5 bonus on checks to avoid fatigue and to hold your breath.</p>"
     },
     "effects": [],
     "flags": {}
@@ -97,9 +85,7 @@
     "system": {
       "notes": "<p>+2 circumstance bonus to Dodge checks to avoid area effects. Rank 2 increases bonus to +5.</p>",
       "rang": 2,
-      "description": {
-        "value": "<p>+2 circumstance bonus to Dodge checks to avoid area effects. Rank 2 increases bonus to +5.</p>"
-      }
+      "description": "<p>+2 circumstance bonus to Dodge checks to avoid area effects. Rank 2 increases bonus to +5.</p>"
     },
     "effects": [],
     "flags": {}
@@ -112,9 +98,7 @@
     "system": {
       "notes": "<p>+2 circumstance bonus on Deception and Persuasion checks (+5 for rank 2).</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+2 circumstance bonus on Deception and Persuasion checks (+5 for rank 2).</p>"
-      }
+      "description": "<p>+2 circumstance bonus on Deception and Persuasion checks (+5 for rank 2).</p>"
     },
     "effects": [],
     "flags": {}
@@ -127,9 +111,7 @@
     "system": {
       "notes": "<p>Perfect recall. +5 circumstance bonus on memory checks. Can make Expertise checks as if trained.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Perfect recall. +5 circumstance bonus on memory checks. Can make Expertise checks as if trained.</p>"
-      }
+      "description": "<p>Perfect recall. +5 circumstance bonus on memory checks. Can make Expertise checks as if trained.</p>"
     },
     "effects": [],
     "flags": {}
@@ -142,9 +124,7 @@
     "system": {
       "notes": "<p>You have a special connection with animals. You can use interaction skills on animals normally.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You have a special connection with animals. You can use interaction skills on animals normally.</p>"
-      }
+      "description": "<p>You have a special connection with animals. You can use interaction skills on animals normally.</p>"
     },
     "effects": [],
     "flags": {}
@@ -157,9 +137,7 @@
     "system": {
       "notes": "<p>You can use the Expertise: Magic skill to create temporary magical devices.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You can use the Expertise: Magic skill to create temporary magical devices.</p>"
-      }
+      "description": "<p>You can use the Expertise: Magic skill to create temporary magical devices.</p>"
     },
     "effects": [],
     "flags": {}
@@ -172,9 +150,7 @@
     "system": {
       "notes": "<p>You can use Insight to able to judge an opponent’s relative combat capabilities.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You can use Insight to able to judge an opponent’s relative combat capabilities.</p>"
-      }
+      "description": "<p>You can use Insight to able to judge an opponent’s relative combat capabilities.</p>"
     },
     "effects": [],
     "flags": {}
@@ -187,9 +163,7 @@
     "system": {
       "notes": "<p>By spending a hero point, you gain an effective 5 ranks in a skill in which you currently have 0 ranks.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>By spending a hero point, you gain an effective 5 ranks in a skill in which you currently have 0 ranks.</p>"
-      }
+      "description": "<p>By spending a hero point, you gain an effective 5 ranks in a skill in which you currently have 0 ranks.</p>"
     },
     "effects": [],
     "flags": {}
@@ -202,9 +176,7 @@
     "system": {
       "notes": "<p>You have some significant social or structural benefit, such as wealth, status, or a secret identity.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You have some significant social or structural benefit, such as wealth, status, or a secret identity.</p>"
-      }
+      "description": "<p>You have some significant social or structural benefit, such as wealth, status, or a secret identity.</p>"
     },
     "effects": [],
     "flags": {}
@@ -217,9 +189,7 @@
     "system": {
       "notes": "<p>If you successfully grab and maintain a hold on an opponent, you can suffocate them.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>If you successfully grab and maintain a hold on an opponent, you can suffocate them.</p>"
-      }
+      "description": "<p>If you successfully grab and maintain a hold on an opponent, you can suffocate them.</p>"
     },
     "effects": [],
     "flags": {}
@@ -232,9 +202,7 @@
     "system": {
       "notes": "<p>You know people who can help you out. You can call in favors by making a Persuasion check.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You know people who can help you out. You can call in favors by making a Persuasion check.</p>"
-      }
+      "description": "<p>You know people who can help you out. You can call in favors by making a Persuasion check.</p>"
     },
     "effects": [],
     "flags": {}
@@ -247,9 +215,7 @@
     "system": {
       "notes": "<p>You have extensive contacts. You can make an Investigation check to gather information in only one minute.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You have extensive contacts. You can make an Investigation check to gather information in only one minute.</p>"
-      }
+      "description": "<p>You have extensive contacts. You can make an Investigation check to gather information in only one minute.</p>"
     },
     "effects": [],
     "flags": {}
@@ -262,9 +228,7 @@
     "system": {
       "notes": "<p>You can make a Deception or Intimidation check as a standard action to cause an opponent to hesitate in combat.</p>",
       "rang": 2,
-      "description": {
-        "value": "<p>You can make a Deception or Intimidation check as a standard action to cause an opponent to hesitate in combat.</p>"
-      }
+      "description": "<p>You can make a Deception or Intimidation check as a standard action to cause an opponent to hesitate in combat.</p>"
     },
     "effects": [],
     "flags": {}
@@ -277,9 +241,7 @@
     "system": {
       "notes": "<p>Trade up to -5 attack bonus for an equal bonus (+5) to active defenses.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Trade up to -5 attack bonus for an equal bonus (+5) to active defenses.</p>"
-      }
+      "description": "<p>Trade up to -5 attack bonus for an equal bonus (+5) to active defenses.</p>"
     },
     "effects": [],
     "flags": {}
@@ -292,9 +254,7 @@
     "system": {
       "notes": "<p>Receive a bonus to Toughness equal to rank. This is an active defense and is lost if vulnerable or defenseless.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Receive a bonus to Toughness equal to rank. This is an active defense and is lost if vulnerable or defenseless.</p>"
-      }
+      "description": "<p>Receive a bonus to Toughness equal to rank. This is an active defense and is lost if vulnerable or defenseless.</p>"
     },
     "effects": [],
     "flags": {}
@@ -307,9 +267,7 @@
     "system": {
       "notes": "<p>Automatically stabilize on the round after your condition becomes dying.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Automatically stabilize on the round after your condition becomes dying.</p>"
-      }
+      "description": "<p>Automatically stabilize on the round after your condition becomes dying.</p>"
     },
     "effects": [],
     "flags": {}
@@ -322,9 +280,7 @@
     "system": {
       "notes": "<p>You have 5 points per rank to spend on equipment, vehicles, and headquarters.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You have 5 points per rank to spend on equipment, vehicles, and headquarters.</p>"
-      }
+      "description": "<p>You have 5 points per rank to spend on equipment, vehicles, and headquarters.</p>"
     },
     "effects": [],
     "flags": {}
@@ -337,9 +293,7 @@
     "system": {
       "notes": "<p>Gain two benefits of extra effort at once, but you become exhausted on the following turn.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Gain two benefits of extra effort at once, but you become exhausted on the following turn.</p>"
-      }
+      "description": "<p>Gain two benefits of extra effort at once, but you become exhausted on the following turn.</p>"
     },
     "effects": [],
     "flags": {}
@@ -352,9 +306,7 @@
     "system": {
       "notes": "<p>One interaction skill captures attention. Target is entranced if check succeeds.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>One interaction skill captures attention. Target is entranced if check succeeds.</p>"
-      }
+      "description": "<p>One interaction skill captures attention. Target is entranced if check succeeds.</p>"
     },
     "effects": [],
     "flags": {}
@@ -367,9 +319,7 @@
     "system": {
       "notes": "<p>Make a free grab check after hitting with an unarmed attack.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Make a free grab check after hitting with an unarmed attack.</p>"
-      }
+      "description": "<p>Make a free grab check after hitting with an unarmed attack.</p>"
     },
     "effects": [],
     "flags": {}
@@ -382,9 +332,7 @@
     "system": {
       "notes": "<p>+2 circumstance bonus to attack or active defense in a specific environment.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+2 circumstance bonus to attack or active defense in a specific environment.</p>"
-      }
+      "description": "<p>+2 circumstance bonus to attack or active defense in a specific environment.</p>"
     },
     "effects": [],
     "flags": {}
@@ -397,9 +345,7 @@
     "system": {
       "notes": "<p>+2 circumstance bonus on interaction and perception checks against a particular type of opponent.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+2 circumstance bonus on interaction and perception checks against a particular type of opponent.</p>"
-      }
+      "description": "<p>+2 circumstance bonus on interaction and perception checks against a particular type of opponent.</p>"
     },
     "effects": [],
     "flags": {}
@@ -412,9 +358,7 @@
     "system": {
       "notes": "<p>You are immune to fear effects.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You are immune to fear effects.</p>"
-      }
+      "description": "<p>You are immune to fear effects.</p>"
     },
     "effects": [],
     "flags": {}
@@ -427,9 +371,7 @@
     "system": {
       "notes": "<p>Use Dexterity bonus instead of Strength bonus to make grab attacks.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Dexterity bonus instead of Strength bonus to make grab attacks.</p>"
-      }
+      "description": "<p>Use Dexterity bonus instead of Strength bonus to make grab attacks.</p>"
     },
     "effects": [],
     "flags": {}
@@ -442,9 +384,7 @@
     "system": {
       "notes": "<p>Hide without a Deception or Intimidation check or diversion.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Hide without a Deception or Intimidation check or diversion.</p>"
-      }
+      "description": "<p>Hide without a Deception or Intimidation check or diversion.</p>"
     },
     "effects": [],
     "flags": {}
@@ -457,9 +397,7 @@
     "system": {
       "notes": "<p>Double circumstance bonuses for aiming: +10 close, +5 ranged.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Double circumstance bonuses for aiming: +10 close, +5 ranged.</p>"
-      }
+      "description": "<p>Double circumstance bonuses for aiming: +10 close, +5 ranged.</p>"
     },
     "effects": [],
     "flags": {}
@@ -472,9 +410,7 @@
     "system": {
       "notes": "<p>Increase critical threat range with a chosen attack by 1 per rank.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Increase critical threat range with a chosen attack by 1 per rank.</p>"
-      }
+      "description": "<p>Increase critical threat range with a chosen attack by 1 per rank.</p>"
     },
     "effects": [],
     "flags": {}
@@ -487,9 +423,7 @@
     "system": {
       "notes": "<p>+2 circumstance bonus to active defenses when using the defend action.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+2 circumstance bonus to active defenses when using the defend action.</p>"
-      }
+      "description": "<p>+2 circumstance bonus to active defenses when using the defend action.</p>"
     },
     "effects": [],
     "flags": {}
@@ -502,9 +436,7 @@
     "system": {
       "notes": "<p>No penalty to attack check to disarm and no counter-disarm attempt.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>No penalty to attack check to disarm and no counter-disarm attempt.</p>"
-      }
+      "description": "<p>No penalty to attack check to disarm and no counter-disarm attempt.</p>"
     },
     "effects": [],
     "flags": {}
@@ -517,9 +449,7 @@
     "system": {
       "notes": "<p>Make grabs with one arm. Not vulnerable while grabbing.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Make grabs with one arm. Not vulnerable while grabbing.</p>"
-      }
+      "description": "<p>Make grabs with one arm. Not vulnerable while grabbing.</p>"
     },
     "effects": [],
     "flags": {}
@@ -532,9 +462,7 @@
     "system": {
       "notes": "<p>-5 circumstance penalty to escape your holds.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>-5 circumstance penalty to escape your holds.</p>"
-      }
+      "description": "<p>-5 circumstance penalty to escape your holds.</p>"
     },
     "effects": [],
     "flags": {}
@@ -547,9 +475,7 @@
     "system": {
       "notes": "<p>No penalty to attack checks to hit an object held by another character.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>No penalty to attack checks to hit an object held by another character.</p>"
-      }
+      "description": "<p>No penalty to attack checks to hit an object held by another character.</p>"
     },
     "effects": [],
     "flags": {}
@@ -562,9 +488,7 @@
     "system": {
       "notes": "<p>No penalty to trip and no counter-trip. You choose the defense used.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>No penalty to trip and no counter-trip. You choose the defense used.</p>"
-      }
+      "description": "<p>No penalty to trip and no counter-trip. You choose the defense used.</p>"
     },
     "effects": [],
     "flags": {}
@@ -577,9 +501,7 @@
     "system": {
       "notes": "<p>Ignore penalty for using skills without tools. Only -2 with no tools at all.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Ignore penalty for using skills without tools. Only -2 with no tools at all.</p>"
-      }
+      "description": "<p>Ignore penalty for using skills without tools. Only -2 with no tools at all.</p>"
     },
     "effects": [],
     "flags": {}
@@ -592,9 +514,7 @@
     "system": {
       "notes": "<p>Use Unarmed skill for improvised weapons. +1 damage per rank.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Unarmed skill for improvised weapons. +1 damage per rank.</p>"
-      }
+      "description": "<p>Use Unarmed skill for improvised weapons. +1 damage per rank.</p>"
     },
     "effects": [],
     "flags": {}
@@ -607,9 +527,7 @@
     "system": {
       "notes": "<p>Spend hero point to give allies +1 circumstance bonus per rank on all checks.</p>",
       "rang": 5,
-      "description": {
-        "value": "<p>Spend hero point to give allies +1 circumstance bonus per rank on all checks.</p>"
-      }
+      "description": "<p>Spend hero point to give allies +1 circumstance bonus per rank on all checks.</p>"
     },
     "effects": [],
     "flags": {}
@@ -622,9 +540,7 @@
     "system": {
       "notes": "<p>Stand from prone as a free action without an Acrobatics check.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Stand from prone as a free action without an Acrobatics check.</p>"
-      }
+      "description": "<p>Stand from prone as a free action without an Acrobatics check.</p>"
     },
     "effects": [],
     "flags": {}
@@ -637,9 +553,7 @@
     "system": {
       "notes": "<p>Once per round, take the hit for an adjacent ally hit by an attack.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Once per round, take the hit for an adjacent ally hit by an attack.</p>"
-      }
+      "description": "<p>Once per round, take the hit for an adjacent ally hit by an attack.</p>"
     },
     "effects": [],
     "flags": {}
@@ -652,9 +566,7 @@
     "system": {
       "notes": "<p>Use Technology skill to create inventions.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Technology skill to create inventions.</p>"
-      }
+      "description": "<p>Use Technology skill to create inventions.</p>"
     },
     "effects": [],
     "flags": {}
@@ -667,9 +579,7 @@
     "system": {
       "notes": "<p>Use any skill untrained.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use any skill untrained.</p>"
-      }
+      "description": "<p>Use any skill untrained.</p>"
     },
     "effects": [],
     "flags": {}
@@ -682,9 +592,7 @@
     "system": {
       "notes": "<p>Speak and understand additional languages.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Speak and understand additional languages.</p>"
-      }
+      "description": "<p>Speak and understand additional languages.</p>"
     },
     "effects": [],
     "flags": {}
@@ -697,9 +605,7 @@
     "system": {
       "notes": "<p>Spend hero point to remove dazed, fatigued, or stunned from an ally.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Spend hero point to remove dazed, fatigued, or stunned from an ally.</p>"
-      }
+      "description": "<p>Spend hero point to remove dazed, fatigued, or stunned from an ally.</p>"
     },
     "effects": [],
     "flags": {}
@@ -712,9 +618,7 @@
     "system": {
       "notes": "<p>Re-roll a die roll once per round, up to rank times per session.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Re-roll a die roll once per round, up to rank times per session.</p>"
-      }
+      "description": "<p>Re-roll a die roll once per round, up to rank times per session.</p>"
     },
     "effects": [],
     "flags": {}
@@ -727,9 +631,7 @@
     "system": {
       "notes": "<p>You have a follower with (rank x 15) power points.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You have a follower with (rank x 15) power points.</p>"
-      }
+      "description": "<p>You have a follower with (rank x 15) power points.</p>"
     },
     "effects": [],
     "flags": {}
@@ -742,9 +644,7 @@
     "system": {
       "notes": "<p>Move both before and after your standard action.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Move both before and after your standard action.</p>"
-      }
+      "description": "<p>Move both before and after your standard action.</p>"
     },
     "effects": [],
     "flags": {}
@@ -757,9 +657,7 @@
     "system": {
       "notes": "<p>Trade up to -5 attack bonus for up to +5 effect bonus.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Trade up to -5 attack bonus for up to +5 effect bonus.</p>"
-      }
+      "description": "<p>Trade up to -5 attack bonus for up to +5 effect bonus.</p>"
     },
     "effects": [],
     "flags": {}
@@ -772,9 +670,7 @@
     "system": {
       "notes": "<p>Ignore cover or concealment penalties for close or ranged attacks.</p>",
       "rang": 4,
-      "description": {
-        "value": "<p>Ignore cover or concealment penalties for close or ranged attacks.</p>"
-      }
+      "description": "<p>Ignore cover or concealment penalties for close or ranged attacks.</p>"
     },
     "effects": [],
     "flags": {}
@@ -787,9 +683,7 @@
     "system": {
       "notes": "<p>No penalty to attack checks while prone; adjacent attackers gain no bonus.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>No penalty to attack checks while prone; adjacent attackers gain no bonus.</p>"
-      }
+      "description": "<p>No penalty to attack checks while prone; adjacent attackers gain no bonus.</p>"
     },
     "effects": [],
     "flags": {}
@@ -802,9 +696,7 @@
     "system": {
       "notes": "<p>Draw a weapon as a free action.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Draw a weapon as a free action.</p>"
-      }
+      "description": "<p>Draw a weapon as a free action.</p>"
     },
     "effects": [],
     "flags": {}
@@ -817,9 +709,7 @@
     "system": {
       "notes": "<p>+1 bonus to ranged attack checks per rank.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+1 bonus to ranged attack checks per rank.</p>"
-      }
+      "description": "<p>+1 bonus to ranged attack checks per rank.</p>"
     },
     "effects": [],
     "flags": {}
@@ -832,9 +722,7 @@
     "system": {
       "notes": "<p>Redirect a missed attack against you at an adjacent target if you trick the attacker.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Redirect a missed attack against you at an adjacent target if you trick the attacker.</p>"
-      }
+      "description": "<p>Redirect a missed attack against you at an adjacent target if you trick the attacker.</p>"
     },
     "effects": [],
     "flags": {}
@@ -847,9 +735,7 @@
     "system": {
       "notes": "<p>Use Expertise: Magic skill to create and cast magical rituals.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Expertise: Magic skill to create and cast magical rituals.</p>"
-      }
+      "description": "<p>Use Expertise: Magic skill to create and cast magical rituals.</p>"
     },
     "effects": [],
     "flags": {}
@@ -862,9 +748,7 @@
     "system": {
       "notes": "<p>Re-roll a failed check against a specific hazard or skill.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Re-roll a failed check against a specific hazard or skill.</p>"
-      }
+      "description": "<p>Re-roll a failed check against a specific hazard or skill.</p>"
     },
     "effects": [],
     "flags": {}
@@ -877,9 +761,7 @@
     "system": {
       "notes": "<p>Spend hero point to automatically go first in initiative order.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Spend hero point to automatically go first in initiative order.</p>"
-      }
+      "description": "<p>Spend hero point to automatically go first in initiative order.</p>"
     },
     "effects": [],
     "flags": {}
@@ -892,9 +774,7 @@
     "system": {
       "notes": "<p>Transfer the benefits of an interaction skill in combat to one ally per rank.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Transfer the benefits of an interaction skill in combat to one ally per rank.</p>"
-      }
+      "description": "<p>Transfer the benefits of an interaction skill in combat to one ally per rank.</p>"
     },
     "effects": [],
     "flags": {}
@@ -907,9 +787,7 @@
     "system": {
       "notes": "<p>You have a partner with (rank x 5) power points.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>You have a partner with (rank x 5) power points.</p>"
-      }
+      "description": "<p>You have a partner with (rank x 5) power points.</p>"
     },
     "effects": [],
     "flags": {}
@@ -922,9 +800,7 @@
     "system": {
       "notes": "<p>Make routine checks with a chosen skill even under pressure.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Make routine checks with a chosen skill even under pressure.</p>"
-      }
+      "description": "<p>Make routine checks with a chosen skill even under pressure.</p>"
     },
     "effects": [],
     "flags": {}
@@ -937,9 +813,7 @@
     "system": {
       "notes": "<p>Use Intimidation rather than Deception to feint in combat.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Intimidation rather than Deception to feint in combat.</p>"
-      }
+      "description": "<p>Use Intimidation rather than Deception to feint in combat.</p>"
     },
     "effects": [],
     "flags": {}
@@ -952,9 +826,7 @@
     "system": {
       "notes": "<p>Free extra attack against adjacent minion after incapacitating one. Rank 2 allows movement.</p>",
       "rang": 2,
-      "description": {
-        "value": "<p>Free extra attack against adjacent minion after incapacitating one. Rank 2 allows movement.</p>"
-      }
+      "description": "<p>Free extra attack against adjacent minion after incapacitating one. Rank 2 allows movement.</p>"
     },
     "effects": [],
     "flags": {}
@@ -967,9 +839,7 @@
     "system": {
       "notes": "<p>Use Deception rather than Intimidation to demoralize in combat.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Deception rather than Intimidation to demoralize in combat.</p>"
-      }
+      "description": "<p>Use Deception rather than Intimidation to demoralize in combat.</p>"
     },
     "effects": [],
     "flags": {}
@@ -982,9 +852,7 @@
     "system": {
       "notes": "<p>+5 circumstance bonus to support team checks and aid actions.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+5 circumstance bonus to support team checks and aid actions.</p>"
-      }
+      "description": "<p>+5 circumstance bonus to support team checks and aid actions.</p>"
     },
     "effects": [],
     "flags": {}
@@ -997,9 +865,7 @@
     "system": {
       "notes": "<p>+1 damage bonus with thrown weapons per rank.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>+1 damage bonus with thrown weapons per rank.</p>"
-      }
+      "description": "<p>+1 damage bonus with thrown weapons per rank.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1012,9 +878,7 @@
     "system": {
       "notes": "<p>Use Perception skill to visually follow tracks.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Use Perception skill to visually follow tracks.</p>"
-      }
+      "description": "<p>Use Perception skill to visually follow tracks.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1027,9 +891,7 @@
     "system": {
       "notes": "<p>Slip into a deep trance with a minute of meditation and an Awareness check.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Slip into a deep trance with a minute of meditation and an Awareness check.</p>"
-      }
+      "description": "<p>Slip into a deep trance with a minute of meditation and an Awareness check.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1042,9 +904,7 @@
     "system": {
       "notes": "<p>Spend a hero point to treat a specific check result as a 20.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Spend a hero point to treat a specific check result as a 20.</p>"
-      }
+      "description": "<p>Spend a hero point to treat a specific check result as a 20.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1057,9 +917,7 @@
     "system": {
       "notes": "<p>Not vulnerable when surprised or caught off-guard.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Not vulnerable when surprised or caught off-guard.</p>"
-      }
+      "description": "<p>Not vulnerable when surprised or caught off-guard.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1072,9 +930,7 @@
     "system": {
       "notes": "<p>Make a disarm attempt as a reaction after a successful defense.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Make a disarm attempt as a reaction after a successful defense.</p>"
-      }
+      "description": "<p>Make a disarm attempt as a reaction after a successful defense.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1087,9 +943,7 @@
     "system": {
       "notes": "<p>Make an attack against an attacker's weapon as a reaction after a successful defense.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Make an attack against an attacker's weapon as a reaction after a successful defense.</p>"
-      }
+      "description": "<p>Make an attack against an attacker's weapon as a reaction after a successful defense.</p>"
     },
     "effects": [],
     "flags": {}
@@ -1102,9 +956,7 @@
     "system": {
       "notes": "<p>Immediate Investigation or Persuasion check to see what you know about a subject.</p>",
       "rang": 1,
-      "description": {
-        "value": "<p>Immediate Investigation or Persuasion check to see what you know about a subject.</p>"
-      }
+      "description": "<p>Immediate Investigation or Persuasion check to see what you know about a subject.</p>"
     },
     "effects": [],
     "flags": {}
