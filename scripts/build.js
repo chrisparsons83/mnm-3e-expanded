@@ -84,6 +84,58 @@ async function buildPowers() {
 
     const translatedAction = translationMap.action[action] || 'simple';
 
+    // Modifier logic: Parse Extras and Flaws from the CSV
+    const extrasObj = {};
+    const flawsObj = {};
+    let modCostPerRank = 0;
+    let flatCost = 0;
+    let extraCount = 0;
+    let flawCount = 0;
+
+    // Parse Extras
+    const extrasList = (row.Extras || "").split(',').map(e => e.trim()).filter(Boolean);
+    extrasList.forEach(extraName => {
+        const masterExtra = Object.values(EXTRAS).find(e => e.name.toLowerCase() === extraName.toLowerCase());
+        if (masterExtra) {
+            extraCount++;
+            extrasObj[extraCount.toString()] = {
+                name: masterExtra.name,
+                data: masterExtra.system
+            };
+            if (masterExtra.system.cout.rang) modCostPerRank += masterExtra.system.cout.value;
+            if (masterExtra.system.cout.fixe) flatCost += masterExtra.system.cout.value;
+        }
+    });
+
+    // Parse Flaws
+    const flawsList = (row.Flaws || "").split(',').map(f => f.trim()).filter(Boolean);
+    flawsList.forEach(flawName => {
+        const masterFlaw = Object.values(FLAWS).find(f => f.name.toLowerCase() === flawName.toLowerCase());
+        if (masterFlaw) {
+            flawCount++;
+            flawsObj[flawCount.toString()] = {
+                name: masterFlaw.name,
+                data: masterFlaw.system
+            };
+            if (masterFlaw.system.cout.rang) modCostPerRank -= masterFlaw.system.cout.value;
+            if (masterFlaw.system.cout.fixe) flatCost -= masterFlaw.system.cout.value;
+        }
+    });
+
+    // Final Cost Math
+    let netCostPerRank = baseCostPerRank + modCostPerRank;
+    let totalRankCost = 0;
+    let displayCostPerRank = "";
+
+    if (netCostPerRank > 0) {
+        totalRankCost = netCostPerRank * baseRank;
+        displayCostPerRank = netCostPerRank.toString();
+    } else {
+        let ranksPerPoint = 2 - netCostPerRank;
+        totalRankCost = Math.ceil(baseRank / ranksPerPoint);
+        displayCostPerRank = `1/${ranksPerPoint}`;
+    }
+
     return {
       "_id": existingIds[name] || createId(),
       "name": name,
@@ -102,8 +154,8 @@ async function buildPowers() {
         "effetsprincipaux": sanitizeText(row.Mechanics) ? `<p>${sanitizeText(row.Mechanics).toUpperCase()}</p>` : "",
         "link": "",
         "descripteurs": {},
-        "extras": {},
-        "defauts": {},
+        "extras": extrasObj,
+        "defauts": flawsObj,
         "effectsVarianteSelected": "",
         "listEffectsVariantes": {},
         "edit": false,
@@ -112,14 +164,14 @@ async function buildPowers() {
         "cout": { 
           "rang": baseRank, 
           "parrang": baseCostPerRank, 
-          "total": baseRank * baseCostPerRank,
+          "total": Math.max(1, totalRankCost + flatCost),
           "rangDyn": 0,
           "rangDynMax": 0,
           "divers": 0,
-          "modrang": 0,
-          "modfixe": 0,
-          "totalTheorique": baseRank * baseCostPerRank,
-          "parrangtotal": baseCostPerRank.toString()
+          "modrang": modCostPerRank,
+          "modfixe": flatCost,
+          "totalTheorique": Math.max(1, totalRankCost + flatCost),
+          "parrangtotal": displayCostPerRank
         }
       },
       "effects": [],

@@ -5,7 +5,21 @@ const packsDir = path.join(__dirname, '../mnm-3e-expanded/packs');
 
 // Corrected Cost Calculation Logic
 function calculatePowerCost(power) {
-  if (!power.system || !power.system.cout) return power;
+  if (!power.system) return power;
+
+  // Handle Talents (Advantages) - Default to 1 per rank if cout is missing
+  if (power.type === 'talent') {
+    if (!power.system.cout) {
+      power.system.cout = {
+        rang: power.system.rang || 1,
+        parrang: 1,
+        total: power.system.rang || 1
+      };
+    }
+    return power;
+  }
+
+  if (!power.system.cout) return power;
 
   let baseRank = power.system.cout.rang || 1;
   let baseCostPerRank = power.system.cout.parrang || 1;

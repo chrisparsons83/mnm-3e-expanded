@@ -6,3 +6,19 @@ node_modules
 /scripts/peek.js
 /scripts/extract.js
 /scripts/cleanup.js
+
+# Test and Blueprint Files
+*_test.json
+*blueprint*.json
+power_format.json
+power-format-2.json
+math_wipe_v3.json
+advantage_functional.json
+empty_hero.json
+test_two.json
+
+# One-off Data/Message Files
+GPRemains.json
+Nightfall.json
+message.txt
+1st Powers Input.csv
