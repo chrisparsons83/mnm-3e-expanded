@@ -1,3 +1,4 @@
+console.error("M&M 3E EXPANDED | SCRIPT LOADED (ERROR LOG FOR VISIBILITY)");
 console.log('%c M&M 3E EXPANDED | SCRIPT LOADED ', 'background: #444; color: #fff; font-weight: bold; padding: 2px 5px;');
 
 // Self-Healing Logic: Fixes legacy data structures on the fly
@@ -108,14 +109,17 @@ async function healActorData(actor) {
   const pp = actor.system.pp || {};
   const currentTotalSpent = (pp.caracteristiques || 0) + newPowerSum + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
 
+  // ALWAYS Log something when render fires to confirm hook is active
+  console.group(`M&M 3E EXPANDED | RENDER ${actor.name.toUpperCase()}`);
+  console.log(`Current Powers Total: ${pp.pouvoirs} | Calculated Sum: ${newPowerSum}`);
+  if (updates.length > 0) console.table(debugData);
+  console.groupEnd();
+
   if (updates.length > 0 || pp.pouvoirs !== newPowerSum || pp.total !== currentTotalSpent) {
     actor._healing = true;
     try {
-      console.group(`M&M 3E EXPANDED | HEALING ${actor.name.toUpperCase()}`);
-      console.table(debugData);
-      console.log(`Summary | Powers: ${newPowerSum} | Total Spent: ${currentTotalSpent}`);
-      console.groupEnd();
-
+      ui.notifications.info(`M&M 3e Expanded: Syncing PP costs for ${actor.name}`);
+      
       if (updates.length > 0) await actor.updateEmbeddedDocuments('Item', updates);
       
       // Delay actor update slightly to beat derived data recalculation
@@ -127,7 +131,7 @@ async function healActorData(actor) {
           'system.pp.used': currentTotalSpent
         });
         delete actor._healing;
-      }, 100);
+      }, 200);
     } catch (err) {
       console.error("M&M 3e Expanded | Self-Healing Error:", err);
       delete actor._healing;
@@ -138,5 +142,6 @@ async function healActorData(actor) {
 Hooks.on('renderActorSheet', (app, html, data) => {
   const actor = data.actor || app.actor;
   if (!actor || actor.type !== 'personnage') return;
+  console.error("M&M 3E EXPANDED | RENDER HOOK FIRED FOR " + actor.name);
   healActorData(actor);
 });
