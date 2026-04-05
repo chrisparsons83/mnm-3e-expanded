@@ -1,139 +1,140 @@
 // Self-Healing Logic: Fixes legacy data structures on the fly
 async function healActorData(actor) {
   if (!actor.isOwner || actor._healing) return;
-  actor._healing = true;
+  
+  const powers = actor.items.filter(i => i.type === 'pouvoir');
+  if (powers.length === 0) return;
 
-  try {
-    const updates = [];
-    const powers = actor.items.filter(i => i.type === 'pouvoir');
-    
-    // Group powers by array (link can be ID or Name)
-    const arrays = {};
-    powers.forEach(p => {
-      const link = p.system.link;
-      if (link) {
-        let parent = actor.items.get(link) || powers.find(i => i.name === link);
-        if (parent) {
-          const pId = parent._id;
-          if (!arrays[pId]) arrays[pId] = [pId];
-          if (!arrays[pId].includes(p._id)) arrays[pId].push(p._id);
-        }
+  // Group powers by array (link can be ID or Name)
+  const arrays = {};
+  powers.forEach(p => {
+    const link = p.system.link;
+    if (link) {
+      const parent = actor.items.get(link) || powers.find(i => i.name === link);
+      if (parent) {
+        const pId = parent._id;
+        if (!arrays[pId]) arrays[pId] = [pId];
+        if (!arrays[pId].includes(p._id)) arrays[pId].push(p._id);
       }
+    }
+  });
+
+  // Calculate costs and identify bearers
+  const arrayMaxCosts = {};
+  for (const parentId in arrays) {
+    let max = 0;
+    arrays[parentId].forEach(id => {
+      const item = actor.items.get(id);
+      if (!item) return;
+      const c = item.system.cout || {};
+      const r = c.rang || 0;
+      const pr = c.parrang || 0;
+      const mr = c.modrang || 0;
+      const fc = c.modfixe || 0;
+      const d = c.divers || 0;
+      const net = pr + mr;
+      const full = net > 0 ? (net * r + fc + d) : (Math.ceil(r / (2 - net)) + fc + d);
+      if (full > max) max = full;
     });
+    arrayMaxCosts[parentId] = Math.max(1, max);
+  }
 
-    // Pre-calculate full costs for all powers to find max in each array
-    const arrayMaxCosts = {};
-    for (const pId in arrays) {
-      let max = 0;
-      arrays[pId].forEach(id => {
-        const item = actor.items.get(id);
-        if (!item) return;
-        const c = item.system.cout || {};
-        const r = c.rang || 0;
-        const pr = c.parrang || 0;
-        const mr = c.modrang || 0;
-        const fc = c.modfixe || 0;
-        const d = c.divers || 0;
-        const net = pr + mr;
-        const full = net > 0 ? (net * r + fc + d) : (Math.ceil(r / (2 - net)) + fc + d);
-        if (full > max) max = full;
-      });
-      arrayMaxCosts[pId] = Math.max(1, max);
-    }
+  const updates = [];
+  const pwrUpdates = {};
+  let newPowerSum = 0;
 
-    let newPowerSum = 0;
+  for (let item of actor.items) {
+    if (item.type === 'pouvoir') {
+      const update = { _id: item._id };
+      let needsUpdate = false;
 
-    for (let item of actor.items) {
-      if (item.type === 'pouvoir') {
-        const update = { _id: item._id };
-        let needsUpdate = false;
+      // Structural fixes (arrays to objects)
+      if (Array.isArray(item.system.extras)) {
+        const obj = {};
+        item.system.extras.forEach((e, i) => { if (e) obj[i + 1] = e; });
+        update['system.extras'] = obj;
+        needsUpdate = true;
+      }
+      if (Array.isArray(item.system.defauts)) {
+        const obj = {};
+        item.system.defauts.forEach((f, i) => { if (f) obj[i + 1] = f; });
+        update['system.defauts'] = obj;
+        needsUpdate = true;
+      }
 
-        // 1. Structural Fixes
-        if (Array.isArray(item.system.extras)) {
-          const obj = {};
-          item.system.extras.forEach((e, i) => { if (e) obj[i + 1] = e; });
-          update['system.extras'] = obj;
-          needsUpdate = true;
-        }
-        if (Array.isArray(item.system.defauts)) {
-          const obj = {};
-          item.system.defauts.forEach((f, i) => { if (f) obj[i + 1] = f; });
-          update['system.defauts'] = obj;
-          needsUpdate = true;
-        }
-        if (item.system.special === 'simple') {
-          update['system.special'] = 'standard';
-          needsUpdate = true;
-        }
+      // Calculation
+      const c = item.system.cout || {};
+      const r = c.rang || 0;
+      const pr = c.parrang || 0;
+      const mr = c.modrang || 0;
+      const fc = c.modfixe || 0;
+      const d = c.divers || 0;
+      const net = pr + mr;
+      
+      let fullCost = net > 0 ? (net * r + fc + d) : (Math.ceil(r / (2 - net)) + fc + d);
+      fullCost = Math.max(1, fullCost);
 
-        // 2. Cost Calculation
-        const c = item.system.cout || {};
-        const r = c.rang || 0;
-        const pr = c.parrang || 0;
-        const mr = c.modrang || 0;
-        const fc = c.modfixe || 0;
-        const d = c.divers || 0;
-        const net = pr + mr;
-        
-        let fullCost = net > 0 ? (net * r + fc + d) : (Math.ceil(r / (2 - net)) + fc + d);
-        fullCost = Math.max(1, fullCost);
+      let targetCost = fullCost;
+      let displayCostPerRank = net > 0 ? net.toString() : `1/${2 - net}`;
 
-        let targetCost = fullCost;
-        let displayCostPerRank = net > 0 ? net.toString() : `1/${2 - net}`;
+      // Array logic
+      const link = item.system.link;
+      const parent = link ? (actor.items.get(link) || powers.find(i => i.name === link)) : null;
+      const parentId = arrays[item._id] ? item._id : (parent ? parent._id : null);
 
-        // Apply Array Logic
-        const link = item.system.link;
-        const parentId = link ? (actor.items.get(link)?._id || powers.find(i => i.name === link)?._id) : null;
-        const effectiveParentId = arrays[item._id] ? item._id : parentId;
+      if (parentId && arrays[parentId]) {
+        const members = arrays[parentId];
+        let bearerId = parentId;
+        let best = -1;
+        members.forEach(id => {
+          const m = actor.items.get(id);
+          const mc = m.system.cout || {};
+          const mnet = (mc.parrang || 0) + (mc.modrang || 0);
+          const mr = mc.rang || 0;
+          const mf = mnet > 0 ? (mnet * mr + (mc.modfixe || 0) + (mc.divers || 0)) : (Math.ceil(mr / (2 - mnet)) + (mc.modfixe || 0) + (mc.divers || 0));
+          if (mf > best) { best = mf; bearerId = id; }
+        });
+        targetCost = (item._id === bearerId) ? arrayMaxCosts[parentId] : 0;
+        if (targetCost === 0) displayCostPerRank = "0";
+      }
 
-        if (effectiveParentId && arrayMaxCosts[effectiveParentId] !== undefined) {
-          const members = arrays[effectiveParentId];
-          const maxCost = arrayMaxCosts[effectiveParentId];
-          
-          // Determine cost bearer (highest cost power, or parent if tied)
-          let bearerId = effectiveParentId;
-          let best = -1;
-          members.forEach(id => {
-            const m = actor.items.get(id);
-            const mc = m.system.cout;
-            const mnet = (mc.parrang || 0) + (mc.modrang || 0);
-            const mf = mnet > 0 ? (mnet * (mc.rang || 0) + (mc.modfixe || 0) + (mc.divers || 0)) : (Math.ceil((mc.rang || 0) / (2 - mnet)) + (mc.modfixe || 0) + (mc.divers || 0));
-            if (mf > best) { best = mf; bearerId = id; }
-          });
+      newPowerSum += targetCost;
 
-          targetCost = (item._id === bearerId) ? maxCost : 0;
-          if (targetCost === 0) displayCostPerRank = "0";
-        }
+      if (c.total !== targetCost) { update['system.cout.total'] = targetCost; needsUpdate = true; }
+      if (c.totalTheorique !== fullCost) { update['system.cout.totalTheorique'] = fullCost; needsUpdate = true; }
+      if (c.parrangtotal !== displayCostPerRank) { update['system.cout.parrangtotal'] = displayCostPerRank; needsUpdate = true; }
 
-        newPowerSum += targetCost;
-
-        if (c.total !== targetCost) { update['system.cout.total'] = targetCost; needsUpdate = true; }
-        if (c.totalTheorique !== fullCost) { update['system.cout.totalTheorique'] = fullCost; needsUpdate = true; }
-        if (c.parrangtotal !== displayCostPerRank) { update['system.cout.parrangtotal'] = displayCostPerRank; needsUpdate = true; }
-
-        if (needsUpdate) updates.push(update);
-      } else if (item.type === 'talent' && !item.system.cout) {
-        updates.push({ _id: item._id, 'system.cout': { rang: item.system.rang || 1, parrang: 1, total: item.system.rang || 1 } });
+      if (needsUpdate) {
+        updates.push(update);
+        pwrUpdates[`system.pwr.${item._id}.cout.total`] = targetCost;
+        pwrUpdates[`system.pwr.${item._id}.cout.totalTheorique`] = fullCost;
       }
     }
+  }
 
-    if (updates.length > 0) {
-      console.log(`M&M 3e Expanded | Self-Healing: Updating ${updates.length} items and syncing PP totals on ${actor.name}`);
-      await actor.updateEmbeddedDocuments('Item', updates);
-      
-      const pp = actor.system.pp || {};
-      const currentTotal = (pp.caracteristiques || 0) + newPowerSum + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
-      
+  const pp = actor.system.pp || {};
+  const currentTotalSpent = (pp.caracteristiques || 0) + newPowerSum + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
+
+  if (updates.length > 0 || pp.pouvoirs !== newPowerSum || pp.total !== currentTotalSpent) {
+    actor._healing = true;
+    try {
+      console.group(`M&M 3e Expanded | Self-Healing: ${actor.name}`);
+      console.log(`Powers: ${powers.length} | New PP Sum: ${newPowerSum} | Spent: ${currentTotalSpent}`);
+      if (updates.length > 0) console.log(`Items Updated: ${updates.length}`);
+      console.groupEnd();
+
+      if (updates.length > 0) await actor.updateEmbeddedDocuments('Item', updates);
       await actor.update({
+        ...pwrUpdates,
         'system.pp.pouvoirs': newPowerSum,
-        'system.pp.used': newPowerSum,
-        'system.pp.total': currentTotal
+        'system.pp.total': currentTotalSpent,
+        'system.pp.used': currentTotalSpent
       });
+    } catch (err) {
+      console.error("M&M 3e Expanded | Self-Healing Error:", err);
+    } finally {
+      delete actor._healing;
     }
-  } catch (err) {
-    console.error("M&M 3e Expanded | Self-Healing Error:", err);
-  } finally {
-    delete actor._healing;
   }
 }
 
