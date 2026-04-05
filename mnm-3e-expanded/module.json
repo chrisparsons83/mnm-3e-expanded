@@ -2,7 +2,7 @@
   "id": "mnm-3e-expanded",
   "title": "M&M 3e Expanded",
   "description": "A Comprehensive Library of Advantages, Powers, Effects, Flaws, and Items for Mutants & Masterminds 3e.",
-  "version": "3.3.41",
+  "version": "3.3.42",
   "authors": [
     {
       "name": "Davinchi"
@@ -29,49 +29,49 @@
   "packs": [
     {
       "name": "expanded-powers",
-      "label": "M&M 3e Expanded: Powers",
+      "label": "Powers - M&M 3e Exp",
       "path": "packs/powers.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
       "name": "expanded-advantages",
-      "label": "M&M 3e Expanded: Advantages",
+      "label": "Advantages - M&M 3e Exp",
       "path": "packs/advantages.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
       "name": "expanded-extras",
-      "label": "M&M 3e Expanded: Extras",
+      "label": "Extras - M&M 3e Exp",
       "path": "packs/extras.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
       "name": "expanded-flaws",
-      "label": "M&M 3e Expanded: Flaws",
+      "label": "Flaws - M&M 3e Exp",
       "path": "packs/flaws.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
       "name": "expanded-equipment",
-      "label": "M&M 3e Expanded: Equipment",
+      "label": "Equipment - M&M 3e Exp",
       "path": "packs/equipment.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
       "name": "expanded-vehicles",
-      "label": "M&M 3e Expanded: Vehicles",
+      "label": "Vehicles - M&M 3e Exp",
       "path": "packs/vehicles.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
     },
     {
       "name": "expanded-headquarters",
-      "label": "M&M 3e Expanded: Headquarters",
+      "label": "Headquarters - M&M 3e Exp",
       "path": "packs/headquarters.db",
       "type": "Item",
       "system": "mutants-and-masterminds-3e"
