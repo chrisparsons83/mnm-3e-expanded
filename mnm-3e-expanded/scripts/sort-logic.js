@@ -77,6 +77,9 @@ async function healActorData(actor) {
       fullCost = Math.max(1, fullCost);
 
       let targetCost = fullCost;
+      // theoriqueCost is what the base system uses to compute pp.pouvoirs (via totalTheorique).
+      // For array non-bearers this must be 0 so the derived PP total is correct.
+      let theoriqueCost = fullCost;
       let displayCostPerRank = net > 0 ? net.toString() : `1/${2 - net}`;
 
       // Array logic
@@ -96,20 +99,25 @@ async function healActorData(actor) {
           const mf = mnet > 0 ? (mnet * mr + (mc.modfixe || 0) + (mc.divers || 0)) : (Math.ceil(mr / (2 - mnet)) + (mc.modfixe || 0) + (mc.divers || 0));
           if (mf > best) { best = mf; bearerId = id; }
         });
-        targetCost = (item._id === bearerId) ? arrayMaxCosts[parentId] : 0;
-        if (targetCost === 0) displayCostPerRank = "0";
+        const isBearer = (item._id === bearerId);
+        // Bearer pays the array cost (most expensive member); all others cost 0.
+        targetCost = isBearer ? arrayMaxCosts[parentId] : 0;
+        // totalTheorique must also be 0 for non-bearers so the base system's
+        // prepareDerivedData() calculates pp.pouvoirs correctly.
+        theoriqueCost = isBearer ? arrayMaxCosts[parentId] : 0;
+        if (!isBearer) displayCostPerRank = "0";
       }
 
       newPowerSum += targetCost;
 
       if (c.total !== targetCost) { update['system.cout.total'] = targetCost; needsUpdate = true; }
-      if (c.totalTheorique !== fullCost) { update['system.cout.totalTheorique'] = fullCost; needsUpdate = true; }
+      if (c.totalTheorique !== theoriqueCost) { update['system.cout.totalTheorique'] = theoriqueCost; needsUpdate = true; }
       if (c.parrangtotal !== displayCostPerRank) { update['system.cout.parrangtotal'] = displayCostPerRank; needsUpdate = true; }
 
       if (needsUpdate) {
         updates.push(update);
         pwrUpdates[`system.pwr.${item._id}.cout.total`] = targetCost;
-        pwrUpdates[`system.pwr.${item._id}.cout.totalTheorique`] = fullCost;
+        pwrUpdates[`system.pwr.${item._id}.cout.totalTheorique`] = theoriqueCost;
       }
     }
   }
