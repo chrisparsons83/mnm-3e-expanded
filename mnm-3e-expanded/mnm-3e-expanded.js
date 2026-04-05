@@ -1,4 +1,4 @@
-console.error("M&M 3E EXPANDED | SCRIPT LOADED (V3.3.54)");
+console.error("M&M 3E EXPANDED | SCRIPT LOADED (V3.3.55)");
 
 // Self-Healing Logic: Fixes legacy data structures and calculates PP costs
 async function healActorData(actor) {
@@ -7,9 +7,7 @@ async function healActorData(actor) {
   const powers = actor.items.filter(i => i.type === 'pouvoir');
   const talents = actor.items.filter(i => i.type === 'talent');
 
-  console.log(`M&M 3E EXPANDED | HEALING START: ${actor.name}`);
-
-  // Group powers by array (link can be ID or Name)
+  // Group powers by array
   const arrays = {};
   powers.forEach(p => {
     const link = p.system.link;
@@ -53,7 +51,7 @@ async function healActorData(actor) {
     const update = { _id: item._id };
     let needsUpdate = false;
 
-    // 1. Structural Fixes
+    // Structural Fixes
     if (Array.isArray(item.system.extras)) {
       const obj = {};
       item.system.extras.forEach((e, i) => { if (e) obj[i + 1] = e; });
@@ -67,7 +65,7 @@ async function healActorData(actor) {
       needsUpdate = true;
     }
 
-    // 2. Cost Calculation
+    // Cost Calculation
     const c = item.system.cout || {};
     const r = c.rang || 0;
     const pr = c.parrang || 0;
@@ -96,7 +94,7 @@ async function healActorData(actor) {
         const m = actor.items.get(id);
         const mc = m.system.cout || {};
         const mnet = (mc.parrang || 0) + (mc.modrang || 0);
-        const m_rank = mc.rang || 0; // FIXED: was mc.rank
+        const m_rank = mc.rang || 0;
         const mf = mnet > 0 ? (mnet * m_rank + (mc.modfixe || 0) + (mc.divers || 0)) : (Math.ceil(m_rank / (2 - mnet)) + (mc.modfixe || 0) + (mc.divers || 0));
         if (mf > best) { best = mf; bearerId = id; }
       });
@@ -120,46 +118,40 @@ async function healActorData(actor) {
     }
   }
 
-  // Process Talents
-  for (let item of talents) {
-    if (!item.system.cout) {
-      itemUpdates.push({
-        _id: item._id,
-        'system.cout': { rang: item.system.rang || 1, parrang: 1, total: item.system.rang || 1 }
-      });
-    }
-  }
-
   const pp = actor.system.pp || {};
   const currentTotalSpent = (pp.caracteristiques || 0) + newPowerSum + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
 
-  if (itemUpdates.length > 0 || pp.pouvoirs !== newPowerSum || pp.total !== currentTotalSpent) {
+  // LOG MATH
+  console.group(`M&M 3E EXPANDED | HEALING CALCULATION: ${actor.name}`);
+  console.table(debugData);
+  console.log(`Summary | Powers: ${newPowerSum} | Total Spent: ${currentTotalSpent}`);
+  console.groupEnd();
+
+  // Update Actor UI Instance immediately
+  actor.system.pp.pouvoirs = newPowerSum;
+  actor.system.pp.total = currentTotalSpent;
+  actor.system.pp.used = currentTotalSpent;
+
+  if (itemUpdates.length > 0 || pp.pouvoirs !== newPowerSum) {
     actor._healing = true;
     try {
-      console.error(`M&M 3E EXPANDED | HEALING CALCULATION: ${actor.name} | Calculated Powers: ${newPowerSum}`);
-      console.table(debugData);
-
-      if (itemUpdates.length > 0) {
-        await actor.updateEmbeddedDocuments('Item', itemUpdates);
-      }
+      if (itemUpdates.length > 0) await actor.updateEmbeddedDocuments('Item', itemUpdates);
       
-      // Delay actor sync to beat internal system derived data logic
-      setTimeout(async () => {
+      const doSync = async () => {
         await actor.update({
           ...pwrUpdates,
           'system.pp.pouvoirs': newPowerSum,
           'system.pp.total': currentTotalSpent,
           'system.pp.used': currentTotalSpent
         });
-        delete actor._healing;
-        console.log(`M&M 3E EXPANDED | SYNC COMPLETE: ${actor.name}`);
-      }, 1000);
+      };
+
+      setTimeout(async () => { await doSync(); delete actor._healing; }, 500);
+      setTimeout(async () => { await doSync(); }, 2000); // Safety sync
     } catch (err) {
       console.error("M&M 3e Expanded | Self-Healing Error:", err);
       delete actor._healing;
     }
-  } else {
-    console.log(`M&M 3E EXPANDED | ALREADY IN SYNC: ${actor.name}`);
   }
 }
 
