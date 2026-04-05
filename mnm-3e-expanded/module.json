@@ -2,14 +2,17 @@
   "id": "mnm-3e-expanded",
   "title": "M&M 3e Expanded",
   "description": "A Comprehensive Library of Advantages, Powers, Effects, Flaws, and Items for Mutants & Masterminds 3e.",
-  "version": "3.3.45",
+  "version": "3.3.46",
   "authors": [
     {
       "name": "Davinchi"
     }
   ],
   "esmodules": [
-    "scripts/sort-logic.js"
+    "sort-logic.js"
+  ],
+  "scripts": [
+    "sort-logic.js"
   ],
   "compatibility": {
     "minimum": "12",
