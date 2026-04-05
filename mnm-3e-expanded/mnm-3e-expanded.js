@@ -86,9 +86,9 @@ function applyExpandedLogic(actor) {
   if (actor.system?.pp) {
     actor.system.pp.pouvoirs = totalPowerPP;
     const pp = actor.system.pp;
-    const newTotal = (pp.caracteristiques || 0) + totalPowerPP + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
-    actor.system.pp.total = newTotal;
-    actor.system.pp.used = newTotal;
+    const newUsed = (pp.caracteristiques || 0) + totalPowerPP + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
+    actor.system.pp.used = newUsed;
+    // DO NOT overwrite actor.system.pp.total or base, as those are the budget (e.g. 150)
   }
 }
 
