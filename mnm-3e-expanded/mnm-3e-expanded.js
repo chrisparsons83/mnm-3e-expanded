@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.3.66) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.3.67) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -165,7 +165,7 @@ Hooks.on('renderItemSheet', (app, html, data) => {
   let powersHtml = `
     <div class="mnm-expanded-powers-section" style="margin-top: 10px; border-top: 1px solid #7a7971; padding-top: 10px;">
       <h3 style="border: none;">Powers on Equipment</h3>
-      <div class="power-drop-zone" style="border: 2px dashed #7a7971; border-radius: 5px; padding: 15px; margin-bottom: 10px; text-align: center; background: rgba(0,0,0,0.05);">
+      <div class="power-drop-zone" style="border: 2px dashed #7a7971; border-radius: 5px; padding: 15px; margin-bottom: 10px; text-align: center; background: rgba(0,0,0,0.05); transition: background 0.2s;">
         <i class="fas fa-plus"></i> Drop Powers Here
       </div>
       <ul class="linked-powers-list" style="list-style: none; padding: 0; margin: 0;">
@@ -186,30 +186,29 @@ Hooks.on('renderItemSheet', (app, html, data) => {
     html.append(powersHtml);
   }
 
-  const dropZone = html.find('.power-drop-zone');
-  
-  dropZone.on('dragover', (ev) => {
+  const dropZone = html.find('.power-drop-zone')[0];
+  if (!dropZone) return;
+
+  // Native Listeners for better reliability
+  dropZone.addEventListener('dragover', (ev) => {
     ev.preventDefault();
-    dropZone.css('background', 'rgba(0,0,0,0.15)');
+    ev.dataTransfer.dropEffect = "link";
+    ev.currentTarget.style.background = 'rgba(0,0,0,0.15)';
   });
 
-  dropZone.on('dragleave', (ev) => {
-    ev.preventDefault();
-    dropZone.css('background', 'rgba(0,0,0,0.05)');
+  dropZone.addEventListener('dragleave', (ev) => {
+    ev.currentTarget.style.background = 'rgba(0,0,0,0.05)';
   });
 
-  dropZone.on('drop', async (ev) => {
+  dropZone.addEventListener('drop', async (ev) => {
     ev.preventDefault();
-    dropZone.css('background', 'rgba(0,0,0,0.05)');
+    ev.currentTarget.style.background = 'rgba(0,0,0,0.05)';
     
     try {
-      const dragData = JSON.parse(ev.originalEvent.dataTransfer.getData('text/plain'));
-      // Handle both raw item drops and our custom dragstart
-      const itemUuid = dragData.uuid;
-      if (!itemUuid) return;
-
-      const droppedItem = await fromUuid(itemUuid);
+      const dragData = JSON.parse(ev.dataTransfer.getData('text/plain'));
+      if (dragData.type !== 'Item') return;
       
+      const droppedItem = await fromUuid(dragData.uuid);
       if (!droppedItem || droppedItem.type !== 'pouvoir') {
         ui.notifications.warn("Only Powers can be added to Equipment.");
         return;
@@ -220,9 +219,9 @@ Hooks.on('renderItemSheet', (app, html, data) => {
         'flags.mnm-3e-expanded.parentEquipmentId': item._id
       });
       
-      ui.notifications.info(`Added ${droppedItem.name} to ${item.name}`);
+      ui.notifications.info(`Linked ${droppedItem.name} to ${item.name}`);
     } catch (err) {
-      console.error(err);
+      console.error("M&M 3e Expanded | Drop Error:", err);
     }
   });
 
@@ -236,24 +235,5 @@ Hooks.on('renderItemSheet', (app, html, data) => {
       });
       ui.notifications.info(`Unlinked ${power.name} from equipment.`);
     }
-  });
-});
-
-// Enable Dragging from Actor Sheet
-Hooks.on('renderActorSheet', (app, html, data) => {
-  const actor = data.actor || app.actor;
-  if (!actor || actor.type !== 'personnage') return;
-
-  html.find('.item.pouvoir, .pouvoir-item').each((i, li) => {
-    li.setAttribute('draggable', true);
-    li.addEventListener('dragstart', (ev) => {
-      const item = actor.items.get(li.dataset.itemId);
-      if (item) {
-        ev.dataTransfer.setData('text/plain', JSON.stringify({
-          type: 'Item',
-          uuid: item.uuid
-        }));
-      }
-    });
   });
 });
