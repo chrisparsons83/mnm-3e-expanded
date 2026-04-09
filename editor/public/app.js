@@ -16,25 +16,32 @@ const editPlaceholder = document.getElementById('edit-placeholder');
 const editForm = document.getElementById('edit-form');
 const editTitle = document.getElementById('edit-title');
 
-// Form Fields
+// Metadata
 const fName = document.getElementById('f-name');
 const fType = document.getElementById('f-type');
 const fImg = document.getElementById('f-img');
 
-// System Logic (Flexible based on content)
+// System Core
 const fSysType = document.getElementById('f-sys-type');
+const fRang = document.getElementById('f-rang');
+const fEditCheck = document.getElementById('f-edit');
+
+// Power Specifics
 const fPRank = document.getElementById('f-p-rank');
 const fPCost = document.getElementById('f-p-cost');
+const fPSpecial = document.getElementById('f-p-special');
 const fPAction = document.getElementById('f-p-action');
 const fPRange = document.getElementById('f-p-range');
 const fPDuration = document.getElementById('f-p-duration');
 const fPMechanics = document.getElementById('f-p-mechanics');
-const fPExtras = document.getElementById('f-p-extras');
-const fPFlaws = document.getElementById('f-p-flaws');
+const fPEffetsPrincipaux = document.getElementById('f-p-effets-principaux');
+
+// Equipment Specifics
+const fECost = document.getElementById('f-e-cost');
+const fEProtection = document.getElementById('f-e-protection');
 const fEGroup = document.getElementById('f-e-group');
 
-const fRang = document.getElementById('f-rang');
-const fEditCheck = document.getElementById('f-edit');
+// Modifier Specifics
 const fCoutFixe = document.getElementById('f-cout-fixe');
 const fCoutRang = document.getElementById('f-cout-rang');
 const fCoutValue = document.getElementById('f-cout-value');
@@ -84,16 +91,15 @@ async function selectPack(pack) {
   editForm.style.display = 'none';
   editPlaceholder.style.display = '';
 
-  // Determine view mode
   const isPower = pack === 'powers';
   const isEq = ['equipment', 'vehicles', 'headquarters'].includes(pack);
   const isModifier = ['extras', 'flaws'].includes(pack);
   const isAdv = pack === 'advantages';
 
-  document.querySelectorAll('.json-only').forEach(el => el.style.display = (isModifier || isAdv) ? '' : 'none');
   document.querySelectorAll('.power-only').forEach(el => el.style.display = isPower ? '' : 'none');
   document.querySelectorAll('.eq-only').forEach(el => el.style.display = isEq ? '' : 'none');
   document.querySelectorAll('.modifier-only').forEach(el => el.style.display = isModifier ? '' : 'none');
+  document.querySelectorAll('.json-only').forEach(el => el.style.display = (isAdv || isModifier) ? '' : 'none');
 
   document.getElementById('desc-label').textContent = isAdv ? 'Notes' : 'Description';
 
@@ -148,23 +154,26 @@ function selectEntry(entry) {
   fType.value = entry.type || '';
   fImg.value = entry.img || '';
 
-  // Map fields based on structure
   fSysType.value = sys.type || '';
-  
-  // Power mapping (from JSON structure)
+  fRang.value = sys.rang || (typeof sys.rang === 'number' ? sys.rang : '');
+  fEditCheck.checked = !!sys.edit;
+
+  // Power mapping
   fPRank.value = cout.rang || '';
   fPCost.value = cout.parrang || '';
+  fPSpecial.value = sys.special || '';
   fPAction.value = sys.action || '';
   fPRange.value = sys.portee || '';
   fPDuration.value = sys.duree || '';
   fPMechanics.value = sys.effets || '';
+  fPEffetsPrincipaux.value = sys.effetsprincipaux || '';
   
   // Equipment mapping
+  fECost.value = typeof sys.cout === 'number' ? sys.cout : (cout.total || '');
+  fEProtection.value = sys.protection || '';
   fEGroup.value = entry.flags?.['mnm-3e-expanded']?.link || '';
 
   // Modifier mapping
-  fRang.value = sys.rang || 1;
-  fEditCheck.checked = !!sys.edit;
   fCoutFixe.checked = !!cout.fixe;
   fCoutRang.checked = !!cout.rang;
   fCoutValue.value = cout.value || 0;
@@ -183,32 +192,40 @@ async function saveEntry() {
   updated.type = fType.value.trim();
   updated.img = fImg.value.trim();
 
-  // Update System
-  if (['powers'].includes(state.pack)) {
-    updated.system.action = fPAction.value.trim();
-    updated.system.portee = fPRange.value.trim();
-    updated.system.duree = fPDuration.value.trim();
-    updated.system.effets = fPMechanics.value.trim();
-    updated.system.cout.rang = parseInt(fPRank.value) || 1;
-    updated.system.cout.parrang = parseInt(fPCost.value) || 1;
-    updated.system.description = quill.root.innerHTML;
+  if (!updated.system) updated.system = {};
+  const sys = updated.system;
+
+  sys.type = fSysType.value.trim();
+
+  if (state.pack === 'powers') {
+    if (!sys.cout) sys.cout = {};
+    sys.special = fPSpecial.value.trim();
+    sys.action = fPAction.value.trim();
+    sys.portee = fPRange.value.trim();
+    sys.duree = fPDuration.value.trim();
+    sys.effets = fPMechanics.value.trim();
+    sys.effetsprincipaux = fPEffetsPrincipaux.value.trim();
+    sys.cout.rang = parseInt(fPRank.value) || 1;
+    sys.cout.parrang = parseInt(fPCost.value) || 1;
+    sys.description = quill.root.innerHTML;
   } else if (['extras', 'flaws'].includes(state.pack)) {
-    updated.system.type = fSysType.value.trim();
-    updated.system.description = quill.root.innerHTML;
-    updated.system.rang = parseInt(fRang.value) || 1;
-    updated.system.edit = fEditCheck.checked;
-    updated.system.cout = {
+    sys.rang = parseInt(fRang.value) || 1;
+    sys.edit = fEditCheck.checked;
+    sys.cout = {
       fixe: fCoutFixe.checked,
       rang: fCoutRang.checked,
       value: parseInt(fCoutValue.value) || 0
     };
-  } else if (['advantages'].includes(state.pack)) {
-    updated.system.notes = quill.root.innerHTML;
-    updated.system.rang = parseInt(fRang.value) || 1;
+    sys.description = quill.root.innerHTML;
+  } else if (state.pack === 'advantages') {
+    sys.notes = quill.root.innerHTML;
+    sys.description = quill.root.innerHTML;
+    sys.rang = parseInt(fRang.value) || 1;
   } else {
-    // Equipment
-    updated.system.description = quill.root.innerHTML;
-    updated.system.cout = parseInt(fPCost.value) || 1;
+    // Equipment, Vehicles, Headquarters
+    sys.cout = parseInt(fECost.value) || 0;
+    sys.protection = parseInt(fEProtection.value) || 0;
+    sys.description = quill.root.innerHTML;
     if (!updated.flags) updated.flags = {};
     if (!updated.flags['mnm-3e-expanded']) updated.flags['mnm-3e-expanded'] = {};
     updated.flags['mnm-3e-expanded'].link = fEGroup.value.trim();
@@ -237,7 +254,12 @@ async function newEntry() {
   if (!state.pack) return;
   const payload = {
     name: 'New Entry',
-    system: { description: '', cout: {} },
+    type: state.pack === 'powers' ? 'pouvoir' : (state.pack === 'advantages' ? 'talent' : 'equipement'),
+    system: { 
+      type: '',
+      description: '', 
+      cout: state.pack === 'powers' ? { rang: 1, parrang: 1 } : 1 
+    },
     flags: {}
   };
 

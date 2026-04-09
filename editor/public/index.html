@@ -28,122 +28,132 @@
       <h2 id="edit-title"></h2>
 
       <!-- Common Fields -->
-      <div class="field">
-        <label for="f-name">Name</label>
-        <input id="f-name" type="text">
-      </div>
-
-      <!-- JSON Only Fields -->
-      <div class="json-only">
+      <div class="section-divider">Metadata</div>
+      <div class="field-row-group">
         <div class="field">
-          <label for="f-type">Type</label>
+          <label for="f-name">Name</label>
+          <input id="f-name" type="text">
+        </div>
+        <div class="field">
+          <label for="f-type">Entry Type (Foundry)</label>
           <input id="f-type" type="text">
         </div>
         <div class="field">
-          <label for="f-img">Image</label>
+          <label for="f-img">Image Path</label>
           <input id="f-img" type="text">
         </div>
-        <div class="section-divider">System</div>
+      </div>
+
+      <div class="section-divider">System Core</div>
+      <div class="field-row-group">
         <div class="field">
-          <label for="f-sys-type">System Type</label>
+          <label for="f-sys-type">System Category</label>
           <input id="f-sys-type" type="text">
         </div>
-        <div class="field">
-          <label for="f-rang">Rang</label>
+        <div class="field json-only">
+          <label for="f-rang">Base Rank</label>
           <input id="f-rang" type="number" min="0">
         </div>
         <div class="field field-row modifier-only">
           <label>
             <input id="f-edit" type="checkbox">
-            Edit
+            Edit Enabled
           </label>
         </div>
-        <div class="section-divider modifier-only">Cout (Cost)</div>
-        <div class="field field-inline modifier-only">
+      </div>
+
+      <!-- Power Fields -->
+      <div class="power-only" style="display:none">
+        <div class="section-divider">Power Details</div>
+        <div class="field-row-group">
+          <div class="field">
+            <label for="f-p-rank">Rank</label>
+            <input id="f-p-rank" type="number" min="0">
+          </div>
+          <div class="field">
+            <label for="f-p-cost">Cost per Rank</label>
+            <input id="f-p-cost" type="number" min="0">
+          </div>
+          <div class="field">
+            <label for="f-p-special">Special</label>
+            <input id="f-p-special" type="text">
+          </div>
+        </div>
+        <div class="field-row-group">
+          <div class="field">
+            <label for="f-p-action">Action</label>
+            <input id="f-p-action" type="text">
+          </div>
+          <div class="field">
+            <label for="f-p-range">Range</label>
+            <input id="f-p-range" type="text">
+          </div>
+          <div class="field">
+            <label for="f-p-duration">Duration</label>
+            <input id="f-p-duration" type="text">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-p-mechanics">Mechanics (Effets)</label>
+          <textarea id="f-p-mechanics" rows="2"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-p-effets-principaux">Main Effects (Effets Principaux)</label>
+          <textarea id="f-p-effets-principaux" rows="2"></textarea>
+        </div>
+      </div>
+
+      <!-- Equipment Fields -->
+      <div class="eq-only" style="display:none">
+        <div class="section-divider">Equipment Stats</div>
+        <div class="field-row-group">
+          <div class="field">
+            <label for="f-e-cost">Cost (EP)</label>
+            <input id="f-e-cost" type="number" min="0">
+          </div>
+          <div class="field">
+            <label for="f-e-protection">Protection</label>
+            <input id="f-e-protection" type="number" min="0">
+          </div>
+          <div class="field">
+            <label for="f-e-group">Array Group / Link</label>
+            <input id="f-e-group" type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- Modifier (Extras/Flaws) Fields -->
+      <div class="modifier-only" style="display:none">
+        <div class="section-divider">Modifier Cost</div>
+        <div class="field field-inline">
           <div>
             <label for="f-cout-value">Value</label>
-            <input id="f-cout-value" type="number" min="0">
+            <input id="f-cout-value" type="number">
           </div>
           <div class="field field-row">
             <label>
               <input id="f-cout-fixe" type="checkbox">
-              Fixe (flat)
+              Flat (Fixe)
             </label>
           </div>
           <div class="field field-row">
             <label>
               <input id="f-cout-rang" type="checkbox">
-              Rang (per rank)
+              Per Rank (Rang)
             </label>
           </div>
         </div>
       </div>
 
-      <!-- Power CSV Fields -->
-      <div class="power-only" style="display:none">
-        <div class="field">
-          <label for="f-p-type">Type</label>
-          <input id="f-p-type" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-rank">Rank</label>
-          <input id="f-p-rank" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-cost">Cost</label>
-          <input id="f-p-cost" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-action">Action</label>
-          <input id="f-p-action" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-range">Range</label>
-          <input id="f-p-range" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-duration">Duration</label>
-          <input id="f-p-duration" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-mechanics">Mechanics</label>
-          <textarea id="f-p-mechanics"></textarea>
-        </div>
-        <div class="field">
-          <label for="f-p-extras">Extras</label>
-          <input id="f-p-extras" type="text">
-        </div>
-        <div class="field">
-          <label for="f-p-flaws">Flaws</label>
-          <input id="f-p-flaws" type="text">
-        </div>
-      </div>
-
-      <!-- Equipment CSV Fields -->
-      <div class="eq-only" style="display:none">
-        <div class="field">
-          <label for="f-e-type">Type</label>
-          <input id="f-e-type" type="text">
-        </div>
-        <div class="field">
-          <label for="f-e-cost">Cost</label>
-          <input id="f-e-cost" type="text">
-        </div>
-        <div class="field">
-          <label for="f-e-group">Array Group</label>
-          <input id="f-e-group" type="text">
-        </div>
-      </div>
-
       <div class="field">
-        <label id="desc-label">Description</label>
+        <label id="desc-label">Description / Notes</label>
         <div id="f-description"></div>
       </div>
 
       <div class="actions">
-        <button id="btn-save">Save</button>
-        <button id="btn-delete">Delete</button>
-        <span class="save-status" id="save-status">Saved</span>
+        <button id="btn-save">Save Changes</button>
+        <button id="btn-delete">Delete Entry</button>
+        <span class="save-status" id="save-status">Saved Successfully</span>
       </div>
     </div>
   </div>

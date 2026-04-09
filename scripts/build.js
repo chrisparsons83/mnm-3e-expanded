@@ -1,244 +1,92 @@
 const fs = require('fs-extra');
-const csv = require('csv-parser');
 const path = require('path');
 
-const EXTRAS = require('./extras.json');
-const FLAWS = require('./flaws.json');
-const ADVANTAGES = require('./advantages.json');
-
-const translationMap = {
-  type: { 'power': 'pouvoir', 'advantage': 'talent' },
-  action: { 'standard': 'simple', 'move': 'mouvement', 'free': 'libre', 'reaction': 'reaction', 'none': 'aucune' },
-  range: { 'personal': 'personnelle', 'close': 'contact', 'ranged': 'distance', 'perception': 'perception', 'rank': 'rang' },
-  duration: { 'instant': 'instantane', 'sustained': 'prolonge', 'continuous': 'continu', 'concentration': 'concentration', 'permanent': 'permanent' }
-};
-
 const distDir = path.join(__dirname, '../mnm-3e-expanded/packs');
+const compendiumPath = path.join(__dirname, '../compendium.json');
 
-async function loadExistingIds(packName) {
-  const dbFile = path.join(distDir, packName + '.db');
-  const idMap = {};
-  if (!fs.existsSync(dbFile)) return idMap;
-  const content = fs.readFileSync(dbFile, 'utf-8');
-  const lines = content.split(/\r?\n/).filter(line => line.trim().length > 0);
-  for (const line of lines) {
-    try {
-      const doc = JSON.parse(line);
-      if (doc.name && doc._id) idMap[doc.name] = doc._id;
-    } catch (e) {}
-  }
-  return idMap;
-}
+// Corrected Cost Calculation Logic (Standard M&M 3e)
+function calculatePowerCost(power) {
+  if (!power.system || !power.system.cout) return power;
+  if (power.type === 'talent') return power;
 
-async function readCsv(filePath) {
-  return new Promise((resolve, reject) => {
-    const results = [];
-    if (!fs.existsSync(filePath)) return resolve([]);
-    fs.createReadStream(filePath)
-      .pipe(csv({ mapHeaders: ({ header }) => header.trim().replace(/^\uFEFF/, '') }))
-      .on('data', (data) => results.push(data))
-      .on('end', () => resolve(results))
-      .on('error', (err) => reject(err));
-  });
-}
-
-function sanitizeText(text) {
-  if (!text) return "";
-  return text.replace(/[\u2013\u2014]/g, "-").replace(/[\u201C\u201D]/g, "\"").replace(/[\u2018\u2019]/g, "'").replace(/\s+/g, " ").trim();
-}
-
-function createId() {
-  return Math.random().toString(36).substring(2, 18);
-}
-
-async function savePack(packName, documents) {
-  const outFile = path.join(distDir, packName + '.db');
-  const lines = documents.map(d => JSON.stringify(d));
-  fs.writeFileSync(outFile, lines.join("\n") + "\n");
-}
-
-async function buildPowers() {
-  const existingIds = await loadExistingIds('powers');
-  const rows = await readCsv(path.join(__dirname, '../1st Powers Input.csv'));
-  const items = rows.map(row => {
-    const rawName = row.Name || row.name || row.NAME;
-    if (!rawName) return null;
-    const name = rawName.trim();
-    const action = (row.Action || 'standard').trim().toLowerCase();
-    const range = (row.Range || 'close').trim().toLowerCase();
-    const duration = (row.Duration || 'instant').trim().toLowerCase();
-    const baseRank = parseInt(row.Rank) || 1;
-    const baseCostPerRank = parseInt(row.Cost) || 1;
-    const rawType = (row.Power || row.power || row.TYPE || 'General').trim().toLowerCase();
-    const mechanics = (row.Mechanics || '').toLowerCase();
-    let systemType = 'generaux';
-    if (rawType === 'attack' || mechanics.includes('attack check') || mechanics.includes('resistance check') || (action !== 'none' && range !== 'personal')) systemType = 'attaque';
-    else if (rawType === 'movement') systemType = 'mouvement';
-    else if (rawType === 'sensory') systemType = 'sensoriel';
-    else if (rawType === 'defense') systemType = 'defensif';
-    const translatedAction = translationMap.action[action] || 'simple';
-    const extrasObj = {};
-    const flawsObj = {};
-    let modCostPerRank = 0;
-    let flatCost = 0;
-    let extraCount = 0;
-    let flawCount = 0;
-    const extrasList = (row.Extras || "").split(',').map(e => e.trim()).filter(Boolean);
-    extrasList.forEach(extraName => {
-      const masterExtra = EXTRAS.find(e => e.name.toLowerCase() === extraName.toLowerCase());
-      if (masterExtra) {
-        extraCount++;
-        extrasObj[extraCount.toString()] = { name: masterExtra.name, data: masterExtra.system };
-        if (masterExtra.system.cout.rang) modCostPerRank += masterExtra.system.cout.value;
-        if (masterExtra.system.cout.fixe) flatCost += masterExtra.system.cout.value;
+  let baseRank = power.system.cout.rang || 1;
+  let baseCostPerRank = power.system.cout.parrang || 1;
+  let modCostPerRank = 0;
+  let flatModTotal = 0;
+  
+  if (power.system.extras) {
+    for (let extra of Object.values(power.system.extras)) {
+      if (extra.data && extra.data.cout) {
+        if (extra.data.cout.rang && !extra.data.cout.fixe) modCostPerRank += extra.data.cout.value;
+        else if (extra.data.cout.fixe) flatModTotal += (extra.data.cout.rang ? (extra.rang || 1) : 1) * extra.data.cout.value;
       }
-    });
-    const flawsList = (row.Flaws || "").split(',').map(f => f.trim()).filter(Boolean);
-    flawsList.forEach(flawName => {
-      const masterFlaw = FLAWS.find(f => f.name.toLowerCase() === flawName.toLowerCase());
-      if (masterFlaw) {
-        flawCount++;
-        flawsObj[flawCount.toString()] = { name: masterFlaw.name, data: masterFlaw.system };
-        if (masterFlaw.system.cout.rang) modCostPerRank -= masterFlaw.system.cout.value;
-        if (masterFlaw.system.cout.fixe) flatCost -= masterFlaw.system.cout.value;
-      }
-    });
-    let netCostPerRank = baseCostPerRank + modCostPerRank;
-    let totalRankCost = 0;
-    let displayCostPerRank = "";
-    if (netCostPerRank > 0) {
-      totalRankCost = netCostPerRank * baseRank;
-      displayCostPerRank = netCostPerRank.toString();
-    } else {
-      let ranksPerPoint = 2 - netCostPerRank;
-      totalRankCost = Math.ceil(baseRank / ranksPerPoint);
-      displayCostPerRank = "1/" + ranksPerPoint;
     }
-    return {
-      "_id": existingIds[name] || createId(),
-      "name": name,
-      "type": "pouvoir",
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
-      "system": {
-        "type": systemType,
-        "activate": true,
-        "special": "standard",
-        "action": translatedAction,
-        "portee": translationMap.range[range] || 'contact',
-        "duree": translationMap.duration[duration] || 'instantane',
-        "notes": "<p>" + sanitizeText(row.Description) + "</p>",
-        "description": "<p>" + sanitizeText(row.Description) + "</p>",
-        "effets": sanitizeText(row.Mechanics) ? "<p>" + sanitizeText(row.Mechanics).toUpperCase() + "</p>" : "",
-        "effetsprincipaux": sanitizeText(row.Mechanics) ? "<p>" + sanitizeText(row.Mechanics).toUpperCase() + "</p>" : "",
-        "link": "",
-        "descripteurs": {},
-        "extras": extrasObj,
-        "defauts": flawsObj,
-        "effectsVarianteSelected": "",
-        "listEffectsVariantes": {},
-        "edit": false,
-        "carac": 0,
-        "check": "",
-        "cout": { 
-          "rang": baseRank, 
-          "parrang": baseCostPerRank, 
-          "total": Math.max(1, totalRankCost + flatCost),
-          "rangDyn": 0,
-          "rangDynMax": 0,
-          "divers": 0,
-          "modrang": modCostPerRank,
-          "modfixe": flatCost,
-          "totalTheorique": Math.max(1, totalRankCost + flatCost),
-          "parrangtotal": displayCostPerRank
+  }
+
+  if (power.system.defauts) {
+    for (let flaw of Object.values(power.system.defauts)) {
+      if (flaw.data && flaw.data.cout) {
+        if (flaw.data.cout.rang && !flaw.data.cout.fixe) modCostPerRank -= flaw.data.cout.value;
+        else if (flaw.data.cout.fixe) {
+          if (flaw.name !== 'Removable' && flaw.name !== 'Easily Removable') {
+            flatModTotal -= (flaw.data.cout.rang ? (flaw.rang || 1) : 1) * flaw.data.cout.value;
+          }
         }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 0,
-      "flags": {},
-      "_stats": { "systemId": "mutants-and-masterminds-3e", "systemVersion": "1.39.13", "coreVersion": "12" }
-    };
-  }).filter(Boolean);
-  await savePack('powers', items);
-}
-
-async function buildEquipment() {
-  const existingIds = await loadExistingIds('equipment');
-  const categories = ['melee', 'ranged', 'armor', 'utility'];
-  const allDocs = [];
-  for (const cat of categories) {
-    const rows = await readCsv(path.join(__dirname, "../src/equipment/" + cat + "/" + cat + ".csv"));
-    for (const row of rows) {
-      const name = (row.Name || "").trim();
-      if (!name) continue;
-      allDocs.push({
-        "_id": existingIds[name] || createId(),
-        "name": name,
-        "type": "equipement",
-        "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
-        "system": { "description": "<p>" + sanitizeText(row.Notes) + "</p>", "cout": parseInt(row.Cost) || 1 },
-        "effects": [],
-        "flags": { "mnm-3e-expanded": { "link": row.ArrayGroup || "" } }
-      });
+      }
     }
   }
-  await savePack('equipment', allDocs);
+
+  let netCostPerRank = baseCostPerRank + modCostPerRank;
+  let totalRankCost = 0;
+  let displayCostPerRank = "";
+
+  if (netCostPerRank > 0) {
+    totalRankCost = netCostPerRank * baseRank;
+    displayCostPerRank = netCostPerRank.toString();
+  } else {
+    let ranksPerPoint = 2 - netCostPerRank;
+    totalRankCost = Math.ceil(baseRank / ranksPerPoint);
+    displayCostPerRank = `1/${ranksPerPoint}`;
+  }
+
+  let finalTotal = totalRankCost;
+  if (power.system.defauts) {
+    for (let flaw of Object.values(power.system.defauts)) {
+      if (flaw.name === 'Removable') finalTotal -= Math.floor(finalTotal / 5) * 1;
+      else if (flaw.name === 'Easily Removable') finalTotal -= Math.floor(finalTotal / 5) * 2;
+    }
+  }
+  finalTotal += flatModTotal;
+
+  power.system.cout.total = Math.max(1, finalTotal);
+  power.system.cout.totalTheorique = Math.max(1, finalTotal);
+  power.system.cout.modrang = modCostPerRank;
+  power.system.cout.modfixe = flatModTotal;
+  power.system.cout.parrangtotal = displayCostPerRank;
+  
+  return power;
 }
 
-async function buildVehicles() {
-  const existingIds = await loadExistingIds('vehicles');
-  const rows = await readCsv(path.join(__dirname, '../src/vehicles/vehicles.csv'));
-  const allDocs = rows.map(row => {
-    const name = (row.Name || "").trim();
-    if (!name) return null;
-    return {
-      "_id": existingIds[name] || createId(),
-      "name": name,
-      "type": "equipement",
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
-      "system": { "description": "<p>" + sanitizeText(row.Notes) + "</p>", "cout": parseInt(row.Cost) || 1 },
-      "effects": [],
-      "flags": {}
-    };
-  }).filter(Boolean);
-  await savePack('vehicles', allDocs);
-}
+async function build() {
+  if (!await fs.pathExists(compendiumPath)) {
+    console.error('compendium.json not found!');
+    return;
+  }
 
-async function buildHeadquarters() {
-  const existingIds = await loadExistingIds('headquarters');
-  const rows = await readCsv(path.join(__dirname, '../src/headquarters/headquarters.csv'));
-  const allDocs = rows.map(row => {
-    const name = (row.Name || "").trim();
-    if (!name) return null;
-    return {
-      "_id": existingIds[name] || createId(),
-      "name": name,
-      "type": "equipement",
-      "img": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
-      "system": { "description": "<p>" + sanitizeText(row.Notes) + "</p>", "cout": parseInt(row.Cost) || 1 },
-      "effects": [],
-      "flags": {}
-    };
-  }).filter(Boolean);
-  await savePack('headquarters', allDocs);
-}
-
-async function buildModifiers(items, fileName) {
-  const outFile = path.join(distDir, fileName);
-  const lines = items.map(i => JSON.stringify(i));
-  fs.writeFileSync(outFile, lines.join("\n") + "\n");
-}
-
-async function main() {
+  const data = await fs.readJson(compendiumPath);
   await fs.ensureDir(distDir);
-  await buildPowers();
-  await buildModifiers(ADVANTAGES, 'advantages.db');
-  await buildEquipment();
-  await buildVehicles();
-  await buildHeadquarters();
-  await buildModifiers(EXTRAS, 'extras.db');
-  await buildModifiers(FLAWS, 'flaws.db');
-  console.log("Build Complete.");
+
+  for (const [key, items] of Object.entries(data)) {
+    const processedItems = items.map(item => {
+      if (key === 'powers') return calculatePowerCost(item);
+      return item;
+    });
+
+    const ldj = processedItems.map(item => JSON.stringify(item)).join('\n');
+    await fs.writeFile(path.join(distDir, `${key}.db`), ldj);
+    console.log(`Pack built: ${key} (${items.length} items)`);
+  }
+  console.log('Build Complete: All compendiums synchronized from compendium.json.');
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+build().catch(err => console.error(err));

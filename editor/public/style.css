@@ -187,8 +187,29 @@ body {
   border-color: #89b4fa;
 }
 
-.field input[type="number"] {
-  width: 100px;
+.field-row-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.field-row-group .field {
+  flex: 1;
+  min-width: 150px;
+}
+
+.field-row-group .field input {
+  width: 100%;
+}
+
+.field textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
 }
 
 /* Checkbox rows */

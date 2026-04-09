@@ -70,7 +70,7 @@ function applyExpandedLogic(actor) {
 
       if (parentId && pArrayMetadata[parentId]) {
         const meta = pArrayMetadata[parentId];
-        target = (item._id === meta.bearer) ? meta.max : 0;
+        target = (item._id === meta.bearer) ? meta.max : Math.max(1, 0);
       }
       totalPowerPP += target;
     }
