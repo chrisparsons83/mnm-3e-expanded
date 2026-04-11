@@ -139,7 +139,6 @@ function applyExpandedLogic(actor) {
 
   equipment.forEach(e => {
     if (!processedEqIds.has(e.id)) {
-      // Use the flag as the source of truth if it exists, otherwise store it
       let baseCost = e.getFlag('mnm-3e-expanded', 'baseCost');
       if (baseCost === undefined) {
          baseCost = parseInt(e.system.cout) || 0;
@@ -149,7 +148,7 @@ function applyExpandedLogic(actor) {
       const finalCout = baseCost + (powerContributions[e.id] || 0);
       e.system.derivedCout = finalCout;
       e.system.cout = finalCout;
-      totalEquipmentEP += finalCout;
+      totalEquipmentEP += baseCost; 
     }
   });
 
