@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.26) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.27) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -139,11 +139,16 @@ function applyExpandedLogic(actor) {
 
   equipment.forEach(e => {
     if (!processedEqIds.has(e.id)) {
-      const c = parseInt(e.system.cout) || 0;
-      const finalCout = c + (powerContributions[e.id] || 0);
+      const baseCost = parseInt(e.getFlag('mnm-3e-expanded', 'baseCost') || e.system.cout) || 0;
+      
+      if (!e.getFlag('mnm-3e-expanded', 'baseCost')) {
+         e.update({'flags.mnm-3e-expanded.baseCost': baseCost});
+      }
+
+      const finalCout = baseCost + (powerContributions[e.id] || 0);
       e.system.derivedCout = finalCout;
       e.system.cout = finalCout;
-      totalEquipmentEP += c;
+      totalEquipmentEP += finalCout;
     }
   });
 
