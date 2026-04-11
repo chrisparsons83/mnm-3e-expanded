@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.3.67) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.6) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -236,10 +236,17 @@ Hooks.on('renderItemSheet', (app, html, data) => {
       
       console.log("Update Data:", updateData);
 
-      if (doc.isEmbedded) {
-        await doc.actor.updateEmbeddedDocuments("Item", [{_id: doc.id, ...updateData}]);
-      } else {
+      if (doc.isEmbedded && doc.actor === actor) {
         await doc.update(updateData);
+      } else {
+        // If not on the same actor, create a copy
+        const itemData = doc.toObject();
+        itemData.flags = itemData.flags || {};
+        itemData.flags['mnm-3e-expanded'] = {
+          costAsEP: true,
+          parentEquipmentId: item.id
+        };
+        await actor.createEmbeddedDocuments("Item", [itemData]);
       }
       
       ui.notifications.info(`Linked ${doc.name} to ${item.name}`);
