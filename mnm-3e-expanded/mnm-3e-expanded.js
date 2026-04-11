@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.10) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.11) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -65,8 +65,8 @@ function applyExpandedLogic(actor) {
     const full = calculatePowerCost(item);
     
     if (isOnEquipment) {
-      // KEEP real PP cost for sheet editing/visibility, but do NOT add to totalPowerPP
-      item.system.cout.total = full;
+      // KEEP real PP cost for sheet editing/visibility reference, but set total to 0 so it doesn't count against PP
+      item.system.cout.total = 0;
       item.system.cout.totalTheorique = full;
     } else {
       const parentId = pArrays[item.id] ? item.id : (parent && parent.type === 'pouvoir' ? parent.id : null);
@@ -74,7 +74,7 @@ function applyExpandedLogic(actor) {
 
       if (parentId && pArrayMetadata[parentId]) {
         const meta = pArrayMetadata[parentId];
-        target = (item.id === meta.bearer) ? meta.max : Math.max(1, 0);
+        target = (item.id === meta.bearer) ? meta.max : 1;
       }
       totalPowerPP += target;
       item.system.cout.total = target;
@@ -125,17 +125,39 @@ function applyExpandedLogic(actor) {
     totalEquipmentEP += target;
   });
 
-  // Add Equipment-linked powers to EP total
+  // --- 3. POWERS ON EQUIPMENT ARRAY LOGIC ---
+  const powersByEquipment = {};
   powers.forEach(p => {
     const costAsEP = p.getFlag('mnm-3e-expanded', 'costAsEP');
     const link = p.system.link;
     const parent = link ? (actor.items.get(link) || actor.items.find(i => i.name === link)) : null;
-    const isOnEquipment = (costAsEP && p.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement');
-
-    if (isOnEquipment) {
-      totalEquipmentEP += calculatePowerCost(p);
+    const parentEqId = (costAsEP && p.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement' ? parent.id : null);
+    
+    if (parentEqId) {
+      if (!powersByEquipment[parentEqId]) powersByEquipment[parentEqId] = [];
+      powersByEquipment[parentEqId].push(p);
     }
   });
+
+  for (const eqId in powersByEquipment) {
+    const eqPowers = powersByEquipment[eqId];
+    let maxCost = 0;
+    let bearerId = null;
+    
+    eqPowers.forEach(p => {
+      const cost = calculatePowerCost(p);
+      if (cost > maxCost) {
+        maxCost = cost;
+        bearerId = p.id;
+      }
+    });
+    if (!bearerId && eqPowers.length > 0) bearerId = eqPowers[0].id;
+
+    eqPowers.forEach(p => {
+      const isBearer = p.id === bearerId;
+      totalEquipmentEP += isBearer ? maxCost : 1;
+    });
+  }
 
   if (actor.system?.pp) {
     actor.system.pp.pouvoirs = totalPowerPP;
@@ -172,6 +194,15 @@ Hooks.on('renderItemSheet', (app, html, data) => {
     return parentFlag === item.id || link === item.id || link === item.name;
   });
 
+  // Calculate costs for display based on array logic
+  let maxC = 0;
+  let bearerId = null;
+  linkedPowers.forEach(p => {
+    const c = calculatePowerCost(p);
+    if (c > maxC) { maxC = c; bearerId = p.id; }
+  });
+  if (!bearerId && linkedPowers.length > 0) bearerId = linkedPowers[0].id;
+
   let powersHtml = `
     <div class="mnm-expanded-powers-section" style="margin-top: 10px; border-top: 1px solid #7a7971; padding-top: 10px;">
       <h3 style="border: none;">Powers on Equipment</h3>
@@ -179,12 +210,15 @@ Hooks.on('renderItemSheet', (app, html, data) => {
         <i class="fas fa-plus"></i> Drop Powers Here
       </div>
       <ul class="linked-powers-list" style="list-style: none; padding: 0; margin: 0;">
-        ${linkedPowers.map(p => `
-          <li style="display: flex; justify-content: space-between; align-items: center; padding: 5px 10px; border: 1px solid #ccc; border-radius: 3px; margin-bottom: 5px; background: #eee;">
-            <span style="font-weight: bold;">${p.name} <span style="font-weight: normal; font-style: italic;">(${calculatePowerCost(p)} EP)</span></span>
-            <a class="remove-power" title="Unlink Power" data-power-id="${p.id}" style="color: #800;"><i class="fas fa-trash"></i></a>
-          </li>
-        `).join('')}
+        ${linkedPowers.map(p => {
+          const displayCost = (p.id === bearerId) ? calculatePowerCost(p) : 1;
+          return `
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 5px 10px; border: 1px solid #ccc; border-radius: 3px; margin-bottom: 5px; background: #eee;">
+              <span style="font-weight: bold;">${p.name} <span style="font-weight: normal; font-style: italic;">(${displayCost} EP)</span></span>
+              <a class="remove-power" title="Unlink Power" data-power-id="${p.id}" style="color: #800;"><i class="fas fa-trash"></i></a>
+            </li>
+          `;
+        }).join('')}
       </ul>
     </div>
   `;
