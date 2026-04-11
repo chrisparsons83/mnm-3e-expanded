@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.18) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.19) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -186,6 +186,25 @@ Hooks.on('renderActorSheet', (app, html, data) => {
       }
     }
   });
+
+  // Rename "Total" label to "EP Cost" for specific powers on the character sheet
+  html.find('.item.type-pouvoir').each((i, el) => {
+    const itemId = $(el).data('item-id');
+    const item = actor.items.get(itemId);
+    if (item) {
+      const costAsEP = item.getFlag('mnm-3e-expanded', 'costAsEP');
+      const link = item.system.link;
+      const parent = link ? (actor.items.get(link) || actor.items.find(it => it.name === link)) : null;
+      const isOnEquipment = (costAsEP && item.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement');
+      
+      if (isOnEquipment) {
+        // Renaming labels in the detail/cout section
+        $(el).find('.item-detail.item-cout-total label, .item-cout label').each((j, lbl) => {
+           if ($(lbl).text().trim() === "Total") $(lbl).text("EP Cost");
+        });
+      }
+    }
+  });
 });
 
 // HIJACK
@@ -211,6 +230,11 @@ Hooks.on('renderItemSheet', (app, html, data) => {
       // Force UI to show total points from our logic
       const totalBox = html.find('input[name="system.cout.total"]');
       if (totalBox.length) totalBox.val(item.system.cout.total);
+
+      // Rename Label
+      html.find('label').each((i, el) => {
+        if ($(el).text().trim() === "Total") $(el).text("EP Cost");
+      });
     }
   }
 
