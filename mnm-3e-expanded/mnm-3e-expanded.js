@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.11) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.13) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -23,142 +23,125 @@ function calculatePowerCost(item) {
 function applyExpandedLogic(actor) {
   if (actor.type !== 'personnage') return;
 
-  const powers = actor.items.filter(i => i.type === 'pouvoir');
-  const equipment = actor.items.filter(i => i.type === 'equipement');
+  const allItems = actor.items;
+  const powers = allItems.filter(i => i.type === 'pouvoir');
+  const equipment = allItems.filter(i => i.type === 'equipement');
 
-  // --- 1. POWER ARRAY LOGIC ---
-  const pArrays = {};
-  powers.forEach(p => {
-    const link = p.system.link;
-    if (link) {
-      const parent = actor.items.get(link) || powers.find(i => i.name === link);
-      if (parent && parent.type === 'pouvoir') {
-        const pId = parent.id;
-        if (!pArrays[pId]) pArrays[pId] = [pId];
-        if (!pArrays[pId].includes(p.id)) pArrays[pId].push(p.id);
-      }
-    }
-  });
+  // --- 1. IDENTIFY POWER GROUPS (Arrays) ---
+  const ppArrays = {};
+  const epArrays = {};
+  const ppPowers = [];
+  const epPowers = [];
 
-  const pArrayMetadata = {};
-  for (const pId in pArrays) {
-    let maxCost = 0;
-    let bearerId = pId;
-    pArrays[pId].forEach(id => {
-      const item = actor.items.get(id);
-      if (!item) return;
-      const full = calculatePowerCost(item);
-      if (full > maxCost) { maxCost = full; bearerId = id; }
-    });
-    pArrayMetadata[pId] = { max: maxCost, bearer: bearerId };
-  }
-
-  let totalPowerPP = 0;
-  let totalEquipmentEP = 0;
-
-  powers.forEach(item => {
-    const costAsEP = item.getFlag('mnm-3e-expanded', 'costAsEP');
-    const link = item.system.link;
-    const parent = link ? (actor.items.get(link) || actor.items.find(i => i.name === link)) : null;
-    const isOnEquipment = (costAsEP && item.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement');
-
-    const full = calculatePowerCost(item);
-    
-    if (isOnEquipment) {
-      // KEEP real PP cost for sheet editing/visibility reference, but set total to 0 so it doesn't count against PP
-      item.system.cout.total = 0;
-      item.system.cout.totalTheorique = full;
-    } else {
-      const parentId = pArrays[item.id] ? item.id : (parent && parent.type === 'pouvoir' ? parent.id : null);
-      let target = full;
-
-      if (parentId && pArrayMetadata[parentId]) {
-        const meta = pArrayMetadata[parentId];
-        target = (item.id === meta.bearer) ? meta.max : 1;
-      }
-      totalPowerPP += target;
-      item.system.cout.total = target;
-      item.system.cout.totalTheorique = target;
-    }
-  });
-
-  // --- 2. EQUIPMENT ARRAY LOGIC ---
-  const eArrays = {};
-  equipment.forEach(e => {
-    const link = e.getFlag('mnm-3e-expanded', 'link');
-    if (link) {
-      const parent = actor.items.get(link) || equipment.find(i => i.name === link);
-      if (parent) {
-        const pId = parent.id;
-        if (!eArrays[pId]) eArrays[pId] = [pId];
-        if (!eArrays[pId].includes(e.id)) eArrays[pId].push(e.id);
-      }
-    }
-  });
-
-  const eArrayMetadata = {};
-  for (const pId in eArrays) {
-    let maxCost = 0;
-    let bearerId = pId;
-    eArrays[pId].forEach(id => {
-      const item = actor.items.get(id);
-      if (!item) return;
-      const cost = parseInt(item.system.cout) || 0;
-      if (cost > maxCost) { maxCost = cost; bearerId = id; }
-    });
-    eArrayMetadata[pId] = { max: maxCost, bearer: bearerId };
-  }
-
-  totalEquipmentEP = 0;
-  equipment.forEach(item => {
-    const baseCost = parseInt(item.system.cout) || 0;
-    let target = baseCost;
-    const link = item.getFlag('mnm-3e-expanded', 'link');
-    const parent = link ? (actor.items.get(link) || equipment.find(i => i.name === link)) : null;
-    const parentId = eArrays[item.id] ? item.id : (parent ? parent.id : null);
-
-    if (parentId && eArrayMetadata[parentId]) {
-      const meta = eArrayMetadata[parentId];
-      target = (item.id === meta.bearer) ? meta.max : 1;
-    }
-    item.system.derivedCout = target;
-    totalEquipmentEP += target;
-  });
-
-  // --- 3. POWERS ON EQUIPMENT ARRAY LOGIC ---
-  const powersByEquipment = {};
   powers.forEach(p => {
     const costAsEP = p.getFlag('mnm-3e-expanded', 'costAsEP');
     const link = p.system.link;
     const parent = link ? (actor.items.get(link) || actor.items.find(i => i.name === link)) : null;
     const parentEqId = (costAsEP && p.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement' ? parent.id : null);
-    
+
     if (parentEqId) {
-      if (!powersByEquipment[parentEqId]) powersByEquipment[parentEqId] = [];
-      powersByEquipment[parentEqId].push(p);
+      if (!epArrays[parentEqId]) epArrays[parentEqId] = [];
+      epArrays[parentEqId].push(p);
+      epPowers.push(p);
+    } else {
+      const parentPowerId = (parent && parent.type === 'pouvoir') ? parent.id : null;
+      if (parentPowerId) {
+        if (!ppArrays[parentPowerId]) ppArrays[parentPowerId] = [parentPowerId];
+        if (!ppArrays[parentPowerId].includes(p.id)) ppArrays[parentPowerId].push(p.id);
+      }
+      ppPowers.push(p);
     }
   });
 
-  for (const eqId in powersByEquipment) {
-    const eqPowers = powersByEquipment[eqId];
+  powers.forEach(p => {
+    if (!epPowers.includes(p) && ppArrays[p.id] && !ppArrays[p.id].includes(p.id)) {
+      ppArrays[p.id].push(p.id);
+    }
+  });
+
+  // --- 2. CALCULATE POWER COSTS ---
+  let totalPowerPP = 0;
+  let totalEquipmentEP = 0;
+
+  const processArray = (itemIdsOrDocs, isEP) => {
     let maxCost = 0;
     let bearerId = null;
+    const docs = itemIdsOrDocs.map(idOrDoc => (typeof idOrDoc === 'string') ? actor.items.get(idOrDoc) : idOrDoc).filter(d => !!d);
     
-    eqPowers.forEach(p => {
-      const cost = calculatePowerCost(p);
-      if (cost > maxCost) {
-        maxCost = cost;
-        bearerId = p.id;
-      }
+    docs.forEach(d => {
+      const full = calculatePowerCost(d);
+      if (full > maxCost) { maxCost = full; bearerId = d.id; }
     });
-    if (!bearerId && eqPowers.length > 0) bearerId = eqPowers[0].id;
+    if (!bearerId && docs.length > 0) bearerId = docs[0].id;
 
-    eqPowers.forEach(p => {
-      const isBearer = p.id === bearerId;
-      totalEquipmentEP += isBearer ? maxCost : 1;
+    let arraySum = 0;
+    docs.forEach(d => {
+      const isBearer = d.id === bearerId;
+      const target = isBearer ? maxCost : 1;
+      
+      d.system.cout.total = target;
+      d.system.cout.totalTheorique = calculatePowerCost(d);
+      if (!isBearer) d.system.cout.parrangtotal = "1 (AE)";
+      arraySum += target;
+    });
+    return arraySum;
+  };
+
+  const processedPpIds = new Set();
+  for (const rootId in ppArrays) {
+    totalPowerPP += processArray(ppArrays[rootId], false);
+    ppArrays[rootId].forEach(id => processedPpIds.add(id));
+  }
+  ppPowers.forEach(p => {
+    if (!processedPpIds.has(p.id)) {
+      const full = calculatePowerCost(p);
+      p.system.cout.total = full;
+      p.system.cout.totalTheorique = full;
+      totalPowerPP += full;
+    }
+  });
+
+  for (const eqId in epArrays) {
+    totalEquipmentEP += processArray(epArrays[eqId], true);
+  }
+
+  // --- 3. EQUIPMENT COST LOGIC ---
+  const equipmentArrays = {};
+  equipment.forEach(e => {
+    const link = e.getFlag('mnm-3e-expanded', 'link');
+    const parent = link ? (actor.items.get(link) || equipment.find(i => i.name === link)) : null;
+    if (parent && parent.type === 'equipement') {
+      if (!equipmentArrays[parent.id]) equipmentArrays[parent.id] = [parent.id];
+      if (!equipmentArrays[parent.id].includes(e.id)) equipmentArrays[parent.id].push(e.id);
+    }
+  });
+
+  const processedEqIds = new Set();
+  for (const rootId in equipmentArrays) {
+    let maxC = 0;
+    let bId = null;
+    const docs = equipmentArrays[rootId].map(id => actor.items.get(id)).filter(d => !!d);
+    docs.forEach(d => {
+      const c = parseInt(d.system.cout) || 0;
+      if (c > maxC) { maxC = c; bId = d.id; }
+    });
+    docs.forEach(d => {
+      const t = (d.id === bId) ? maxC : 1;
+      d.system.derivedCout = t;
+      totalEquipmentEP += t;
+      processedEqIds.add(d.id);
     });
   }
 
+  equipment.forEach(e => {
+    if (!processedEqIds.has(e.id)) {
+      const c = parseInt(e.system.cout) || 0;
+      e.system.derivedCout = c;
+      totalEquipmentEP += c;
+    }
+  });
+
+  // --- 4. APPLY TOTALS ---
   if (actor.system?.pp) {
     actor.system.pp.pouvoirs = totalPowerPP;
     const pp = actor.system.pp;
@@ -179,9 +162,23 @@ Hooks.once('init', () => {
   };
 });
 
-// UI Injection for Equipment Cards
+// Item Sheet Refresh Hijack
 Hooks.on('renderItemSheet', (app, html, data) => {
   const item = app.item;
+  if (item.type === 'pouvoir' && item.actor) {
+    // If it is on equipment, make sure total calculation is visible
+    const costAsEP = item.getFlag('mnm-3e-expanded', 'costAsEP');
+    const link = item.system.link;
+    const parent = link ? (item.actor.items.get(link) || item.actor.items.find(i => i.name === link)) : null;
+    const isOnEquipment = (costAsEP && item.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement');
+    
+    if (isOnEquipment) {
+      // Force UI to show total points from our logic
+      const totalBox = html.find('input[name="system.cout.total"]');
+      if (totalBox.length) totalBox.val(item.system.cout.total);
+    }
+  }
+
   if (item.type !== 'equipement') return;
 
   const actor = item.actor;
@@ -194,15 +191,6 @@ Hooks.on('renderItemSheet', (app, html, data) => {
     return parentFlag === item.id || link === item.id || link === item.name;
   });
 
-  // Calculate costs for display based on array logic
-  let maxC = 0;
-  let bearerId = null;
-  linkedPowers.forEach(p => {
-    const c = calculatePowerCost(p);
-    if (c > maxC) { maxC = c; bearerId = p.id; }
-  });
-  if (!bearerId && linkedPowers.length > 0) bearerId = linkedPowers[0].id;
-
   let powersHtml = `
     <div class="mnm-expanded-powers-section" style="margin-top: 10px; border-top: 1px solid #7a7971; padding-top: 10px;">
       <h3 style="border: none;">Powers on Equipment</h3>
@@ -210,15 +198,12 @@ Hooks.on('renderItemSheet', (app, html, data) => {
         <i class="fas fa-plus"></i> Drop Powers Here
       </div>
       <ul class="linked-powers-list" style="list-style: none; padding: 0; margin: 0;">
-        ${linkedPowers.map(p => {
-          const displayCost = (p.id === bearerId) ? calculatePowerCost(p) : 1;
-          return `
-            <li style="display: flex; justify-content: space-between; align-items: center; padding: 5px 10px; border: 1px solid #ccc; border-radius: 3px; margin-bottom: 5px; background: #eee;">
-              <span style="font-weight: bold;">${p.name} <span style="font-weight: normal; font-style: italic;">(${displayCost} EP)</span></span>
-              <a class="remove-power" title="Unlink Power" data-power-id="${p.id}" style="color: #800;"><i class="fas fa-trash"></i></a>
-            </li>
-          `;
-        }).join('')}
+        ${linkedPowers.map(p => `
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 5px 10px; border: 1px solid #ccc; border-radius: 3px; margin-bottom: 5px; background: #eee;">
+            <span style="font-weight: bold;">${p.name} <span style="font-weight: normal; font-style: italic;">(${p.system.cout.total} EP)</span></span>
+            <a class="remove-power" title="Unlink Power" data-power-id="${p.id}" style="color: #800;"><i class="fas fa-trash"></i></a>
+          </li>
+        `).join('')}
       </ul>
     </div>
   `;
