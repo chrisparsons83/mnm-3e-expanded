@@ -118,6 +118,11 @@ async function importData() {
     const processedItems = items.map(item => {
       if (key === 'powers') {
         const processedItem = { ...item };
+        // Clear Extras and Flaws
+        if (processedItem.system) {
+          processedItem.system.extras = {};
+          processedItem.system.defauts = {};
+        }
         return calculatePowerCost(processedItem);
       }
       return item;

@@ -78,7 +78,14 @@ async function build() {
 
   for (const [key, items] of Object.entries(data)) {
     const processedItems = items.map(item => {
-      if (key === 'powers') return calculatePowerCost(item);
+      if (key === 'powers') {
+        // Clear Extras and Flaws as requested
+        if (item.system) {
+          item.system.extras = {};
+          item.system.defauts = {};
+        }
+        return calculatePowerCost(item);
+      }
       return item;
     });
 
