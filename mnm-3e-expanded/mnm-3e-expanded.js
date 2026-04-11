@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.9) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.5.0) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -32,7 +32,6 @@ function applyExpandedLogic(actor) {
     const link = p.system.link;
     if (link) {
       const parent = actor.items.get(link) || powers.find(i => i.name === link);
-      // ONLY powers form arrays with other powers. Equipment links are handled separately.
       if (parent && parent.type === 'pouvoir') {
         const pId = parent.id;
         if (!pArrays[pId]) pArrays[pId] = [pId];
@@ -64,25 +63,23 @@ function applyExpandedLogic(actor) {
     const isOnEquipment = (costAsEP && item.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement');
 
     const full = calculatePowerCost(item);
-    let target = full;
-
+    
     if (isOnEquipment) {
-      target = 0; 
+      // KEEP real PP cost for sheet editing/visibility, but do NOT add to totalPowerPP
+      item.system.cout.total = full;
+      item.system.cout.totalTheorique = full;
     } else {
-      const link = item.system.link;
-      const parent = link ? (actor.items.get(link) || powers.find(i => i.name === link)) : null;
-      const parentId = pArrays[item.id] ? item.id : (parent ? parent.id : null);
+      const parentId = pArrays[item.id] ? item.id : (parent && parent.type === 'pouvoir' ? parent.id : null);
+      let target = full;
 
       if (parentId && pArrayMetadata[parentId]) {
         const meta = pArrayMetadata[parentId];
         target = (item.id === meta.bearer) ? meta.max : Math.max(1, 0);
       }
       totalPowerPP += target;
+      item.system.cout.total = target;
+      item.system.cout.totalTheorique = target;
     }
-
-    item.system.cout.total = target;
-    item.system.cout.totalTheorique = target;
-    if (target === 0) item.system.cout.parrangtotal = "0";
   });
 
   // --- 2. EQUIPMENT ARRAY LOGIC ---
@@ -128,6 +125,7 @@ function applyExpandedLogic(actor) {
     totalEquipmentEP += target;
   });
 
+  // Add Equipment-linked powers to EP total
   powers.forEach(p => {
     const costAsEP = p.getFlag('mnm-3e-expanded', 'costAsEP');
     const link = p.system.link;
