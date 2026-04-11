@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.16) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.17) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -163,6 +163,25 @@ Hooks.on('renderActorSheet', (app, html, data) => {
   if (eqHeader.length && eqHeader.first().text().trim() === "Equipement") {
     eqHeader.first().text("Equipement & Arrays");
   }
+
+  // Find all Power Array headers and rename to EQ Array if they belong to equipment
+  const actor = app.actor;
+  html.find('.item-name.item-header, .item-name').each((i, el) => {
+    const text = $(el).text().trim();
+    if (text.startsWith("Array:")) {
+      const arrayName = text.replace("Array:", "").trim();
+      const isEqArray = actor.items.some(item => 
+        item.type === 'pouvoir' && 
+        (item.name === arrayName || item.system.link === arrayName) && 
+        (item.getFlag('mnm-3e-expanded', 'parentEquipmentId') || 
+         actor.items.some(parent => parent.id === item.system.link && parent.type === 'equipement'))
+      );
+
+      if (isEqArray) {
+        $(el).text(text.replace("Array:", "EQ Array:"));
+      }
+    }
+  });
 });
 
 // HIJACK
