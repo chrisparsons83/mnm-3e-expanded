@@ -139,6 +139,8 @@ function applyExpandedLogic(actor) {
 
   equipment.forEach(e => {
     if (!processedEqIds.has(e.id)) {
+      // Correctly identify base cost: if we've already modified system.cout, 
+      // we must rely on the stored flag or a reliable source, not the potentially modified system.cout
       let baseCost = e.getFlag('mnm-3e-expanded', 'baseCost');
       if (baseCost === undefined) {
          baseCost = parseInt(e.system.cout) || 0;
