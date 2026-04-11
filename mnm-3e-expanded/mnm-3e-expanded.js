@@ -166,19 +166,23 @@ Hooks.on('renderActorSheet', (app, html, data) => {
 
   // Find all Power Array headers and rename to EQ Array if they belong to equipment
   const actor = app.actor;
-  html.find('.item-name.item-header, .item-name').each((i, el) => {
+  html.find('.item-name.item-header, .item-name, h4, h3').each((i, el) => {
     const text = $(el).text().trim();
     if (text.startsWith("Array:")) {
       const arrayName = text.replace("Array:", "").trim();
+      // Look for any power that belongs to this array and check its EQ status
       const isEqArray = actor.items.some(item => 
         item.type === 'pouvoir' && 
-        (item.name === arrayName || item.system.link === arrayName) && 
+        (item.name === arrayName || item.system.link === arrayName || 
+         (item.system.link && actor.items.get(item.system.link)?.name === arrayName)) && 
         (item.getFlag('mnm-3e-expanded', 'parentEquipmentId') || 
          actor.items.some(parent => parent.id === item.system.link && parent.type === 'equipement'))
       );
 
       if (isEqArray) {
-        $(el).text(text.replace("Array:", "EQ Array:"));
+        // Use a more flexible replacement to avoid losing other elements inside the header if any
+        const currentHtml = $(el).html();
+        $(el).html(currentHtml.replace("Array:", "EQ Array:"));
       }
     }
   });
