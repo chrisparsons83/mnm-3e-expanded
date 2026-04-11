@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.15) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.16) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -152,6 +152,18 @@ function applyExpandedLogic(actor) {
     actor.system.ptsEquipements.use = totalEquipmentEP;
   }
 }
+
+// Rename Equipment Tab on Character Sheet
+Hooks.on('renderActorSheet', (app, html, data) => {
+  const eqTab = html.find('.tabs .item[data-tab="equipement"]');
+  if (eqTab.length) {
+    eqTab.text("Equipement & Arrays");
+  }
+  const eqHeader = html.find('.tab[data-tab="equipement"] .items-header .item-name');
+  if (eqHeader.length && eqHeader.first().text().trim() === "Equipement") {
+    eqHeader.first().text("Equipement & Arrays");
+  }
+});
 
 // HIJACK
 Hooks.once('init', () => {
