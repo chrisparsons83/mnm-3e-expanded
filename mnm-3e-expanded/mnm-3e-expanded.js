@@ -125,14 +125,19 @@ function applyExpandedLogic(actor) {
     let bId = null;
     const docs = equipmentArrays[rootId].map(id => actor.items.get(id)).filter(d => !!d);
     docs.forEach(d => {
-      const c = parseInt(d.system.cout) || 0;
+      const c = parseInt(d.getFlag('mnm-3e-expanded', 'baseCost') || d.system.cout) || 0;
       if (c > maxC) { maxC = c; bId = d.id; }
     });
+    
     docs.forEach(d => {
+      const baseCost = parseInt(d.getFlag('mnm-3e-expanded', 'baseCost') || d.system.cout) || 0;
+      if (!d.getFlag('mnm-3e-expanded', 'baseCost')) d.update({'flags.mnm-3e-expanded.baseCost': baseCost});
+      
       const t = (d.id === bId) ? maxC : 1;
       const finalCout = t + (powerContributions[d.id] || 0);
       d.system.derivedCout = finalCout;
-      totalEquipmentEP += finalCout; // Add the fully calculated total to the global EP total here, NOT in the individual loop
+      d.system.cout = finalCout;
+      totalEquipmentEP += finalCout;
       processedEqIds.add(d.id);
     });
   }
@@ -148,7 +153,7 @@ function applyExpandedLogic(actor) {
       const finalCout = baseCost + (powerContributions[e.id] || 0);
       e.system.derivedCout = finalCout;
       e.system.cout = finalCout;
-      totalEquipmentEP += finalCout; // Add the fully calculated total here
+      totalEquipmentEP += finalCout;
     }
   });
 
