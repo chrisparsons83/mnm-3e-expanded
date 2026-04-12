@@ -1,4 +1,4 @@
-console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.32) ', 'background: #800080; color: #fff; font-weight: bold;');
+console.log('%c M&M 3E EXPANDED | SYSTEM HIJACK ACTIVE (V3.4.36) ', 'background: #800080; color: #fff; font-weight: bold;');
 
 /**
  * Calculates the theoretical full cost of a power based on M&M 3e rules.
@@ -125,63 +125,102 @@ function applyExpandedLogic(actor) {
     let bId = null;
     const docs = equipmentArrays[rootId].map(id => actor.items.get(id)).filter(d => !!d);
     docs.forEach(d => {
-      const c = parseInt(d.getFlag('mnm-3e-expanded', 'baseCost') || d.system.cout) || 0;
+      const c = parseInt(d.system.cout) || 0;
       if (c > maxC) { maxC = c; bId = d.id; }
     });
-    
+
     docs.forEach(d => {
-      const baseCost = parseInt(d.getFlag('mnm-3e-expanded', 'baseCost') || d.system.cout) || 0;
-      if (!d.getFlag('mnm-3e-expanded', 'baseCost')) d.update({'flags.mnm-3e-expanded.baseCost': baseCost});
-      
+      const baseCost = parseInt(d.system.cout) || 0;
       const arrayContribution = (d.id === bId) ? maxC : 1;
-      const finalCout = baseCost + (powerContributions[d.id] || 0);
+      const finalCout = arrayContribution + (powerContributions[d.id] || 0);
       d.system.derivedCout = finalCout;
-      d.system.cout = finalCout;
-      totalEquipmentEP += baseCost + arrayContribution;
+      // Do NOT set d.system.cout — the system's #_equipment() has already locked
+      // ptsEquipements.use from the stored cout value. Inflating cout here would
+      // cause double-counting in renderItemSheet (totalEP = inflated_cout + arrayEP).
+      totalEquipmentEP += finalCout;
       processedEqIds.add(d.id);
     });
   }
 
   equipment.forEach(e => {
     if (!processedEqIds.has(e.id)) {
-      let baseCost = e.getFlag('mnm-3e-expanded', 'baseCost');
-      if (baseCost === undefined) {
-         baseCost = parseInt(e.system.cout) || 0;
-         e.update({'flags.mnm-3e-expanded.baseCost': baseCost});
-      }
-
+      const baseCost = parseInt(e.system.cout) || 0;
       const finalCout = baseCost + (powerContributions[e.id] || 0);
       e.system.derivedCout = finalCout;
-      e.system.cout = finalCout;
-      
-      // Update totalEquipmentEP only once per equipment
-      totalEquipmentEP += finalCout; 
+      // Do NOT set e.system.cout — see note above.
+      totalEquipmentEP += finalCout;
     }
   });
 
   // --- 4. APPLY TOTALS ---
-  if (actor.system?.pp) {
-    actor.system.pp.pouvoirs = totalPowerPP;
-    const pp = actor.system.pp;
-    const newUsed = (pp.caracteristiques || 0) + totalPowerPP + (pp.talents || 0) + (pp.competences || 0) + (pp.defenses || 0) + (pp.divers || 0);
-    actor.system.pp.used = newUsed;
-  }
-  if (actor.system?.ptsEquipements) {
-    actor.system.ptsEquipements.use = totalEquipmentEP;
-  }
+  // The system's personnage-data-model uses Object.defineProperty to lock
+  // pp.pouvoirs, pp.used, ptsEquipements.use, and ptsEquipements.max as
+  // non-writable/non-configurable. Direct assignment silently fails.
+  // Instead we store our computed values as non-persisted actor properties
+  // for renderActorSheet to pick up and display via HTML updates.
+  const systemEPCost = epPowers.reduce((acc, p) => acc + (p.system.cout?.totalTheorique || 0), 0);
+  actor._mnmExpandedPP = totalPowerPP;
+  actor._mnmExpandedEP = totalEquipmentEP;
+  actor._mnmSystemEPCost = systemEPCost;
 }
 
 // Rename Equipment Tab on Character Sheet and Update Array Labels
 Hooks.on('renderActorSheet', (app, html, data) => {
-  console.log("M&M 3e Expanded | Rendering Actor Sheet:", app.actor.name);
+  console.debug("M&M 3e Expanded | Rendering Actor Sheet:", app.actor.name); // fix 4: was console.log
   const actor = app.actor;
-  
+
+  // Fix EP display — the system locks ptsEquipements.use via Object.defineProperty
+  // before our applyExpandedLogic runs, so it only reflects base equipment costs.
+  // We stored our computed total in actor._mnmExpandedEP; update the HTML here.
+  if (actor._mnmExpandedEP !== undefined) {
+    const totalEP = actor._mnmExpandedEP;
+    const maxEP = actor.system.ptsEquipements.max;
+    const epScoreSpan = html.find('.lEquipements .score').first();
+    if (epScoreSpan.length) {
+      // fix 6: check the replacement actually found the pattern before committing
+      const rawText = epScoreSpan.text();
+      const updatedText = rawText.replace(/:\s*\d+\s*\//, `: ${totalEP} /`);
+      if (updatedText !== rawText) {
+        epScoreSpan.text(updatedText);
+      } else {
+        console.warn('M&M 3e Expanded | Could not update EP score display - unexpected format:', rawText);
+      }
+      epScoreSpan.toggleClass('red', totalEP > maxEP);
+    }
+  }
+
+  // Fix PP display — system locks pp.pouvoirs and pp.used the same way, counting
+  // all pouvoirs including those flagged costAsEP. Subtract the EP power costs.
+  // fix 7: condition was `&& actor._mnmSystemEPCost` which is correct (skip when 0),
+  // but removed the redundant `actor._mnmExpandedPP !== undefined` check since
+  // both properties are always set together by applyExpandedLogic.
+  if (actor._mnmSystemEPCost) {
+    const systemEPCost = actor._mnmSystemEPCost;
+    const ppDetails = html.find('.totalpp details');
+    // pp.pouvoirs is the 2nd .line inside details (after caracteristiques).
+    // fix 2: validate the value matches what we expect before modifying, so a
+    // template reorder doesn't silently corrupt the wrong field.
+    const ppPouvoirsSpan = ppDetails.find('.line').eq(1).find('.score');
+    if (ppPouvoirsSpan.length && parseInt(ppPouvoirsSpan.text()) === actor.system.pp.pouvoirs) {
+      ppPouvoirsSpan.text(actor.system.pp.pouvoirs - systemEPCost);
+    } else if (ppPouvoirsSpan.length) {
+      console.warn('M&M 3e Expanded | PP pouvoirs span did not match expected value, skipping correction');
+    }
+    // pp.used is in the <summary>
+    const ppUsedSpan = ppDetails.find('summary .score');
+    if (ppUsedSpan.length) {
+      const correctedUsed = (parseInt(ppUsedSpan.text()) || 0) - systemEPCost;
+      ppUsedSpan.text(correctedUsed);
+      ppUsedSpan.toggleClass('red', correctedUsed > (actor.system.pp.total || 0));
+    }
+  }
+
   // 1. Rename Navigation Tab
   const eqTab = html.find('.tabs .item[data-tab="equipement"]');
   if (eqTab.length) {
     eqTab.text("Equipement & Arrays");
   }
-  
+
   // 2. Rename Section Headers
   html.find('.tab[data-tab="equipement"] .items-header .item-name, .tab[data-tab="equipement"] h3, .tab[data-tab="equipement"] h4').each((i, el) => {
     if ($(el).text().trim() === "Equipement") {
@@ -190,21 +229,28 @@ Hooks.on('renderActorSheet', (app, html, data) => {
   });
 
   // 3. Rename Array Headers
+  // fix 5: pre-compute the set of EP-array root power names once (O(n)) so the
+  // DOM loop below can do O(1) lookups instead of calling actor.items.some() for
+  // every matching element (previously O(n²)).
+  const epArrayRootNames = new Set();
+  actor.items.forEach(pwr => {
+    if (pwr.type !== 'pouvoir') return;
+    if (!pwr.getFlag('mnm-3e-expanded', 'parentEquipmentId')) return;
+    const link = pwr.system.link;
+    const linkedItem = link ? actor.items.get(link) : null;
+    if (linkedItem?.type === 'pouvoir') {
+      epArrayRootNames.add(linkedItem.name); // this power is an AE; root is the linked power
+    } else {
+      epArrayRootNames.add(pwr.name);        // this power is itself the root
+    }
+  });
+
   html.find('.item-name.item-header, .item-name, h4, h3').each((i, el) => {
     const text = $(el).text().trim();
     if (text.startsWith("Array:")) {
       const arrayName = text.replace("Array:", "").trim();
-      const isEqArray = actor.items.some(item => 
-        item.type === 'pouvoir' && 
-        (item.name === arrayName || item.system.link === arrayName || 
-         (item.system.link && actor.items.get(item.system.link)?.name === arrayName)) && 
-        (item.getFlag('mnm-3e-expanded', 'parentEquipmentId') || 
-         actor.items.some(parent => parent.id === item.system.link && parent.type === 'equipement'))
-      );
-
-      if (isEqArray) {
-        const currentHtml = $(el).html();
-        $(el).html(currentHtml.replace("Array:", "EQ Array:"));
+      if (epArrayRootNames.has(arrayName)) {
+        $(el).html($(el).html().replace("Array:", "EQ Array:"));
       }
     }
   });
@@ -254,15 +300,15 @@ Hooks.once('init', () => {
 
 // Item Sheet Refresh Hijack
 Hooks.on('renderItemSheet', (app, html, data) => {
-  console.log("M&M 3e Expanded | Rendering Item Sheet:", app.item.name, "Type:", app.item.type);
+  console.debug("M&M 3e Expanded | Rendering Item Sheet:", app.item.name, "Type:", app.item.type); // fix 4: was console.log
   const item = app.item;
-  
+
   if (item.type === 'pouvoir' && item.actor) {
     const costAsEP = item.getFlag('mnm-3e-expanded', 'costAsEP');
     const link = item.system.link;
     const parent = link ? (item.actor.items.get(link) || item.actor.items.find(i => i.name === link)) : null;
     const isOnEquipment = (costAsEP && item.getFlag('mnm-3e-expanded', 'parentEquipmentId')) || (parent && parent.type === 'equipement');
-    
+
     if (isOnEquipment) {
       // Force UI to show total points from our logic
       const totalBox = html.find('input[name="system.cout.total"], [data-property="system.cout.total"]');
@@ -280,53 +326,17 @@ Hooks.on('renderItemSheet', (app, html, data) => {
     }
   }
 
-  if (item.type === 'equipement') {
-    const actor = item.actor;
-    if (actor) {
-      const linkedPowers = actor.items.filter(i => {
-        if (i.type !== 'pouvoir') return false;
-        const parentFlag = i.getFlag('mnm-3e-expanded', 'parentEquipmentId');
-        const link = i.system.link;
-        return parentFlag === item.id || link === item.id || link === item.name;
-      });
-
-      if (linkedPowers.length > 0) {
-        let maxC = 0;
-        linkedPowers.forEach(p => {
-          const c = calculatePowerCost(p);
-          if (c > maxC) maxC = c;
-        });
-        const arrayEP = maxC + (linkedPowers.length - 1);
-        const totalEP = (parseInt(item.system.cout) || 0) + arrayEP;
-
-        const costInput = html.find('input[name="system.cout"], [data-property="system.cout"]');
-        if (costInput.length) {
-          const group = costInput.closest('.form-group, .item-prop');
-          group.find('label').text("Base Cost");
-          
-          if (!html.find('.mnm-injected-cost').length) {
-            const arrayHtml = `
-              <div class="form-group mnm-injected-cost">
-                <label>Power Array EP</label>
-                <span style="flex: 1; text-align: right; padding-right: 5px;">${arrayEP}</span>
-              </div>
-              <div class="form-group mnm-injected-cost" style="font-weight: bold; border-top: 1px solid #7a7971; padding-top: 5px;">
-                <label>Total EP Cost</label>
-                <span style="flex: 1; text-align: right; padding-right: 5px;">${totalEP}</span>
-              </div>
-            `;
-            group.after(arrayHtml);
-          }
-        }
-      }
-    }
-  }
-
+  // fix 1: the original code had two separate equipment blocks with linkedPowers
+  // computed twice and actor looked up twice. The early-return guard between them
+  // (if item.type !== 'equipement') meant the second block was only reachable for
+  // equipment, but the first block also ran for equipment — so both ran but with
+  // redundant lookups. Merged into one block with a single early-return guard.
   if (item.type !== 'equipement') return;
 
   const actor = item.actor;
   if (!actor) return;
 
+  // Compute linked powers once; used for both cost display and power list below.
   const linkedPowers = actor.items.filter(i => {
     if (i.type !== 'pouvoir') return false;
     const parentFlag = i.getFlag('mnm-3e-expanded', 'parentEquipmentId');
@@ -334,7 +344,45 @@ Hooks.on('renderItemSheet', (app, html, data) => {
     return parentFlag === item.id || link === item.id || link === item.name;
   });
 
-  let powersHtml = `
+  // Inject cost breakdown when there are linked powers
+  if (linkedPowers.length > 0) {
+    let maxC = 0;
+    linkedPowers.forEach(p => {
+      const c = calculatePowerCost(p);
+      if (c > maxC) maxC = c;
+    });
+    const arrayEP = maxC + (linkedPowers.length - 1);
+    // Use the stored source value as base cost so we never double-count the
+    // power array EP that applyExpandedLogic already folds into derivedCout.
+    const baseCost = parseInt(item._source?.system?.cout ?? item.system.cout) || 0;
+    const totalEP = baseCost + arrayEP;
+
+    const costInput = html.find('input[name="system.cout"], [data-property="system.cout"]');
+    if (costInput.length) {
+      const group = costInput.closest('.form-group, .item-prop');
+      group.find('label').text("Base Cost");
+
+      if (!html.find('.mnm-injected-cost').length) {
+        const arrayHtml = `
+          <div class="form-group mnm-injected-cost">
+            <label>Power Array EP</label>
+            <span style="flex: 1; text-align: right; padding-right: 5px;">${arrayEP}</span>
+          </div>
+          <div class="form-group mnm-injected-cost" style="font-weight: bold; border-top: 1px solid #7a7971; padding-top: 5px;">
+            <label>Total EP Cost</label>
+            <span style="flex: 1; text-align: right; padding-right: 5px;">${totalEP}</span>
+          </div>
+        `;
+        group.after(arrayHtml);
+      }
+    }
+  }
+
+  // Inject power list and drop zone
+  const injectionPoint = html.find('.sheet-body');
+  if (injectionPoint.find('.mnm-expanded-powers-section').length) return;
+
+  const powersHtml = `
     <div class="mnm-expanded-powers-section" style="margin-top: 10px; border-top: 1px solid #7a7971; padding-top: 10px;">
       <h3 style="border: none;">Equipment Power Array</h3>
       <div class="power-drop-zone" style="border: 2px dashed #7a7971; border-radius: 5px; padding: 15px; margin-bottom: 10px; text-align: center; background: rgba(0,0,0,0.05); transition: background 0.2s;">
@@ -350,9 +398,6 @@ Hooks.on('renderItemSheet', (app, html, data) => {
       </ul>
     </div>
   `;
-
-  const injectionPoint = html.find('.sheet-body');
-  if (injectionPoint.find('.mnm-expanded-powers-section').length) return;
 
   if (injectionPoint.length) {
     injectionPoint.append(powersHtml);
@@ -382,30 +427,35 @@ Hooks.on('renderItemSheet', (app, html, data) => {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
     ev.currentTarget.style.background = 'rgba(0,0,0,0.05)';
-    
+
     try {
       const rawData = ev.dataTransfer.getData('text/plain');
       if (!rawData) return;
 
       const dragData = JSON.parse(rawData);
-      
+
       const itemUuid = dragData.uuid;
       if (!itemUuid) {
         ui.notifications.warn("Could not identify dragged item.");
         return;
       }
-      
+
       const droppedItem = await fromUuid(itemUuid);
+      // fix 3: fromUuid() can return null (invalid/missing UUID)
+      if (!droppedItem) {
+        ui.notifications.warn("Could not find the dropped item.");
+        return;
+      }
       const doc = droppedItem.document ?? droppedItem;
       const validTypes = ['pouvoir', 'extra', 'defaut'];
-      
+
       if (!doc || !validTypes.includes(doc.type)) {
         ui.notifications.warn("Only Powers, Extras, or Flaws can be added to Equipment.");
         return;
       }
 
-      console.log("Linking:", doc.name, "to Equipment:", item.name, "ID:", item.id);
-      
+      console.debug("M&M 3e Expanded | Linking:", doc.name, "to Equipment:", item.name, "ID:", item.id); // fix 4
+
       const updateData = {
         "system.link": item.id,
         "flags.mnm-3e-expanded.costAsEP": true,
@@ -424,7 +474,7 @@ Hooks.on('renderItemSheet', (app, html, data) => {
         };
         await actor.createEmbeddedDocuments("Item", [itemData]);
       }
-      
+
       ui.notifications.info(`Linked ${doc.name} to ${item.name}`);
       app.render();
     } catch (err) {
