@@ -133,11 +133,11 @@ function applyExpandedLogic(actor) {
       const baseCost = parseInt(d.getFlag('mnm-3e-expanded', 'baseCost') || d.system.cout) || 0;
       if (!d.getFlag('mnm-3e-expanded', 'baseCost')) d.update({'flags.mnm-3e-expanded.baseCost': baseCost});
       
-      const t = (d.id === bId) ? maxC : 1;
-      const finalCout = t + (powerContributions[d.id] || 0);
+      const arrayContribution = (d.id === bId) ? maxC : 1;
+      const finalCout = baseCost + (powerContributions[d.id] || 0);
       d.system.derivedCout = finalCout;
       d.system.cout = finalCout;
-      totalEquipmentEP += finalCout;
+      totalEquipmentEP += baseCost + arrayContribution;
       processedEqIds.add(d.id);
     });
   }
